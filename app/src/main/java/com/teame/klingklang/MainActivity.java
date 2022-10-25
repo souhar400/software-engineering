@@ -1,24 +1,22 @@
 package com.teame.klingklang;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Navigation/swipeUp bar nicht anzeigen
         hideNavigationAndSwipeUpBar();
-
-        //Setze die Orientierung au landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_main);
@@ -39,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
-
-    /*
-    nach dem Verlassen der App und Zurückkehren bleiben die Einstellungen erhalten
+    
+    /**
+     * Hide navigation and swipe-up bar after closing and resuming.
      */
     @Override
     protected void onResume() {
