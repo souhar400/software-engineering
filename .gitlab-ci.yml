@@ -9,6 +9,11 @@
 
 image: openjdk:11-jdk
 
+tages:
+  - build
+  - test
+  - release
+
 variables:
 
   # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
