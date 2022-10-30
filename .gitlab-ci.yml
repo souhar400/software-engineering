@@ -9,7 +9,7 @@
 
 image: openjdk:11-jdk
 
-tages:
+stages:
   - build
   - test
   - release
