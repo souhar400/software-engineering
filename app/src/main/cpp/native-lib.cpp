@@ -3,14 +3,15 @@
 #include <fluidsynth.h>
 #include <unistd.h>
 
-extern "C" JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobject,
-                                                             jstring jSoundfontPath,
-                                                             jint jSoundLength) {
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobject thiz,
+                                                             jstring soundfont_path,
+                                                             jint sound_length) {
     fluid_settings_t *settings;
     fluid_synth_t *synth = NULL;
     fluid_audio_driver_t *adriver = NULL;
-    const char *soundfontPath = env->GetStringUTFChars(jSoundfontPath, nullptr);
+    const char *soundfontPath = env->GetStringUTFChars(soundfont_path, nullptr);
 
     // Create the settings object with default values
     settings = new_fluid_settings();
@@ -41,7 +42,7 @@ Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobjec
 
     // Play the sound
     fluid_synth_noteon(synth, 0, 62, 127);
-    sleep(jSoundLength);
+    sleep(sound_length);
     fluid_synth_noteoff(synth, 0, 62);
 
     cleanup:
