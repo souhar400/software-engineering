@@ -7,16 +7,16 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true">
 
-<!-- Layout for the main body of screen [FassadenBild] (drawer wird darüber geschoben) -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!-- Layout for the main body of screen [FassadenBild] (drawer wird darüber geschoben) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +62,9 @@ android:fitsSystemWindows="true">
         android:contentDescription="TODO" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 <com.google.android.material.navigation.NavigationView
     android:id="@+id/nav_view"
