@@ -34,6 +34,7 @@ Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobjec
         goto cleanup;
     }
 
+
     // Load the soundfont
     if (fluid_synth_sfload(synth, soundfontPath, 1) == -1) {
         fprintf(stderr, "Failed to load soundfont\n");
@@ -41,6 +42,7 @@ Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobjec
     }
 
     // Play the sound
+    fluid_synth_set_gain(synth, 1.0);
     fluid_synth_noteon(synth, 0, 62, 127);
     sleep(sound_length);
     fluid_synth_noteoff(synth, 0, 62);

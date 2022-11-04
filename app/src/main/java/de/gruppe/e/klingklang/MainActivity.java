@@ -1,15 +1,25 @@
 package de.gruppe.e.klingklang;
 
+import static android.view.Gravity.*;
+
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.slider.Slider;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private DrawerLayout mDrawerLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         playSound("sndfnt.sf2", 2);
 
         Log.d(LOG_TAG, "App successfully created!");
@@ -45,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMenu(View view) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        soundMenu smenu = new soundMenu();
+        smenu.show(getSupportFragmentManager(), "");
     }
 
     public void playSound(String fileName, int soundLength) {
@@ -98,4 +106,5 @@ public class MainActivity extends AppCompatActivity {
      * @param soundLength   Length of the .sf2 file in seconds
      */
     private native void playFluidSynthSound(String soundfontPath, int soundLength);
+
 }
