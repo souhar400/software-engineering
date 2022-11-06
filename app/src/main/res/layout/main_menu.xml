@@ -61,21 +61,21 @@
         app:layout_constraintVertical_bias="0.606" />
 
     <TextView
-        android:id="@+id/BPMTag"
+        android:id="@+id/TaktTag"
         android:layout_width="107dp"
         android:layout_height="40dp"
         android:layout_marginStart="488dp"
         android:gravity="center"
-        android:text="BPM"
+        android:text="Takt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/slider3"
         app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.606" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <ImageButton
-        android:id="@+id/BPM"
+        android:id="@+id/Takt"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginTop="128dp"
