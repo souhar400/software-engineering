@@ -1,5 +1,6 @@
 package de.gruppe.e.klingklang;
 
+// Temporary Storage Class for the Volume of a single Button
 public class VolumeData {
     private float volume = 0.2f;
 

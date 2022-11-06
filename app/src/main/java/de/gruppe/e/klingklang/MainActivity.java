@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    public VolumeData vD = new VolumeData();
+    private VolumeData volumeData = new VolumeData();
+    private soundMenu smenu = new soundMenu(volumeData);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMenu(View view) {
-        soundMenu smenu = new soundMenu(vD);
         smenu.show(getSupportFragmentManager(), "");
     }
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     public void playVolumeSound(View view) {
         try {
             String tempSoundfontPath = copyAssetToTmpFile("sndfnt.sf2");
-            playFluidSynthSoundVolume(tempSoundfontPath, 2, vD.getVolume());
+            playFluidSynthSoundVolume(tempSoundfontPath, 2, volumeData.getVolume());
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to play synthesizer sound");
             throw new RuntimeException(e);
