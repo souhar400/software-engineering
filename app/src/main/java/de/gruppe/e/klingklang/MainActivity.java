@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        playSound("sndfnt.sf2", 2);
+        //playSound("sndfnt.sf2", 2);
 
         Log.d(LOG_TAG, "App successfully created!");
     }
