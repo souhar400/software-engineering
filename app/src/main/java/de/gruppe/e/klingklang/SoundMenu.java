@@ -23,11 +23,11 @@ import com.google.android.material.slider.Slider;
 
 import java.util.Locale;
 
-public class soundMenu extends BottomSheetDialogFragment {
+public class SoundMenu extends BottomSheetDialogFragment {
     private View view;
     private VolumeData volumeData;
 
-    public soundMenu(VolumeData vd) {
+    public SoundMenu(VolumeData vd) {
         super();
         this.volumeData = vd;
     }
@@ -39,6 +39,7 @@ public class soundMenu extends BottomSheetDialogFragment {
      */
     @NonNull
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;

@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private VolumeData volumeData = new VolumeData();
-    private soundMenu smenu = new soundMenu(volumeData);
+    private SoundMenu smenu = new SoundMenu(volumeData);
+    private MainMenu mainMenu = new MainMenu();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,12 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
     }
 
-    public void openMenu(View view) {
+    /* public void openMenu(View view) {
         smenu.show(getSupportFragmentManager(), "");
+    } */
+
+    public void openMenu(View view) {
+        mainMenu.show(getSupportFragmentManager(), "");
     }
 
     public void playSound(String fileName, int soundLength) {
