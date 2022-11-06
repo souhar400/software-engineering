@@ -2,7 +2,6 @@ package de.gruppe.e.klingklang;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -22,25 +21,32 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
+import java.util.Locale;
+
 public class soundMenu extends BottomSheetDialogFragment {
-    View v;
+    private View v;
+    private VolumeData vd;
+
+    public soundMenu(VolumeData vd) {
+        super();
+        this.vd = vd;
+    }
 
     @NonNull
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override public void onShow(DialogInterface dialogInterface) {
-                BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
-                setupFullHeight(bottomSheetDialog);
-            }
+        dialog.setOnShowListener(dialogInterface -> {
+            BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
+            setupFullHeight(bottomSheetDialog);
         });
         return  dialog;
     }
 
 
     private void setupFullHeight(BottomSheetDialog bottomSheetDialog) {
-        FrameLayout bottomSheet = (FrameLayout) bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-        BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
+        FrameLayout bottomSheet = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+        assert bottomSheet != null;
+        BottomSheetBehavior<FrameLayout> behavior = BottomSheetBehavior.from(bottomSheet);
         ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
 
         int windowHeight = getWindowHeight();
@@ -100,25 +106,28 @@ public class soundMenu extends BottomSheetDialogFragment {
         TextView volumeName = v.findViewById(R.id.volumeName);
         volumeName.setText("Lautstärke");
         Slider volumeSlider = v.findViewById(R.id.volumeSlider);
+        volumeSlider.setValue(vd.getVolume()*100);
         TextView volumeValue = v.findViewById(R.id.volumeValue);
-        volumeValue.setText("0");
+        volumeValue.setText(vd.getString());
 
+        addSliderListenerForVolume(volumeSlider);
         addSliderListener(volumeSlider, volumeValue);
 
         ImageButton close = v.findViewById(R.id.returnButton);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        close.setOnClickListener(view -> dismiss());
     }
 
     private void addSliderListener(Slider s, TextView v) {
         s.addOnChangeListener((slider, value, fromUser) -> {
-            Integer slide_value = Math.round(value);
-            v.setText(slide_value.toString());
+            int slide_value = Math.round(value);
+            v.setText(String.format(Locale.ENGLISH, "%d",slide_value));
         });
     }
 
+    private void addSliderListenerForVolume(Slider s) {
+        s.addOnChangeListener((slider, value, fromUser) -> {
+            float slide_value = value / 100;
+            vd.setVolume(slide_value);
+        });
+    }
 }

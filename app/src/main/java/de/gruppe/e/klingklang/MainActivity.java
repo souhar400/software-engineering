@@ -1,26 +1,12 @@
 package de.gruppe.e.klingklang;
 
-import static android.view.Gravity.*;
-
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.slider.Slider;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    public VolumeData vD = new VolumeData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMenu(View view) {
-        soundMenu smenu = new soundMenu();
+        soundMenu smenu = new soundMenu(vD);
         smenu.show(getSupportFragmentManager(), "");
     }
 
@@ -107,4 +94,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private native void playFluidSynthSound(String soundfontPath, int soundLength);
 
+    private native void playFluidSynthSoundVolume(String soundfontPath, int soundLength, float volume);
+
+    public void playVolumeSound(View view) {
+        try {
+            String tempSoundfontPath = copyAssetToTmpFile("sndfnt.sf2");
+            playFluidSynthSoundVolume(tempSoundfontPath, 2, vD.getVolume());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Failed to play synthesizer sound");
+            throw new RuntimeException(e);
+        }
+    }
 }

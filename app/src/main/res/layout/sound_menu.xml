@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sound_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:orientation="vertical">
 
 
     <EditText
         android:id="@+id/title"
-        android:layout_width="215dp"
-        android:layout_height="28dp"
+        android:layout_width="288dp"
+        android:layout_height="42dp"
+        android:autofillHints=""
         android:background="@android:color/transparent"
+        android:hint="Edit Title"
+        android:imeOptions="actionSend"
+        android:inputType="text"
         android:maxLength="30"
         android:maxLines="1"
-        android:inputType="text"
-        android:imeOptions="actionSend"
-        android:hint="Edit Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints=""></EditText>
+        app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider"
-        android:layout_width="260dp"
-        android:layout_height="48dp"
+        android:layout_width="460dp"
+        android:layout_height="46dp"
         android:stepSize="1.0"
+        android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        android:theme="@style/sliderTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
@@ -41,58 +42,17 @@
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider1"
-        android:layout_width="222dp"
-        android:layout_height="50dp"
+        android:layout_width="382dp"
+        android:layout_height="73dp"
         android:stepSize="1.0"
+        android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        android:theme="@style/sliderTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.177" />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider2"
-        android:layout_width="222dp"
-        android:layout_height="44dp"
-        android:stepSize="1.0"
-        android:valueFrom="0.0"
-        android:valueTo="100.0"
-        android:theme="@style/sliderTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.247" />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider3"
-        android:layout_width="222dp"
-        android:layout_height="50dp"
-        android:stepSize="1.0"
-        android:valueFrom="0.0"
-        android:valueTo="100.0"
-        android:theme="@style/sliderTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.317" />
-
-    <TextView
-        android:id="@+id/slider1Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/slider1"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.159" />
 
     <TextView
         android:id="@+id/slider1Value"
@@ -104,45 +64,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/slider1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.169" />
+        app:layout_constraintVertical_bias="0.151" />
 
     <TextView
-        android:id="@+id/slider2Name"
+        android:id="@+id/slider1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/slider2"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintEnd_toStartOf="@+id/slider1"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237" />
+        app:layout_constraintVertical_bias="0.151" />
 
-    <TextView
-        android:id="@+id/slider2Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider3"
+        android:layout_width="382dp"
+        android:layout_height="73dp"
+        android:stepSize="1.0"
+        android:theme="@style/sliderTheme"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/slider2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237" />
-
-    <TextView
-        android:id="@+id/slider3Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/slider3"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.334" />
 
     <TextView
         android:id="@+id/slider3Value"
@@ -154,7 +103,59 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/slider3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintVertical_bias="0.319" />
+
+    <TextView
+        android:id="@+id/slider3Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider3"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider2"
+        android:layout_width="382dp"
+        android:layout_height="73dp"
+        android:stepSize="1.0"
+        android:theme="@style/sliderTheme"
+        android:valueFrom="0.0"
+        android:valueTo="100.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
+
+    <TextView
+        android:id="@+id/slider2Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/slider2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.242" />
+
+    <TextView
+        android:id="@+id/slider2Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider2"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.242" />
 
     <TextView
         android:id="@+id/volumeName"
@@ -175,10 +176,10 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toEndOf="@+id/volumeSlider"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.514" />
+        app:layout_constraintVertical_bias="0.513" />
 
     <ImageButton
         android:id="@+id/returnButton"
