@@ -7,30 +7,46 @@
     android:fadingEdge="horizontal">
 
     <ImageButton
-        android:id="@+id/BPM"
-        android:layout_width="77dp"
-        android:layout_height="70dp"
-        android:adjustViewBounds="true"
+        android:id="@+id/Einstellungen"
+        android:layout_width="72dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="176dp"
         android:background="@drawable/roundcorner"
-        android:backgroundTint="#FFFFFF"
-        android:cropToPadding="false"
+        android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
-        app:srcCompat="@drawable/settings_black_24dp"
-        tools:layout_editor_absoluteX="446dp"
-        tools:layout_editor_absoluteY="212dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings_black_36dp" />
 
     <ImageButton
-        android:id="@+id/einstellungen"
-        android:layout_width="77dp"
-        android:layout_height="70dp"
-        android:adjustViewBounds="true"
+        android:id="@+id/BPM"
+        android:layout_width="72dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="176dp"
         android:background="@drawable/roundcorner"
-        android:backgroundTint="#FFFFFF"
-        android:cropToPadding="false"
+        android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
-        app:srcCompat="@drawable/settings_black_24dp"
-        tools:layout_editor_absoluteX="268dp"
-        tools:layout_editor_absoluteY="212dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/metronome_1_" />
+
+    <ImageButton
+        android:id="@+id/Abspielen"
+        android:layout_width="72dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="176dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/button_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/play_arrow_black_36dp" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"
@@ -42,32 +58,22 @@
         android:valueTo="100.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.431"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
-
-    <ImageView
-        android:id="@+id/Abspielen"
-        android:layout_width="95dp"
-        android:layout_height="48dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/volume_up_black_24dp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="303dp"
-        tools:visibility="visible" />
+        app:layout_constraintVertical_bias="0.842" />
 
     <ImageButton
-        android:id="@+id/Einstellungen"
-        android:layout_width="77dp"
-        android:layout_height="70dp"
-        android:adjustViewBounds="true"
+        android:id="@+id/SoundIcon"
+        android:layout_width="72dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="264dp"
         android:background="@drawable/roundcorner"
-        android:backgroundTint="#FFFFFF"
-        android:cropToPadding="false"
-        android:elevation="@dimen/button_size"
-        app:srcCompat="@drawable/settings_black_24dp"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="212dp" />
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/volume_up_black_36dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
