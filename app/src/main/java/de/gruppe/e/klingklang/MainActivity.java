@@ -2,14 +2,19 @@ package de.gruppe.e.klingklang;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.media.metrics.RecordingSession;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.teame.klingklang.R;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,12 +37,13 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-
+        ImageView img = findViewById(R.id.recordImage);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         playSound("sndfnt.sf2", 2);
 
         Log.d(LOG_TAG, "App successfully created!");
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -98,4 +104,6 @@ public class MainActivity extends AppCompatActivity {
      * @param soundLength   Length of the .sf2 file in seconds
      */
     private native void playFluidSynthSound(String soundfontPath, int soundLength);
+
+
 }
