@@ -1,7 +1,13 @@
 package de.gruppe.e.klingklang;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -18,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -43,11 +50,39 @@ public class MainMenu extends BottomSheetDialogFragment {
     @NonNull
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setWhiteNavigationBar(dialog);
+        }
+
         dialog.setOnShowListener(dialogInterface -> {
             BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) dialogInterface;
             setupFullHeight(bottomSheetDialog);
         });
         return  dialog;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setWhiteNavigationBar(@NonNull Dialog dialog) {
+        Window window = dialog.getWindow();
+        if (window != null) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            window.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            GradientDrawable dimDrawable = new GradientDrawable();
+            // ...customize your dim effect here
+
+            GradientDrawable navigationBarDrawable = new GradientDrawable();
+            navigationBarDrawable.setShape(GradientDrawable.RECTANGLE);
+            navigationBarDrawable.setColor(Color.WHITE);
+
+            Drawable[] layers = {dimDrawable, navigationBarDrawable};
+
+            LayerDrawable windowBackground = new LayerDrawable(layers);
+            windowBackground.setLayerInsetTop(1, metrics.heightPixels);
+
+            window.setBackgroundDrawable(windowBackground);
+        }
     }
 
     /**
@@ -78,19 +113,6 @@ public class MainMenu extends BottomSheetDialogFragment {
         return displayMetrics.heightPixels;
     }
 
-
-    private void hideNavigationAndSwipeUpBar() {
-        ((Activity) requireContext()).getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        ((Activity) requireContext()).getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-    }
-
-
     /**
      * Creates the SoundsMenu view that is displayed in the bottomSheetDialog
      * @param inflater factory to inflate the layout
@@ -102,21 +124,16 @@ public class MainMenu extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_menu, container, false);
 
+        createMainMenu();
         return view;
     }
 
     private void createMainMenu() {
+        ImageButton settingsButton = view.findViewById(R.id.Einstellungen);
+        ImageButton recordingsButton = view.findViewById(R.id.Aufnahmen);
+        ImageButton bpmButton = view.findViewById(R.id.BPM);
+        ImageButton exitButton = view.findViewById(R.id.exitButton);
 
-        TextView einstellungenTag = view.findViewById(R.id.EinstellungenTag);
-        TextView aufnahmenTag = view.findViewById(R.id.Aufnahmen);
-        TextView bpmTag = view.findViewById(R.id.BPMTag);
-        TextView volumeTag = view.findViewById(R.id.volumeTag);
-
-        einstellungenTag.setText("Einstellungen");
-        aufnahmenTag.setText("Aufnahmen");
-        bpmTag.setText("BPM");
-        volumeTag.setText("Volume");
-
+        exitButton.setOnClickListener(view -> dismiss());
     }
-
 }

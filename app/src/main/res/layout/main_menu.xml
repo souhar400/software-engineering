@@ -7,6 +7,18 @@
     android:fadingEdge="horizontal">
 
     <ImageButton
+        android:id="@+id/exitButton"
+        android:layout_width="31dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    <ImageButton
         android:id="@+id/Einstellungen"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -35,12 +47,12 @@
         app:layout_constraintVertical_bias="0.606" />
 
     <TextView
-        android:id="@+id/AbspielenTag"
+        android:id="@+id/AufnahmenTag"
         android:layout_width="107dp"
         android:layout_height="40dp"
         android:layout_marginStart="324dp"
         android:gravity="center"
-        android:text="Abspielen"
+        android:text="Aufnahmen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/slider3"
         app:layout_constraintHorizontal_bias="0.525"
@@ -131,5 +143,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.842" />
+
+    <ImageView
+        android:id="@+id/Barrier"
+        android:layout_width="725dp"
+        android:layout_height="wrap_content"
+        android:background="#8C000000"
+        android:backgroundTint="#8C000000"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="1dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/divider_horizontal_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.705" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
