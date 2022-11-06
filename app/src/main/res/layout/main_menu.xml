@@ -9,44 +9,113 @@
     <ImageButton
         android:id="@+id/Einstellungen"
         android:layout_width="72dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="176dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/roundcorner"
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintHorizontal_bias="0.236"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settings_black_36dp" />
 
+    <TextView
+        android:id="@+id/EinstellungenTag"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="152dp"
+        android:gravity="center"
+        android:text="Einstellungen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider3"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
+
+    <TextView
+        android:id="@+id/AbspielenTag"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="324dp"
+        android:gravity="center"
+        android:text="Abspielen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider3"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
+
+    <TextView
+        android:id="@+id/BPMTag"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="488dp"
+        android:gravity="center"
+        android:text="BPM"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider3"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.606" />
+
     <ImageButton
         android:id="@+id/BPM"
         android:layout_width="72dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="176dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/roundcorner"
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintHorizontal_bias="0.696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/metronome_1_" />
 
     <ImageButton
-        android:id="@+id/Abspielen"
+        android:id="@+id/Aufnahmen"
         android:layout_width="72dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="176dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="128dp"
         android:background="@drawable/roundcorner"
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/play_arrow_black_36dp" />
+        app:srcCompat="@drawable/queue_music_black_36dp" />
+
+    <TextView
+        android:id="@+id/volumeTag"
+        android:layout_width="82dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="44dp"
+        android:gravity="center"
+        android:text="Volume"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slider3"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />
+
+    <ImageButton
+        android:id="@+id/SoundIcon"
+        android:layout_width="72dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="264dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/volume_up_black_36dp" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"
@@ -62,18 +131,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.842" />
-
-    <ImageButton
-        android:id="@+id/SoundIcon"
-        android:layout_width="72dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="264dp"
-        android:background="@drawable/roundcorner"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/volume_up_black_36dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -105,4 +105,18 @@ public class MainMenu extends BottomSheetDialogFragment {
         return view;
     }
 
+    private void createMainMenu() {
+
+        TextView einstellungenTag = view.findViewById(R.id.EinstellungenTag);
+        TextView aufnahmenTag = view.findViewById(R.id.Aufnahmen);
+        TextView bpmTag = view.findViewById(R.id.BPMTag);
+        TextView volumeTag = view.findViewById(R.id.volumeTag);
+
+        einstellungenTag.setText("Einstellungen");
+        aufnahmenTag.setText("Aufnahmen");
+        bpmTag.setText("BPM");
+        volumeTag.setText("Volume");
+
+    }
+
 }
