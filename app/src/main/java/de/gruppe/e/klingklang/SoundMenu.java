@@ -23,11 +23,11 @@ import com.google.android.material.slider.Slider;
 
 import java.util.Locale;
 
-public class soundMenu extends BottomSheetDialogFragment {
+public class SoundMenu extends BottomSheetDialogFragment {
     private View view;
     private VolumeData volumeData;
 
-    public soundMenu(VolumeData vd) {
+    public SoundMenu(VolumeData vd) {
         super();
         this.volumeData = vd;
     }
@@ -135,8 +135,7 @@ public class soundMenu extends BottomSheetDialogFragment {
 
     private void addSliderListener(Slider s, TextView v) {
         s.addOnChangeListener((slider, value, fromUser) -> {
-            int slide_value = Math.round(value);
-            v.setText(String.format(Locale.ENGLISH, "%d",slide_value));
+            v.setText(String.format(Locale.ENGLISH, "%d",Math.round(value)));
         });
     }
 

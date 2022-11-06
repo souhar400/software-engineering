@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private VolumeData volumeData = new VolumeData();
-    private soundMenu smenu = new soundMenu(volumeData);
+    private SoundMenu smenu = new SoundMenu(volumeData);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
