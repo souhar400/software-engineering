@@ -344,14 +344,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_X9" />
 
-    <Button
-        android:id="@+id/delete"
+    <Switch
+        android:id="@+id/switchHideButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hide"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y6"
+        android:text="Hide Button"
+        android:checked="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_X10"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_Y11"
+        app:layout_constraintStart_toStartOf="@+id/guideline_Y2"
         app:layout_constraintTop_toTopOf="@+id/guideline_X9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
