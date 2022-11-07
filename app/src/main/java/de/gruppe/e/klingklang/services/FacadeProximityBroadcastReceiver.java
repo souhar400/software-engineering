@@ -43,7 +43,7 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         Optional<Location> location = Optional.ofNullable(geofencingEvent.getTriggeringLocation());
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.d(TAG, String.format(LOGMESSAGEG_ENTERED_GEOFENCE, geofencingEvent.getTriggeringLocation().toString()));
-            location.ifPresent( l -> notificationService.pushNotification("Test") );
+            location.ifPresent( l -> notificationService.sendNotification("Test") );
         }
     }
 }
