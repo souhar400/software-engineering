@@ -14,6 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    private final ExecutorService executorService = Executors.newFixedThreadPool(12);
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //playSound("sndfnt.sf2", 2);
 
         Log.d(LOG_TAG, "App successfully created!");
     }
@@ -48,7 +50,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
-    public void playSound(String fileName, int soundLength) {
+    public void playSound(View view) {
+        String fileName = view.getTag().toString();
+        executorService.execute(() -> {
+            playSound(fileName, 5);
+        });
+    }
+
+    private void playSound(String fileName, int soundLength) {
         try {
             String tempSoundfontPath = copyAssetToTmpFile(fileName);
             playFluidSynthSound(tempSoundfontPath, soundLength);
@@ -98,4 +107,6 @@ public class MainActivity extends AppCompatActivity {
      * @param soundLength   Length of the .sf2 file in seconds
      */
     private native void playFluidSynthSound(String soundfontPath, int soundLength);
+
+    private native void playLoopedSynthSound(String soundfontPath);
 }
