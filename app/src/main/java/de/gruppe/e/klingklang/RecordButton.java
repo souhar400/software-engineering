@@ -1,6 +1,5 @@
 package de.gruppe.e.klingklang;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
