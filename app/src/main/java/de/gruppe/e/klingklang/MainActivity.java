@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
     }
 
-    /* public void openMenu(View view) {
-        smenu.show(getSupportFragmentManager(), "");
-    } */
-
     public void openMenu(View view) {
         mainMenu.show(getSupportFragmentManager(), "");
     }
