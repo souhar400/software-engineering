@@ -108,10 +108,6 @@ public class MainActivity extends AppCompatActivity {
         cleanupFluidSynth();
     }
 
-    public void openMenu(View view) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
-    }
-
     public void playSynth(View view) {
         String[] parameters = view.getTag().toString().split(",");
         String fileName = parameters[0];
