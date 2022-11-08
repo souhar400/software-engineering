@@ -60,8 +60,8 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.d(TAG, String.format(LOGMESSAGE_ENTERED_GEOFENCE, geofencingEvent.getTriggeringLocation().toString()));
             location.ifPresent( l -> sendNotification(context
-                    , intent.getStringExtra("location_region_name")
-                    , intent.getStringExtra("location_region_address")) );
+                    , intent.getStringExtra(context.getString(R.string.location_region_name))
+                    , intent.getStringExtra(context.getString(R.string.location_region_address))) );
         }
     }
 
