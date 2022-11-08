@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
-    private DrawerLayout mDrawerLayout;
     private VolumeData volumeData = new VolumeData();
     private SoundMenu smenu = new SoundMenu(volumeData);
 
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         Log.d(LOG_TAG, "App successfully created!");
     }
@@ -117,17 +114,4 @@ public class MainActivity extends AppCompatActivity {
      * Cleans up the driver, synth and settings.
      */
     private native void cleanupFluidSynth();
-    private native void playFluidSynthSound(String soundfontPath, int soundLength);
-
-    private native void playFluidSynthSoundVolume(String soundfontPath, int soundLength, float volume);
-
-    public void playVolumeSound(View view) {
-        try {
-            String tempSoundfontPath = copyAssetToTmpFile("sndfnt.sf2");
-            playFluidSynthSoundVolume(tempSoundfontPath, 2, volumeData.getVolume());
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to play synthesizer sound");
-            throw new RuntimeException(e);
-        }
-    }
 }

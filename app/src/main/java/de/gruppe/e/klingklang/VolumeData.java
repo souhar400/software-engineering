@@ -2,10 +2,11 @@ package de.gruppe.e.klingklang;
 
 // Temporary Storage Class for the Volume of a single Button
 public class VolumeData {
-    private float volume = 0.2f;
+    private int volume = 100;
 
-    public void setVolume(float v) {
+    public void setVolume(int v) {
         volume = v;
+        setChannelVolume(0, volume + 20);
     }
 
     public float getVolume() {
@@ -13,7 +14,9 @@ public class VolumeData {
     }
 
     public String getString() {
-        int ret = Math.round(volume * 100);
+        int ret = Math.round(volume);
         return Integer.toString(ret);
     }
+
+    private native void setChannelVolume(int channel, int volume);
 }

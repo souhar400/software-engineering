@@ -122,7 +122,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
         TextView volumeName = view.findViewById(R.id.volumeName);
         volumeName.setText("Lautstärke");
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
-        volumeSlider.setValue(volumeData.getVolume()*100);
+        volumeSlider.setValue(volumeData.getVolume());
         TextView volumeValue = view.findViewById(R.id.volumeValue);
         volumeValue.setText(volumeData.getString());
 
@@ -141,7 +141,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
     private void addSliderListenerForVolume(Slider s) {
         s.addOnChangeListener((slider, value, fromUser) -> {
-            float slide_value = value / 100;
+            int slide_value = Math.round(value);
             volumeData.setVolume(slide_value);
         });
     }

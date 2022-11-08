@@ -37,6 +37,12 @@ Java_de_gruppe_e_klingklang_MainActivity_cleanupFluidSynth(JNIEnv *env, jobject 
     cleanup();
 }
 
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_VolumeData_setChannelVolume(JNIEnv *env, jobject thiz, jint channel, jint volume) {
+    fluid_synth_cc(synth, channel, 7, volume);
+}
+
 /*
  * Use for debug purposes. Returns jstring that can be handed over to Java method to print it out
  * because console output is not possible here.
