@@ -246,14 +246,11 @@ public class MainActivity extends AppCompatActivity {
                                     , @FloatRange(from = 0.0, fromInclusive = false) float  rad)
     {
         geofenceList.add(new Geofence.Builder()
-            // Set the request ID of the geofence. This is a string to identify this
-            // geofence.
-            .setRequestId(id)
-            .setCircularRegion(latitude, longitude, rad)
-            .setExpirationDuration(Geofence.NEVER_EXPIRE)
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
-            .build());
-
+                .setRequestId("R. de Mouzinho da Silveira 42")
+                .setCircularRegion(41.141, -8.614, 200)
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                .build());
     }
 
     /**
@@ -266,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
             return geofencePendingIntent;
         }
         Intent intent = new Intent(this, FacadeProximityBroadcastReceiver.class);
-        intent.putExtra(getString(R.string.location_region_name), "Münster");
-        intent.putExtra(getString(R.string.location_region_address), "MÜNSTER ARKADEN");
+        intent.putExtra(getString(R.string.location_region_name), "Porto, Portugal");
+        intent.putExtra(getString(R.string.location_region_address), "R. de Mouzinho da Silveira");
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;

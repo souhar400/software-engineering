@@ -2,6 +2,7 @@ package de.gruppe.e.klingklang.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.Objects;
 import java.util.Optional;
 
+import de.gruppe.e.klingklang.MainActivity;
 import de.gruppe.e.klingklang.R;
 
 /**
@@ -67,12 +69,26 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
 
     private void sendNotification(Context context, String title, String msg) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFY_CHANNEL)
-                .setSmallIcon(android.R.drawable.ic_popup_reminder)
+                .setSmallIcon(R.drawable.ic_product_foreground)
                 .setContentTitle(title)
                 .setContentText(String.format(NOTIFICATION_SHORT_MESSAGE, msg))
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(String.format(NOTIFICATION_LONG_MESSAGE, msg)));
         createNotificationChannel(context);
+
+        Intent notifyIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            notifyIntent = new Intent(context, MainActivity.class);
+            // Set the Activity to start in a new, empty task
+            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            // Create the PendingIntent
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                    context, 0, notifyIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+            );
+            builder.setContentIntent(notifyPendingIntent);
+        }
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         assert notificationManager != null;
         notificationManager.notify(0, builder.build());
