@@ -307,27 +307,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/einstellungen" />
+
         <ImageButton
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_marginBottom="14dp"
-            android:layout_marginStart="14dp"
             android:background="@null"
-            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="changeButton"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/bearbeitungsstift" />
-        <ImageButton
-            android:id="@+id/play_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="55dp"
-            android:layout_marginStart="14dp"
-            android:background="@null"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/spielmodus" />
-
+            app:srcCompat="@drawable/edit_mode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
