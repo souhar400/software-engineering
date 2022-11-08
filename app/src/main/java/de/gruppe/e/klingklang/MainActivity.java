@@ -34,11 +34,11 @@ import com.google.android.gms.location.Priority;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
-    private static final String[] backgrounPermissions = new String[] {
+    private static final String[] backgroundPermissions = new String[] {
             Manifest.permission.ACCESS_BACKGROUND_LOCATION
     };
     private PendingIntent geofencePendingIntent;
@@ -77,12 +77,9 @@ public class MainActivity extends AppCompatActivity {
         */
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        if(savedInstanceState == null) {
-            Log.e(LOG_TAG, "This should not happen!");
-        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         buildGeofenceList("Muenster", 51.960665, 7.626135, 20000);
@@ -143,11 +140,12 @@ public class MainActivity extends AppCompatActivity {
             boolean hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
             boolean hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
             if(hasFineLocationPermission || hasCoarseLocationPermission) {
-                ActivityCompat.requestPermissions(this, backgrounPermissions, LOCATION_REQUEST+1);
+                ActivityCompat.requestPermissions(this, backgroundPermissions, LOCATION_REQUEST+1);
             }
         }
         if(requestCode == LOCATION_REQUEST +1) {
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates();
                 addGeofences();
             }
         }
@@ -218,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Checks whether all permissions required by this app are granted.
-     * @return <b>true</b> when all permissions are grante,<b>false</b> otherwise.
+     * @return <b>true</b> when all permissions are granted,<b>false</b> otherwise.
      */
     private boolean lacksPermissions() {
         return !Arrays.stream(permissions).allMatch(p ->
@@ -236,14 +234,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Builds a list of one Geofence-Entry to be checked for {@link Geofence#GEOFENCE_TRANSITION_ENTER}
      * and {@link Geofence#GEOFENCE_TRANSITION_EXIT} transition-types.
-     * @deprecated
      * Will be overhauled later to only add elements to a list of geofences.
      * @param id Geofence-ID for Request
      * @param latitude Latitude of Location in degrees
      * @param longitude Longitude of Location in degrees
      * @param rad Radius of circular region defining the geofence around the given location
      */
-    @Deprecated
     private void buildGeofenceList( String                                                  id
                                     , @FloatRange(from = -90.0, to = 90.0) double           latitude
                                     , @FloatRange(from = -180.0, to = 180.0) double         longitude
@@ -264,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
      * Construct the {@link PendingIntent} broadcasting for the {@link FacadeProximityBroadcastReceiver}
      * @return The constructed {@link PendingIntent}
      */
-    @RequiresApi(api = Build.VERSION_CODES.S)
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
         if (geofencePendingIntent != null) {
@@ -275,8 +270,11 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("location_region_address", "MÜNSTER ARKADEN");
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
-        geofencePendingIntent = PendingIntent.getBroadcast(this, 1, intent
-                , PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            flags = flags | PendingIntent.FLAG_MUTABLE;
+        }
+        geofencePendingIntent = PendingIntent.getBroadcast(this, 1, intent, flags);
         return geofencePendingIntent;
     }
 
@@ -303,13 +301,9 @@ public class MainActivity extends AppCompatActivity {
         if (lacksPermissions()) {
             requestPermissions();
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-                .addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Succesfully added geofences!"))
-                .addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
-        } else {
-            Log.e(LOG_TAG, String.format("Could not add geofences - API-Version [%d] required!", Build.VERSION_CODES.S));
-        }
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+            .addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!"))
+            .addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
     }
 
     /**
@@ -318,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
      * @param soundfontPath Path of the .sf2 soundfont file to be played (in /assets folder)
      * @param channel       MIDI channel number (0 - 16)
      * @param key           MIDI note number (0 - 127)
-     * @param velocity      MIDI velocity (0 - 127, 0 = noteoff)
+     * @param velocity      MIDI velocity (0 - 127, 0 = note off)
      */
     private native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity);
 
