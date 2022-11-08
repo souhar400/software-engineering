@@ -10,13 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -42,7 +40,6 @@ import java.util.concurrent.Executors;
 
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 
-@RequiresApi(api = Build.VERSION_CODES.Q)
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
@@ -58,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
-    private static final String[] backgroundPermissions = new String[] {
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    };
+    private static  String[] backgroundPermissions;
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private DrawerLayout mDrawerLayout;
@@ -82,7 +77,12 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
-        buildGeofenceList("Muenster", 51.960665, 7.626135, 20000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            backgroundPermissions = new String[] {
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            };
+        }
+        buildGeofenceList("R. de Mouzinho da Silveira 42", 41.141, -8.614, 200);
         if(lacksPermissions()) {
             requestPermissions();
         }
@@ -242,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
                                     , @FloatRange(from = 0.0, fromInclusive = false) float  rad)
     {
         geofenceList.add(new Geofence.Builder()
-                .setRequestId("R. de Mouzinho da Silveira 42")
-                .setCircularRegion(41.141, -8.614, 200)
+                .setRequestId(id)
+                .setCircularRegion(latitude, longitude, rad)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
                 .build());
