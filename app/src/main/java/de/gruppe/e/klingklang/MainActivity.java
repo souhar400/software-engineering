@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(12);
+    private DrawerLayout mDrawerLayout;
     private VolumeData volumeData = new VolumeData();
     private SoundMenu smenu = new SoundMenu(volumeData);
 
@@ -29,28 +34,40 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
-        playSound("sndfnt.sf2", 2);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         Log.d(LOG_TAG, "App successfully created!");
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         hideNavigationAndSwipeUpBar();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cleanupFluidSynth();
+    }
+
     public void openMenu(View view) {
         smenu.show(getSupportFragmentManager(), "");
     }
 
-    public void playSound(String fileName, int soundLength) {
-        try {
-            String tempSoundfontPath = copyAssetToTmpFile(fileName);
-            playFluidSynthSound(tempSoundfontPath, soundLength);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to play synthesizer sound");
-            throw new RuntimeException(e);
-        }
+    public void playSynth(View view) {
+        String[] parameters = view.getTag().toString().split(",");
+        String fileName = parameters[0];
+        String channel = parameters[1];
+        executorService.execute(() -> {
+            try {
+                String tempSoundfontPath = copyAssetToTmpFile(fileName);
+                playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Failed to play synthesizer sound");
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private void hideNavigationAndSwipeUpBar() {
@@ -87,11 +104,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Native method that calls methods from the FluidSynth library.
+     * Native method that calls methods from the FluidSynth library to play a synth.
      *
      * @param soundfontPath Path of the .sf2 soundfont file to be played (in /assets folder)
-     * @param soundLength   Length of the .sf2 file in seconds
+     * @param channel       MIDI channel number (0 - 16)
+     * @param key           MIDI note number (0 - 127)
+     * @param velocity      MIDI velocity (0 - 127, 0 = noteoff)
      */
+    private native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity);
+
+    /**
+     * Cleans up the driver, synth and settings.
+     */
+    private native void cleanupFluidSynth();
     private native void playFluidSynthSound(String soundfontPath, int soundLength);
 
     private native void playFluidSynthSoundVolume(String soundfontPath, int soundLength, float volume);
