@@ -18,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class FacadeProximityBroadcastReceiverTest {
 
     private FacadeProximityBroadcastReceiver classUnderTest;
-    private NotificationService<String> stringNotificationService;
     private Intent intentMock;
     @Mock
     private GeofencingEvent geofencingEventMock;
@@ -26,13 +25,7 @@ public class FacadeProximityBroadcastReceiverTest {
     private Location locationMock;
     @Before
     public void init() {
-        stringNotificationService = new NotificationService<String>() {
-            @Override
-            public void sendNotification(String notification) {
-                // no action required for testing
-            }
-        };
-        classUnderTest = new FacadeProximityBroadcastReceiver(stringNotificationService);
+        classUnderTest = new FacadeProximityBroadcastReceiver();
     }
     @Test
     public void testOnReceive_enterIrrelevantLocation() {

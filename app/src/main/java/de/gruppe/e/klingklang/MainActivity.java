@@ -51,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int LOCATION_REQUEST = 0;
-    private static final String[] locationPermissions = new String[] {
-            Manifest.permission.ACCESS_COARSE_LOCATION
-            , Manifest.permission.ACCESS_FINE_LOCATION
+    private static final String[] permissions = new String[] {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
     };
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
@@ -83,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
+                    Log.d(LOG_TAG, "Something should be happening here...");
                 }
             }
         };
@@ -114,6 +114,21 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to play synthesizer sound");
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int                      requestCode
+            , @NonNull String[]     permissions
+            , @NonNull int[]        grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (permissions.length == 0) {
+            return;
+        }
+        if (requestCode == LOCATION_REQUEST) {
+            hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
         }
     }
 
@@ -150,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected LocationRequest createLocationRequest() {
+    private LocationRequest createLocationRequest() {
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(5000);
@@ -158,28 +173,13 @@ public class MainActivity extends AppCompatActivity {
         return locationRequest;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int                      requestCode
-                                            , @NonNull String[]     permissions
-                                            , @NonNull int[]        grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (permissions.length == 0) {
-            return;
-        }
-        if (requestCode == LOCATION_REQUEST) {
-            hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-            hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-        }
-    }
-
     private boolean checkPermissions() {
-        return Arrays.stream(locationPermissions).allMatch( p ->
+        return Arrays.stream(permissions).allMatch(p ->
                 ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
     }
 
     private void requestPermissions() {
-        ActivityCompat.requestPermissions(this, locationPermissions, LOCATION_REQUEST);
+        ActivityCompat.requestPermissions(this, permissions, LOCATION_REQUEST);
     }
 
     @SuppressLint("MissingPermission")
@@ -204,8 +204,7 @@ public class MainActivity extends AppCompatActivity {
             .setRequestId(id)
             .setCircularRegion(latitude, longitude, rad)
             .setExpirationDuration(expirationMillis)
-            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                    Geofence.GEOFENCE_TRANSITION_EXIT)
+            .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
             .build());
 
     }
@@ -218,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FacadeProximityBroadcastReceiver.class);
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
-        geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        geofencePendingIntent = PendingIntent.getBroadcast(this, 1, intent
+                , PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         return geofencePendingIntent;
     }
 
@@ -231,18 +231,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     @SuppressLint("MissingPermission")
-    private void addGeofences() {
+    private Task<Void> addGeofences() {
         if (!checkPermissions()) {
             requestPermissions();
         }
-        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+        return geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
             .addOnSuccessListener(this, e -> {
-                // Geofences added
-                // ...
+                Log.d(LOG_TAG, "Succesfully added geofences!");
             })
             .addOnFailureListener(this, e -> {
-                // Failed to add geofences
-                // ...
+                Log.e(LOG_TAG, "Could not add geofences!", e);
             });
     }
 
