@@ -5,9 +5,10 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,6 +27,7 @@ import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
 import java.io.FileOutputStream;
@@ -36,6 +39,7 @@ import java.util.List;
 
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 
+@RequiresApi(api = Build.VERSION_CODES.Q)
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
@@ -47,31 +51,44 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_REQUEST = 0;
     private static final String[] permissions = new String[] {
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final String[] backgrounPermissions = new String[] {
             Manifest.permission.ACCESS_BACKGROUND_LOCATION
     };
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private DrawerLayout mDrawerLayout;
-    private List<Geofence> geofenceList = new ArrayList<Geofence>();
-    private LocationCallback locationCallback;
+    private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
-    private LocationRequest locationRequest;
-    private boolean hasFineLocationPermission, hasCoarseLocationPermission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
+        /*
+        TODO: this does not work properly
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        */
         setContentView(R.layout.activity_main);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        if(savedInstanceState == null) {
+            Log.e(LOG_TAG, "This should not happen!");
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         buildGeofenceList("Muenster", 51.960665, 7.626135, 20000);
+        if(lacksPermissions()) {
+            requestPermissions();
+        }
+        startLocationUpdates();
         addGeofences();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         playSound("sndfnt.sf2", 2);
-
         Log.d(LOG_TAG, "App successfully created!");
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -104,9 +121,50 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (requestCode == LOCATION_REQUEST) {
-            hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-            hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+            boolean hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            boolean hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+            if(hasFineLocationPermission || hasCoarseLocationPermission) {
+                ActivityCompat.requestPermissions(this, backgrounPermissions, LOCATION_REQUEST+1);
+            }
         }
+        if(requestCode == LOCATION_REQUEST +1) {
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                addGeofences();
+            }
+        }
+    }
+
+    /**
+     * This is needed to continuously receive location updates, enabling a
+     * {@link android.content.BroadcastReceiver} to pick up Intents regarding location-changes.
+     */
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdates() {
+        if (lacksPermissions()) {
+            requestPermissions();
+        }
+        fusedLocationClient.requestLocationUpdates(createLocationRequest(),
+                new LocationCallback() {
+                    @Override
+                    public void onLocationResult(@NonNull LocationResult locationResult) {
+
+                    }}
+                ,
+                Looper.getMainLooper());
+    }
+
+    /**
+     * @deprecated
+     * This needs to be overhauled as well. The API used herein is deprecated.
+     * @return a {@link LocationRequest} with high accuracy
+     */
+    @Deprecated
+    private LocationRequest createLocationRequest() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        return locationRequest;
     }
 
     private void hideNavigationAndSwipeUpBar() {
@@ -147,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
      * Checks whether all permissions required by this app are granted.
      * @return <b>true</b> when all permissions are grante,<b>false</b> otherwise.
      */
-    private boolean checkPermissions() {
-        return Arrays.stream(permissions).allMatch(p ->
+    private boolean lacksPermissions() {
+        return !Arrays.stream(permissions).allMatch(p ->
                 ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
     }
 
@@ -191,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
      * Construct the {@link PendingIntent} broadcasting for the {@link FacadeProximityBroadcastReceiver}
      * @return The constructed {@link PendingIntent}
      */
+    @RequiresApi(api = Build.VERSION_CODES.S)
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
         if (geofencePendingIntent != null) {
@@ -226,16 +285,16 @@ public class MainActivity extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void addGeofences() {
-        if (!checkPermissions()) {
+        if (lacksPermissions()) {
             requestPermissions();
         }
-        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-            .addOnSuccessListener(this, e -> {
-                Log.d(LOG_TAG, "Succesfully added geofences!");
-            })
-            .addOnFailureListener(this, e -> {
-                Log.e(LOG_TAG, "Could not add geofences!", e);
-            });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+                .addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Succesfully added geofences!"))
+                .addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
+        } else {
+            Log.e(LOG_TAG, String.format("Could not add geofences - API-Version [%d] required!", Build.VERSION_CODES.S));
+        }
     }
 
     /**

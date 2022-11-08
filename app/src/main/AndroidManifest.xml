@@ -17,7 +17,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +31,6 @@
         </activity>
         <receiver android:name=".services.FacadeProximityBroadcastReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 </manifest>
