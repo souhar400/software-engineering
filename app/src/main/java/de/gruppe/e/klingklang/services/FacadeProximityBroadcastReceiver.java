@@ -31,6 +31,9 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
     private static final String ERRORMESSAGE_GEOFENCINGEVENT_NULL = "GeofencingEvent could not be fetched from intent: %s";
     private static final String LOGMESSAGE_ENTERED_GEOFENCE = "Entered Geofence: %s";
     private static final String NOTIFY_CHANNEL = "KLINGKLANG_NOTIFICATION_CHANNEL";
+    private static final String NOTIFICATION_LONG_MESSAGE = "You are nearby %s. Take a look around!";
+    private static final String NOTIFICATION_SHORT_MESSAGE = "Now nearby: %s";
+
 
     public FacadeProximityBroadcastReceiver() {
         Log.d(TAG, "Instantiated " + TAG);
@@ -56,7 +59,9 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         Optional<Location> location = Optional.ofNullable(geofencingEvent.getTriggeringLocation());
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.d(TAG, String.format(LOGMESSAGE_ENTERED_GEOFENCE, geofencingEvent.getTriggeringLocation().toString()));
-            location.ifPresent( l -> sendNotification(context, "Münster", l.toString()) );
+            location.ifPresent( l -> sendNotification(context
+                    , intent.getStringExtra("location_region_name")
+                    , intent.getStringExtra("location_region_address")) );
         }
     }
 
@@ -64,9 +69,9 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFY_CHANNEL)
                 .setSmallIcon(android.R.drawable.ic_popup_reminder)
                 .setContentTitle(title)
-                .setContentText(msg)
+                .setContentText(String.format(NOTIFICATION_SHORT_MESSAGE, msg))
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(msg));
+                        .bigText(String.format(NOTIFICATION_LONG_MESSAGE, msg)));
         createNotificationChannel(context);
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         assert notificationManager != null;

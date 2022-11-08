@@ -197,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
             return geofencePendingIntent;
         }
         Intent intent = new Intent(this, FacadeProximityBroadcastReceiver.class);
+        intent.putExtra("location_region_name", "Münster");
+        intent.putExtra("location_region_address", "MÜNSTER ARKADEN");
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
         geofencePendingIntent = PendingIntent.getBroadcast(this, 1, intent
