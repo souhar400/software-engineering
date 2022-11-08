@@ -15,8 +15,8 @@ void cleanup();
 extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobject thiz,
-                                                             jstring soundfont_path,
-                                                             jint sound_length) {
+                                                             jstring soundfont_path, jint channel,
+                                                             jint key, jint velocity) {
     initialize();
 
     const char *soundfontPath = env->GetStringUTFChars(soundfont_path, nullptr);
@@ -27,16 +27,24 @@ Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobjec
     }
 
     // Play the sound
-    fluid_synth_noteon(synth, 0, 62, 127);
-    sleep(sound_length);
-    fluid_synth_noteoff(synth, 0, 62);
+    fluid_synth_noteoff(synth, channel, key);
+    fluid_synth_noteon(synth, channel, key, velocity);
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_MainActivity_playLoopedSynthSound(JNIEnv *env, jobject thiz,
-                                                              jstring soundfont_path) {
-    initialize();
+Java_de_gruppe_e_klingklang_MainActivity_cleanupFluidSynth(JNIEnv *env, jobject thiz) {
+    cleanup();
+}
+
+/*
+ * Use for debug purposes. Returns jstring that can be handed over to Java method to print it out
+ * because console output is not possible here.
+ */
+jstring getJString(JNIEnv *env, char* string) {
+    char *buf = (char*)malloc(200);
+    strcpy(buf, string); // with the null terminator the string adds up to 10 bytes
+    return env->NewStringUTF(buf);
 }
 
 void initialize() {

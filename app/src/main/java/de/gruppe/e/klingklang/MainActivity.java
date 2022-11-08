@@ -40,31 +40,36 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "App successfully created!");
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         hideNavigationAndSwipeUpBar();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cleanupFluidSynth();
+    }
+
     public void openMenu(View view) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
-    public void playSound(View view) {
-        String fileName = view.getTag().toString();
+    public void playSynth(View view) {
+        String[] parameters = view.getTag().toString().split(",");
+        String fileName = parameters[0];
+        String channel = parameters[1];
         executorService.execute(() -> {
-            playSound(fileName, 5);
+            try {
+                String tempSoundfontPath = copyAssetToTmpFile(fileName);
+                playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Failed to play synthesizer sound");
+                throw new RuntimeException(e);
+            }
         });
-    }
-
-    private void playSound(String fileName, int soundLength) {
-        try {
-            String tempSoundfontPath = copyAssetToTmpFile(fileName);
-            playFluidSynthSound(tempSoundfontPath, soundLength);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to play synthesizer sound");
-            throw new RuntimeException(e);
-        }
     }
 
     private void hideNavigationAndSwipeUpBar() {
@@ -101,12 +106,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Native method that calls methods from the FluidSynth library.
+     * Native method that calls methods from the FluidSynth library to play a synth.
      *
      * @param soundfontPath Path of the .sf2 soundfont file to be played (in /assets folder)
-     * @param soundLength   Length of the .sf2 file in seconds
+     * @param channel       MIDI channel number (0 - 16)
+     * @param key           MIDI note number (0 - 127)
+     * @param velocity      MIDI velocity (0 - 127, 0 = noteoff)
      */
-    private native void playFluidSynthSound(String soundfontPath, int soundLength);
+    private native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity);
 
-    private native void playLoopedSynthSound(String soundfontPath);
+    /**
+     * Cleans up the driver, synth and settings.
+     */
+    private native void cleanupFluidSynth();
 }
