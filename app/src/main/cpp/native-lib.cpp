@@ -41,8 +41,8 @@ Java_de_gruppe_e_klingklang_MainActivity_cleanupFluidSynth(JNIEnv *env, jobject 
  * Use for debug purposes. Returns jstring that can be handed over to Java method to print it out
  * because console output is not possible here.
  */
-jstring getJString(JNIEnv *env, char* string) {
-    char *buf = (char*)malloc(200);
+jstring getJString(JNIEnv *env, char *string) {
+    char *buf = (char *) malloc(200);
     strcpy(buf, string); // with the null terminator the string adds up to 10 bytes
     return env->NewStringUTF(buf);
 }
