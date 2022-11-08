@@ -19,12 +19,18 @@ import java.util.Optional;
 
 import de.gruppe.e.klingklang.R;
 
+/**
+ * This {@link BroadcastReceiver} handles Intents regarding {@link Geofence Geofences}.
+ * Whenever a triggering {@link Geofence} is entered, a {@link android.app.Notification} is triggered.
+ * This {@link android.app.Notification} will inform the user about entering one of the defined
+ * {@link Geofence Geofences}.
+ *
+ */
 public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = FacadeProximityBroadcastReceiver.class.getSimpleName();
     private static final String ERRORMESSAGE_GEOFENCINGEVENT_NULL = "GeofencingEvent could not be fetched from intent: %s";
     private static final String LOGMESSAGE_ENTERED_GEOFENCE = "Entered Geofence: %s";
     private static final String NOTIFY_CHANNEL = "KLINGKLANG_NOTIFICATION_CHANNEL";
-    private static final String NOTIFY_TITLE = "KlingKlang";
 
     public FacadeProximityBroadcastReceiver() {
         Log.d(TAG, "Instantiated " + TAG);
@@ -50,14 +56,14 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         Optional<Location> location = Optional.ofNullable(geofencingEvent.getTriggeringLocation());
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.d(TAG, String.format(LOGMESSAGE_ENTERED_GEOFENCE, geofencingEvent.getTriggeringLocation().toString()));
-            location.ifPresent( l -> sendNotification(context,"Test") );
+            location.ifPresent( l -> sendNotification(context, "Münster", l.toString()) );
         }
     }
 
-    private void sendNotification(Context context, String msg) {
+    private void sendNotification(Context context, String title, String msg) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFY_CHANNEL)
                 .setSmallIcon(android.R.drawable.ic_popup_reminder)
-                .setContentTitle(NOTIFY_TITLE)
+                .setContentTitle(title)
                 .setContentText(msg)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(msg));
@@ -73,8 +79,6 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel channel = new NotificationChannel(NOTIFY_CHANNEL, name, importance);
         channel.setDescription(description);
-        // Register the channel with the system; you can't change the importance
-        // or other notification behaviors after this
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         assert notificationManager != null;
         notificationManager.createNotificationChannel(channel);

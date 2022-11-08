@@ -7,14 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -26,12 +25,7 @@ import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.Task;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -72,24 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
-        locationRequest = createLocationRequest();
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        SettingsClient client = LocationServices.getSettingsClient(this);
-        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    Log.d(LOG_TAG, "Something should be happening here...");
-                }
-            }
-        };
-        startLocationUpdates();
-        buildGeofenceList("Muenster", 51.960665, 7.626135, 20000, 1000 * 60 * 5);
+        buildGeofenceList("Muenster", 51.960665, 7.626135, 20000);
         addGeofences();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         playSound("sndfnt.sf2", 2);
@@ -165,50 +142,55 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private LocationRequest createLocationRequest() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        return locationRequest;
-    }
 
+    /**
+     * Checks whether all permissions required by this app are granted.
+     * @return <b>true</b> when all permissions are grante,<b>false</b> otherwise.
+     */
     private boolean checkPermissions() {
         return Arrays.stream(permissions).allMatch(p ->
                 ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
     }
 
+    /**
+     * Requests permissions from the user.
+     */
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this, permissions, LOCATION_REQUEST);
     }
 
-    @SuppressLint("MissingPermission")
-    private void startLocationUpdates() {
-        if (!checkPermissions()) {
-            requestPermissions();
-        }
-        fusedLocationClient.requestLocationUpdates(locationRequest,
-                locationCallback,
-                Looper.getMainLooper());
-    }
 
-    private void buildGeofenceList( String      id
-                                    , double    latitude
-                                    , double    longitude
-                                    , float     rad
-                                    , long      expirationMillis)
+    /**
+     * Builds a list of one Geofence-Entry to be checked for {@link Geofence#GEOFENCE_TRANSITION_ENTER}
+     * and {@link Geofence#GEOFENCE_TRANSITION_EXIT} transition-types.
+     * @deprecated
+     * Will be overhauled later to only add elements to a list of geofences.
+     * @param id Geofence-ID for Request
+     * @param latitude Latitude of Location in degrees
+     * @param longitude Longitude of Location in degrees
+     * @param rad Radius of circular region defining the geofence around the given location
+     */
+    @Deprecated
+    private void buildGeofenceList( String                                                  id
+                                    , @FloatRange(from = -90.0, to = 90.0) double           latitude
+                                    , @FloatRange(from = -180.0, to = 180.0) double         longitude
+                                    , @FloatRange(from = 0.0, fromInclusive = false) float  rad)
     {
         geofenceList.add(new Geofence.Builder()
             // Set the request ID of the geofence. This is a string to identify this
             // geofence.
             .setRequestId(id)
             .setCircularRegion(latitude, longitude, rad)
-            .setExpirationDuration(expirationMillis)
+            .setExpirationDuration(Geofence.NEVER_EXPIRE)
             .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
             .build());
 
     }
 
+    /**
+     * Construct the {@link PendingIntent} broadcasting for the {@link FacadeProximityBroadcastReceiver}
+     * @return The constructed {@link PendingIntent}
+     */
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
         if (geofencePendingIntent != null) {
@@ -222,6 +204,11 @@ public class MainActivity extends AppCompatActivity {
         return geofencePendingIntent;
     }
 
+    /**
+     * Construct the {@link GeofencingRequest} containing the {@link Geofence Geofences} as
+     * constructed by {@link MainActivity#buildGeofenceList}.
+     * @return The constructed {@link GeofencingRequest}
+     */
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
@@ -230,12 +217,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Add the {@link GeofencingRequest GeofencingRequests} and {@link PendingIntent} constructed by
+     * {@link MainActivity#getGeofencingRequest()} and {@link MainActivity#getGeofencePendingIntent()}
+     * to this activity's {@link GeofencingClient}.
+     */
     @SuppressLint("MissingPermission")
-    private Task<Void> addGeofences() {
+    private void addGeofences() {
         if (!checkPermissions()) {
             requestPermissions();
         }
-        return geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
             .addOnSuccessListener(this, e -> {
                 Log.d(LOG_TAG, "Succesfully added geofences!");
             })
