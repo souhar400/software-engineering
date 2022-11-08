@@ -20,84 +20,84 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.095" />
+            app:layout_constraintGuide_percent="0.093" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.185" />
+            app:layout_constraintGuide_percent="0.19" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.247" />
+            app:layout_constraintGuide_percent="0.245" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.34" />
+            app:layout_constraintGuide_percent="0.345" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.425" />
+            app:layout_constraintGuide_percent="0.420" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.51" />
+            app:layout_constraintGuide_percent="0.508" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.545" />
+            app:layout_constraintGuide_percent="0.544" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.625" />
+            app:layout_constraintGuide_percent="0.63" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="0.695" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.78" />
+            app:layout_constraintGuide_percent="0.785" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.825" />
+            app:layout_constraintGuide_percent="0.816" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.902" />
+            app:layout_constraintGuide_percent="0.91" />
 
         <!-- horizontal guidelines  -->
         <androidx.constraintlayout.widget.Guideline
@@ -112,68 +112,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.57" />
+            app:layout_constraintGuide_percent="0.555" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_LC_Y3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.39" />
+            app:layout_constraintGuide_percent="0.41" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_L_Y4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.14" />
+            app:layout_constraintGuide_percent="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_C_Y1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.86" />
+            app:layout_constraintGuide_percent="0.88" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_CR_Y2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.555" />
+            app:layout_constraintGuide_percent="0.54" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_CR_Y4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.07" />
+            app:layout_constraintGuide_percent="0.049" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_R_Y1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_R_Y3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.47" />
 
         <!-- Buttons-->
         <Button
             android:id="@+id/top_left1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,0"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -183,14 +177,8 @@
 
         <Button
             android:id="@+id/top_left2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="beeper.sf2,1"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -200,14 +188,8 @@
 
         <Button
             android:id="@+id/bottom_left1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,2"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -217,14 +199,8 @@
 
         <Button
             android:id="@+id/bottom_left2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,3"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -235,14 +211,8 @@
 
         <Button
             android:id="@+id/top_middle1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,4"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
@@ -252,14 +222,8 @@
 
         <Button
             android:id="@+id/top_middle2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,5"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -269,14 +233,8 @@
 
         <Button
             android:id="@+id/bottom_middle1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,6"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
@@ -286,14 +244,8 @@
 
         <Button
             android:id="@+id/bottom_middle2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,7"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -303,14 +255,8 @@
 
         <Button
             android:id="@+id/top_right1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,8"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -320,14 +266,8 @@
 
         <Button
             android:id="@+id/top_right2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,9"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -337,14 +277,8 @@
 
         <Button
             android:id="@+id/bottom_right1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,10"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -354,14 +288,8 @@
 
         <Button
             android:id="@+id/bottom_right2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/window_button"
-            android:backgroundTint="#958BC34A"
-            android:elevation="2dp"
+            style="@style/windowbutton_style"
             android:onClick="playSynth"
-            android:scaleType="centerCrop"
-            android:soundEffectsEnabled="false"
             android:tag="jazz_riff.sf2,11"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -369,14 +297,37 @@
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
+        <ImageButton
+            android:id="@+id/setting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:background="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/einstellungen" />
+        <ImageButton
+            android:id="@+id/edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:layout_marginStart="14dp"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/bearbeitungsstift" />
+        <ImageButton
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:layout_marginStart="14dp"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/spielmodus" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@menu/navigation_menu" />
-
 </androidx.drawerlayout.widget.DrawerLayout>
