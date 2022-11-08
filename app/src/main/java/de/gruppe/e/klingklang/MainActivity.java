@@ -29,6 +29,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -154,17 +155,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * @deprecated
-     * This needs to be overhauled as well. The API used herein is deprecated.
      * @return a {@link LocationRequest} with high accuracy
      */
-    @Deprecated
     private LocationRequest createLocationRequest() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        return locationRequest;
+        LocationRequest.Builder builder = new LocationRequest.Builder(10000)
+                .setMinUpdateIntervalMillis(5000)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        return builder.build();
     }
 
     private void hideNavigationAndSwipeUpBar() {
