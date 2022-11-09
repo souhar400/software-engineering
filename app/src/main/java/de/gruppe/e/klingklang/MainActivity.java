@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private VolumeData volumeData = new VolumeData();
     private SoundMenu smenu = new SoundMenu(volumeData);
+    private SoundMenu smenu = new SoundMenu(volumeData);
     private MainMenu mainMenu = new MainMenu();
 
     @Override
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMenu(View view) {
-        mainMenu.show(getSupportFragmentManager(), "");
+        smenu.show(getSupportFragmentManager(), "");
     }
 
     public void playSound(String fileName, int soundLength) {

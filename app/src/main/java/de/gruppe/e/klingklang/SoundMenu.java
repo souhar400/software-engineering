@@ -136,8 +136,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
     private void addSliderListener(Slider s, TextView v) {
         s.addOnChangeListener((slider, value, fromUser) -> {
-            int slide_value = Math.round(value);
-            v.setText(String.format(Locale.ENGLISH, "%d",slide_value));
+            v.setText(String.format(Locale.ENGLISH, "%d",Math.round(value)));
         });
     }
 
