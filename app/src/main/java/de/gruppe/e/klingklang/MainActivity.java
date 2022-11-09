@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
@@ -42,11 +43,14 @@ import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
     }
 
+    private boolean inEditMode = false;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
@@ -112,15 +116,19 @@ public class MainActivity extends AppCompatActivity {
         String[] parameters = view.getTag().toString().split(",");
         String fileName = parameters[0];
         String channel = parameters[1];
-        executorService.execute(() -> {
-            try {
-                String tempSoundfontPath = copyAssetToTmpFile(fileName);
-                playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Failed to play synthesizer sound");
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            String tempSoundfontPath = copyAssetToTmpFile(fileName);
+            playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Failed to play synthesizer sound");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void changeButton(View view) {
+        ImageButton ib = findViewById(R.id.edit_button);
+        inEditMode = !inEditMode;
+        ib.setImageResource(inEditMode ? R.drawable.play_mode : R.drawable.edit_mode);
     }
 
     @Override
