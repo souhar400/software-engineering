@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
@@ -33,6 +34,8 @@ import com.google.android.gms.location.Priority;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
+    private final HashMap<Button, ButtonData> Buttons = new HashMap<>();
+    private final MainMenu mainMenu = new MainMenu();
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
     private static final int LOCATION_REQUEST = 0;
     private static final String[] permissions = new String[] {
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         */
         setContentView(R.layout.activity_main);
+        initialiseButtons();
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
@@ -108,6 +114,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         cleanupFluidSynth();
+    }
+
+    public void openMainMenu(View view) {
+        mainMenu.show(getSupportFragmentManager(), "");
     }
 
     public void playSynth(View view) {
@@ -319,4 +329,41 @@ public class MainActivity extends AppCompatActivity {
      * Cleans up the driver, synth and settings.
      */
     private native void cleanupFluidSynth();
+
+    private void initialiseButtons() {
+        Buttons.put( (Button) findViewById(R.id.bottom_left1), new ButtonData(0, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.bottom_left2), new ButtonData(1, "dance_trance.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_left1), new ButtonData(2, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_left2), new ButtonData(3, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_right1), new ButtonData(4, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_right2), new ButtonData(5, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.bottom_right1), new ButtonData(6, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.bottom_right2), new ButtonData(7, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_middle1), new ButtonData(8, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.top_middle2), new ButtonData(9, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.bottom_middle1), new ButtonData(10, "jazz_riff.sf2"));
+        Buttons.put( (Button) findViewById(R.id.bottom_middle2), new ButtonData(11, "jazz_riff.sf2"));
+
+        setButtonListener();
+
+    }
+
+    private void setButtonListener() {
+        for(Map.Entry<Button, ButtonData> entry : Buttons.entrySet())
+            entry.getKey().setOnClickListener(view -> {
+                if(inEditMode) {
+                    SoundMenu smenu = new SoundMenu(entry.getValue());
+                    smenu.show(getSupportFragmentManager(), "");
+                }
+                else {
+                    try {
+                        String tempSoundfontPath = copyAssetToTmpFile(entry.getValue().getSound());
+                        playFluidSynthSound(tempSoundfontPath, entry.getValue().getChannel(), 62, 127);
+                    } catch (IOException e) {
+                        Log.e(LOG_TAG, "Failed to play synthesizer sound");
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
 }
