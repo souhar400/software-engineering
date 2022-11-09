@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private VolumeData volumeData = new VolumeData();
     private SoundMenu smenu = new SoundMenu(volumeData);
     private MainMenu mainMenu = new MainMenu();
+    private boolean inEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +61,19 @@ public class MainActivity extends AppCompatActivity {
         String[] parameters = view.getTag().toString().split(",");
         String fileName = parameters[0];
         String channel = parameters[1];
-        executorService.execute(() -> {
-            try {
-                String tempSoundfontPath = copyAssetToTmpFile(fileName);
-                playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Failed to play synthesizer sound");
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            String tempSoundfontPath = copyAssetToTmpFile(fileName);
+            playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Failed to play synthesizer sound");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void changeButton(View view) {
+        ImageButton ib = findViewById(R.id.edit_button);
+        inEditMode = !inEditMode;
+        ib.setImageResource(inEditMode ? R.drawable.play_mode : R.drawable.edit_mode);
     }
 
     private void hideNavigationAndSwipeUpBar() {
