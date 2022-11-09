@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
-    private boolean inEditMode = false;
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
     private static final int LOCATION_REQUEST = 0;
     private static final String[] permissions = new String[] {
@@ -65,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
+    private boolean inEditMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
