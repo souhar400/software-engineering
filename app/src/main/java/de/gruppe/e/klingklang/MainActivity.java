@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
     private VolumeData volumeData = new VolumeData();
     private SoundMenu smenu = new SoundMenu(volumeData);
-    private SoundMenu smenu = new SoundMenu(volumeData);
     private MainMenu mainMenu = new MainMenu();
 
     @Override
