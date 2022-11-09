@@ -108,4 +108,4 @@ target_link_libraries(
         preloadable_libiconv
 )
 
-set (CMAKE_SHARED_LINKER_FLAGS "-Wl,--gc-sections,--strip-debug -fvisibility=hidden -fuse-ld=lld")
+set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--gc-sections,--strip-debug -fvisibility=hidden -fuse-ld=lld")
