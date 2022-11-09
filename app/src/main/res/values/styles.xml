@@ -8,4 +8,8 @@
         <item name="android:elevation">2dp</item>
         <item name="android:soundEffectsEnabled">false</item>
     </style>
+
+    <style name="sliderTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/teal_200</item>
+    </style>
 </resources>

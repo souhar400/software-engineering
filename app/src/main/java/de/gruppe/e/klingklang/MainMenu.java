@@ -16,10 +16,12 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.slider.Slider;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
     private View view;
+    private float gain = 0.2f;
 
     public MainMenu() {
         super();
@@ -92,5 +94,14 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton exitButton = view.findViewById(R.id.exitButton);
 
         exitButton.setOnClickListener(view -> dismiss());
+
+        Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
+        volumeSlider.setValue(gain* 100);
+        volumeSlider.addOnChangeListener((slider, value, fromUser) -> {
+            gain = value / 100;
+            adjustGain(gain);
+        });
     }
+
+    private native void adjustGain(float gain);
 }

@@ -252,6 +252,7 @@
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
+        android:stepSize="1.0"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y3_2"
         app:layout_constraintEnd_toEndOf="@id/guideline_X0_3"
         app:layout_constraintStart_toStartOf="@id/guideline_X0_2"

@@ -39,8 +39,14 @@ Java_de_gruppe_e_klingklang_MainActivity_cleanupFluidSynth(JNIEnv *env, jobject 
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_VolumeData_setChannelVolume(JNIEnv *env, jobject thiz, jint channel, jint volume) {
+Java_de_gruppe_e_klingklang_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz, jint channel, jint volume) {
     fluid_synth_cc(synth, channel, 7, volume);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_MainMenu_adjustGain(JNIEnv *env, jobject thiz, jfloat gain) {
+    fluid_synth_set_gain(synth, gain);
 }
 
 /*

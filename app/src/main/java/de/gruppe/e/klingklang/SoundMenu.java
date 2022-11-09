@@ -25,11 +25,11 @@ import java.util.Locale;
 
 public class SoundMenu extends BottomSheetDialogFragment {
     private View view;
-    private VolumeData volumeData;
+    private final ButtonData buttonData;
 
-    public SoundMenu(VolumeData vd) {
+    public SoundMenu(ButtonData vd) {
         super();
-        this.volumeData = vd;
+        this.buttonData = vd;
     }
 
     /**
@@ -123,9 +123,9 @@ public class SoundMenu extends BottomSheetDialogFragment {
         TextView volumeName = view.findViewById(R.id.volumeName);
         volumeName.setText("Lautstärke");
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
-        volumeSlider.setValue(volumeData.getVolume());
+        volumeSlider.setValue(buttonData.getVolume());
         TextView volumeValue = view.findViewById(R.id.volumeValue);
-        volumeValue.setText(volumeData.getString());
+        volumeValue.setText(buttonData.getString());
 
         addSliderListenerForVolume(volumeSlider);
         addSliderListener(volumeSlider, volumeValue);
@@ -143,7 +143,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
     private void addSliderListenerForVolume(Slider s) {
         s.addOnChangeListener((slider, value, fromUser) -> {
             int slide_value = Math.round(value);
-            volumeData.setVolume(slide_value);
+            buttonData.setVolume(slide_value);
         });
     }
 }
