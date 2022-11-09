@@ -4,6 +4,8 @@
 #include <unistd.h>
 
 bool initialized = false;
+bool soundfontLoaded = false;
+bool loopsPlaying[12];
 fluid_settings_t *settings;
 fluid_synth_t *synth = NULL;
 fluid_audio_driver_t *adriver = NULL;
@@ -12,24 +14,40 @@ void initialize();
 
 void cleanup();
 
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobject thiz,
                                                              jstring soundfont_path, jint channel,
-                                                             jint key, jint velocity) {
-    initialize();
-
+                                                             jint key, jint velocity, jint preset,
+                                                             jboolean toggle) {
     const char *soundfontPath = env->GetStringUTFChars(soundfont_path, nullptr);
+    initialize();
+    if (!initialized) {
+        return;
+    }
+
     // Load the soundfont
-    if (fluid_synth_sfload(synth, soundfontPath, 1) == -1) {
+    if (!soundfontLoaded && fluid_synth_sfload(synth, soundfontPath, 0) == -1) {
         fprintf(stderr, "Failed to load soundfont\n");
         cleanup();
+        return;
     }
+
+    fluid_synth_program_change(synth, channel, preset);
 
     // Play the sound
     fluid_synth_noteoff(synth, channel, key);
+
+    if (toggle && loopsPlaying[preset]) {
+        loopsPlaying[preset] = false;
+        return;
+    }
+
     fluid_synth_noteon(synth, channel, key, velocity);
+    loopsPlaying[preset] = true;
 }
+
 
 extern "C"
 JNIEXPORT void JNICALL
