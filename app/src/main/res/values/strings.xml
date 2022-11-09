@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">KlingKlang</string>
     <string name="go_to_menu">Go to Menu</string>
+    <string name="channel_name">Facade proximity</string>
+    <string name="channel_description">Notifications for when the device is near the currently relevant facade.</string>
+    <string name="location_region_name">location_region_name</string>
+    <string name="location_region_address">location_region_address</string>
 </resources>
