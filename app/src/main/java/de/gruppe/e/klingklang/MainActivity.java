@@ -34,11 +34,11 @@ import com.google.android.gms.location.Priority;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,11 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private final MainMenu mainMenu = new MainMenu();
     private final ExecutorService executorService = Executors.newFixedThreadPool(12);
     private static final int LOCATION_REQUEST = 0;
-    private static final String[] permissions = new String[] {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-    };
-    private static  String[] backgroundPermissions;
+    private static final String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+    private static String[] backgroundPermissions;
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private DrawerLayout mDrawerLayout;
@@ -86,12 +83,10 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            backgroundPermissions = new String[] {
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            };
+            backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
         buildGeofenceList("R. de Mouzinho da Silveira 42", 41.141, -8.614, 200);
-        if(lacksPermissions()) {
+        if (lacksPermissions()) {
             requestPermissions();
         }
         startLocationUpdates();
@@ -123,10 +118,14 @@ public class MainActivity extends AppCompatActivity {
     public void playSynth(View view) {
         String[] parameters = view.getTag().toString().split(",");
         String fileName = parameters[0];
-        String channel = parameters[1];
+        int channel = Integer.parseInt(parameters[1]);
+        int key = Integer.parseInt(parameters[2]);
+        int velocity = Integer.parseInt(parameters[3]);
+        int preset = Integer.parseInt(parameters[4]);
+        boolean toggle = preset == 3 || preset == 4 || preset == 7 || preset == 11;
         try {
             String tempSoundfontPath = copyAssetToTmpFile(fileName);
-            playFluidSynthSound(tempSoundfontPath, Integer.parseInt(channel), 62, 127);
+            playFluidSynthSound(tempSoundfontPath, channel, key, velocity, preset, toggle);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to play synthesizer sound");
             throw new RuntimeException(e);
@@ -140,10 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int                      requestCode
-            , @NonNull String[]     permissions
-            , @NonNull int[]        grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (permissions.length == 0) {
             return;
@@ -151,12 +147,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == LOCATION_REQUEST) {
             boolean hasCoarseLocationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
             boolean hasFineLocationPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-            if(hasFineLocationPermission || hasCoarseLocationPermission) {
-                ActivityCompat.requestPermissions(this, backgroundPermissions, LOCATION_REQUEST+1);
+            if (hasFineLocationPermission || hasCoarseLocationPermission) {
+                ActivityCompat.requestPermissions(this, backgroundPermissions, LOCATION_REQUEST + 1);
             }
         }
-        if(requestCode == LOCATION_REQUEST +1) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == LOCATION_REQUEST + 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationUpdates();
                 addGeofences();
             }
@@ -172,35 +168,25 @@ public class MainActivity extends AppCompatActivity {
         if (lacksPermissions()) {
             requestPermissions();
         }
-        fusedLocationClient.requestLocationUpdates(createLocationRequest(),
-                new LocationCallback() {
-                    @Override
-                    public void onLocationResult(@NonNull LocationResult locationResult) {
+        fusedLocationClient.requestLocationUpdates(createLocationRequest(), new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
 
-                    }}
-                ,
-                Looper.getMainLooper());
+            }
+        }, Looper.getMainLooper());
     }
 
     /**
      * @return a {@link LocationRequest} with high accuracy
      */
     private LocationRequest createLocationRequest() {
-        LocationRequest.Builder builder = new LocationRequest.Builder(10000)
-                .setMinUpdateIntervalMillis(5000)
-                .setPriority(Priority.PRIORITY_HIGH_ACCURACY);
+        LocationRequest.Builder builder = new LocationRequest.Builder(10000).setMinUpdateIntervalMillis(5000).setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         return builder.build();
     }
 
     private void hideNavigationAndSwipeUpBar() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     /**
@@ -228,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Checks whether all permissions required by this app are granted.
+     *
      * @return <b>true</b> when all permissions are granted,<b>false</b> otherwise.
      */
     private boolean lacksPermissions() {
-        return !Arrays.stream(permissions).allMatch(p ->
-                ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
+        return !Arrays.stream(permissions).allMatch(p -> ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
     }
 
     /**
@@ -247,26 +233,19 @@ public class MainActivity extends AppCompatActivity {
      * Builds a list of one Geofence-Entry to be checked for {@link Geofence#GEOFENCE_TRANSITION_ENTER}
      * and {@link Geofence#GEOFENCE_TRANSITION_EXIT} transition-types.
      * Will be overhauled later to only add elements to a list of geofences.
-     * @param id Geofence-ID for Request
-     * @param latitude Latitude of Location in degrees
+     *
+     * @param id        Geofence-ID for Request
+     * @param latitude  Latitude of Location in degrees
      * @param longitude Longitude of Location in degrees
-     * @param rad Radius of circular region defining the geofence around the given location
+     * @param rad       Radius of circular region defining the geofence around the given location
      */
-    private void buildGeofenceList( String                                                  id
-                                    , @FloatRange(from = -90.0, to = 90.0) double           latitude
-                                    , @FloatRange(from = -180.0, to = 180.0) double         longitude
-                                    , @FloatRange(from = 0.0, fromInclusive = false) float  rad)
-    {
-        geofenceList.add(new Geofence.Builder()
-                .setRequestId(id)
-                .setCircularRegion(latitude, longitude, rad)
-                .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
-                .build());
+    private void buildGeofenceList(String id, @FloatRange(from = -90.0, to = 90.0) double latitude, @FloatRange(from = -180.0, to = 180.0) double longitude, @FloatRange(from = 0.0, fromInclusive = false) float rad) {
+        geofenceList.add(new Geofence.Builder().setRequestId(id).setCircularRegion(latitude, longitude, rad).setExpirationDuration(Geofence.NEVER_EXPIRE).setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER).build());
     }
 
     /**
      * Construct the {@link PendingIntent} broadcasting for the {@link FacadeProximityBroadcastReceiver}
+     *
      * @return The constructed {@link PendingIntent}
      */
     private PendingIntent getGeofencePendingIntent() {
@@ -290,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Construct the {@link GeofencingRequest} containing the {@link Geofence Geofences} as
      * constructed by {@link MainActivity#buildGeofenceList}.
+     *
      * @return The constructed {@link GeofencingRequest}
      */
     private GeofencingRequest getGeofencingRequest() {
@@ -310,9 +290,7 @@ public class MainActivity extends AppCompatActivity {
         if (lacksPermissions()) {
             requestPermissions();
         }
-        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-            .addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!"))
-            .addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent()).addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!")).addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
     }
 
     /**
@@ -323,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
      * @param key           MIDI note number (0 - 127)
      * @param velocity      MIDI velocity (0 - 127, 0 = note off)
      */
-    private native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity);
+    private native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle);
 
     /**
      * Cleans up the driver, synth and settings.
@@ -331,39 +309,37 @@ public class MainActivity extends AppCompatActivity {
     private native void cleanupFluidSynth();
 
     private void initialiseButtons() {
-        Buttons.put( (Button) findViewById(R.id.bottom_left1), new ButtonData(0, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.bottom_left2), new ButtonData(1, "dance_trance.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_left1), new ButtonData(2, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_left2), new ButtonData(3, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_right1), new ButtonData(4, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_right2), new ButtonData(5, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.bottom_right1), new ButtonData(6, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.bottom_right2), new ButtonData(7, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_middle1), new ButtonData(8, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.top_middle2), new ButtonData(9, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.bottom_middle1), new ButtonData(10, "jazz_riff.sf2"));
-        Buttons.put( (Button) findViewById(R.id.bottom_middle2), new ButtonData(11, "jazz_riff.sf2"));
+        Buttons.put((Button) findViewById(R.id.top_left1), new ButtonData("klingklang.sf2",5,62,127,5, false));
+        Buttons.put((Button) findViewById(R.id.top_left2), new ButtonData("klingklang.sf2",0,10,127,0, false));
+        Buttons.put((Button) findViewById(R.id.bottom_left1), new ButtonData("klingklang.sf2",6,62,127,6, false));
+        Buttons.put((Button) findViewById(R.id.bottom_left2), new ButtonData("klingklang.sf2",1,62,127,1, false));
+        Buttons.put((Button) findViewById(R.id.top_middle1), new ButtonData("klingklang.sf2",8,62,127,8, false));
+        Buttons.put((Button) findViewById(R.id.top_middle2), new ButtonData("klingklang.sf2",8,80,127,8, false));
+        Buttons.put((Button) findViewById(R.id.bottom_middle1), new ButtonData("klingklang.sf2",10,62,127,10, false));
+        Buttons.put((Button) findViewById(R.id.bottom_middle2), new ButtonData("klingklang.sf2",2,10,127,2, false));
+        Buttons.put((Button) findViewById(R.id.top_right1), new ButtonData("klingklang.sf2",4,62,127,4, true));
+        Buttons.put((Button) findViewById(R.id.top_right2), new ButtonData("klingklang.sf2",3,62,127,3, true));
+        Buttons.put((Button) findViewById(R.id.bottom_right1), new ButtonData("klingklang.sf2",7,62,127,7, true));
+        Buttons.put((Button) findViewById(R.id.bottom_right2), new ButtonData("klingklang.sf2",11,90,127,11, true));
 
         setButtonListener();
-
     }
 
     private void setButtonListener() {
-        for(Map.Entry<Button, ButtonData> entry : Buttons.entrySet())
+        for (Map.Entry<Button, ButtonData> entry : Buttons.entrySet())
             entry.getKey().setOnClickListener(view -> {
-                if(inEditMode) {
+                if (inEditMode) {
                     SoundMenu smenu = new SoundMenu(entry.getValue());
                     smenu.show(getSupportFragmentManager(), "");
-                }
-                else {
+                } else {
                     try {
-                        String tempSoundfontPath = copyAssetToTmpFile(entry.getValue().getSound());
-                        playFluidSynthSound(tempSoundfontPath, entry.getValue().getChannel(), 62, 127);
+                        String tempSoundfontPath = copyAssetToTmpFile(entry.getValue().getSoundfontPath());
+                        playFluidSynthSound(tempSoundfontPath, entry.getValue().getChannel(), entry.getValue().getKey(), entry.getValue().getVelocity(), entry.getValue().getPreset(), entry.getValue().isToggle());
                     } catch (IOException e) {
                         Log.e(LOG_TAG, "Failed to play synthesizer sound");
                         throw new RuntimeException(e);
                     }
                 }
             });
-        }
+    }
 }
