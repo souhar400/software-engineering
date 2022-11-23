@@ -1,4 +1,4 @@
-package de.gruppe.e.klingklang;
+package de.gruppe.e.klingklang.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -18,6 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
+
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
+import de.gruppe.e.klingklang.R;
 
 
 public class MainMenu extends BottomSheetDialogFragment {

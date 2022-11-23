@@ -1,4 +1,4 @@
-package de.gruppe.e.klingklang;
+package de.gruppe.e.klingklang.view;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,6 +24,8 @@ import com.google.android.material.slider.Slider;
 
 import java.util.Locale;
 
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
+import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 
 public class SoundMenu extends BottomSheetDialogFragment {

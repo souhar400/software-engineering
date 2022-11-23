@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
+
 public class SplashScreen extends AppCompatActivity {
     private static int TIME_OUT = 3000;
 

@@ -18,7 +18,7 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.Objects;
 import java.util.Optional;
 
-import de.gruppe.e.klingklang.MainActivity;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 import de.gruppe.e.klingklang.R;
 
 /**

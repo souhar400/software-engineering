@@ -2,9 +2,16 @@ package de.gruppe.e.klingklang.viewmodel;
 
 import de.gruppe.e.klingklang.model.FacadeData;
 
-public class FacadeViewModel {
-    private final FacadeData facadeData;
+public abstract class FacadeViewModel {
+    private FacadeData facadeData;
 
+    public FacadeViewModel(){
+
+    }
+
+    public abstract void initialiseButtons();
+
+    /*
     public FacadeViewModel(ViewModelType type) {
         switch (type) {
             case FHMSFacade: {
@@ -19,5 +26,5 @@ public class FacadeViewModel {
 
     public enum ViewModelType {
         FHMSFacade
-    }
+    }*/
 }
