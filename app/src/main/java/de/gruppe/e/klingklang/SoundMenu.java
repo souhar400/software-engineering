@@ -24,6 +24,8 @@ import com.google.android.material.slider.Slider;
 
 import java.util.Locale;
 
+import de.gruppe.e.klingklang.model.ButtonData;
+
 public class SoundMenu extends BottomSheetDialogFragment {
     private View view;
     private final ButtonData buttonData;

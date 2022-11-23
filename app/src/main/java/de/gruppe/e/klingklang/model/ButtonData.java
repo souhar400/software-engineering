@@ -1,4 +1,6 @@
-package de.gruppe.e.klingklang;
+package de.gruppe.e.klingklang.model;
+
+import java.util.Observable;
 
 // Temporary Storage Class for the Volume of a single Button
 public class ButtonData {

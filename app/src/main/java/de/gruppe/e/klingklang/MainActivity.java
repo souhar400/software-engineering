@@ -42,6 +42,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 
 public class MainActivity extends AppCompatActivity {
