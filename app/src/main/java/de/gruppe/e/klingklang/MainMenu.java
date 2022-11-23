@@ -1,6 +1,7 @@
 package de.gruppe.e.klingklang;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -42,6 +43,17 @@ public class MainMenu extends BottomSheetDialogFragment {
         });
         return  dialog;
     }
+
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (getActivity() != null &&
+                getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).hideNavigationAndSwipeUpBar();
+        }
+    }
+
 
 
     /**
