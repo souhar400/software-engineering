@@ -3,7 +3,9 @@ package de.gruppe.e.klingklang.viewmodel;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -40,9 +43,14 @@ import de.gruppe.e.klingklang.view.MainMenu;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String OPEN_COUNT_KEY = "openedCount";
+    private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+        }
     }
 
     private static final int LOCATION_REQUEST = 0;
@@ -72,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
                 SynthService, getSupportFragmentManager());
 
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -90,6 +99,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences prefs=getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefs.edit();
+        int openedAmount = prefs.getInt(OPEN_COUNT_KEY, 0);
+        openedAmount++;
+        editor.putInt(OPEN_COUNT_KEY, openedAmount);
+        editor.apply();
+        if(openedAmount >= OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST) {
+            if(lacksPermissions()) {
+                requestPermissions();
+            }
+            buildGeofenceList("R. de Mouzinho da Silveira 42", 41.141, -8.614, 200);
+            startLocationUpdates();
+            addGeofences();
+        }
+        Log.d(LOG_TAG, String.format(
+                "Opened this activity %d times now. %d needed for permission request!",
+                openedAmount,
+                OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST));
     }
 
     @Override
@@ -137,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient.requestLocationUpdates(createLocationRequest(), new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
-
+                Log.d(LOG_TAG, "Updated location!");
             }
         }, Looper.getMainLooper());
     }
