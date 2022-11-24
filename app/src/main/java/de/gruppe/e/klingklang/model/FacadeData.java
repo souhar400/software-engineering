@@ -5,7 +5,7 @@ import android.widget.Button;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class FacadeData {
+public class FacadeData {
     public Map<Button, ButtonData> buttonDataList;
     private Boolean inEditMode = false;
 

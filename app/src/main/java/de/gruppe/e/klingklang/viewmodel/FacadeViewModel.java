@@ -14,21 +14,18 @@ import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.SoundMenu;
 
-public class FacadeViewModel {
-    protected final FacadeData model;
-    protected final SynthService synthService;
+public class FacadeViewModel implements ViewModel{
+    private final FacadeData model;
+    private final SynthService synthService;
     private final String LOG_TAG = getClass().getSimpleName();
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
-    private ControlButtonsOverlayView controlButtonsOverlayView;
-    private boolean isEditable;
-    private FragmentManager associatedManager;
+    private final FragmentManager associatedManager;
 
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
                            FacadeData model,
                            SynthService synthService,
                            FragmentManager associatedManager,
                            Map<Button, ButtonData> facadeButtons){
-        this.controlButtonsOverlayView = controlButtonsOverlayView;
         this.model = model;
         this.synthService = synthService;
         this.associatedManager = associatedManager;

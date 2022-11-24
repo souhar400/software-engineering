@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
@@ -30,12 +29,9 @@ import com.google.android.gms.location.Priority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.model.ButtonData;
-import de.gruppe.e.klingklang.model.OldViewFacadeData;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -57,30 +53,24 @@ public class MainActivity extends AppCompatActivity {
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
-    private FacadeViewModel facadeViewModel;
-    private MainMenu mainMenu;
-    private ControlButtonsOverlayView controlButtonsOverlayView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
-        mainMenu = new MainMenu(getSupportFragmentManager());
+        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
         /*
         TODO: this does not work properly
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         */
         setContentView(R.layout.activity_main);
-        HashMap<Button, ButtonData> oldViewButtons = initialiseOldViewButtons();
-        controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
+        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
                 mainMenu);
-        facadeViewModel = new FacadeViewModel(controlButtonsOverlayView,
-                new OldViewFacadeData(),
-                SynthService,
-                getSupportFragmentManager(),
-                oldViewButtons);
+        ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
+                SynthService, getSupportFragmentManager());
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
@@ -95,23 +85,6 @@ public class MainActivity extends AppCompatActivity {
         addGeofences();
         Log.d(LOG_TAG, "App successfully created!");
 
-    }
-
-    private HashMap<Button,ButtonData> initialiseOldViewButtons() {
-        HashMap<Button,ButtonData> map = new HashMap<>();
-        map.put((Button) this.findViewById(R.id.top_left1), new ButtonData("klingklang.sf2",5,62,127,5, false));
-        map.put((Button) this.findViewById(R.id.top_left2), new ButtonData("klingklang.sf2",0,10,127,0, false));
-        map.put((Button) this.findViewById(R.id.bottom_left1), new ButtonData("klingklang.sf2",6,62,127,6, false));
-        map.put((Button) this.findViewById(R.id.bottom_left2), new ButtonData("klingklang.sf2",1,62,127,1, false));
-        map.put((Button) this.findViewById(R.id.top_middle1), new ButtonData("klingklang.sf2",8,62,127,8, false));
-        map.put((Button) this.findViewById(R.id.top_middle2), new ButtonData("klingklang.sf2",8,80,127,8, false));
-        map.put((Button) this.findViewById(R.id.bottom_middle1), new ButtonData("klingklang.sf2",10,62,127,10, false));
-        map.put((Button) this.findViewById(R.id.bottom_middle2), new ButtonData("klingklang.sf2",2,10,127,2, false));
-        map.put((Button) this.findViewById(R.id.top_right1), new ButtonData("klingklang.sf2",4,62,127,4, true));
-        map.put((Button) this.findViewById(R.id.top_right2), new ButtonData("klingklang.sf2",3,62,127,3, true));
-        map.put((Button) this.findViewById(R.id.bottom_right1), new ButtonData("klingklang.sf2",7,62,127,7, true));
-        map.put((Button) this.findViewById(R.id.bottom_right2), new ButtonData("klingklang.sf2",11,90,127,11, true));
-        return map;
     }
 
     @Override
