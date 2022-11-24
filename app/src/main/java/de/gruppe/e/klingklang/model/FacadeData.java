@@ -2,19 +2,22 @@ package de.gruppe.e.klingklang.model;
 
 import android.widget.Button;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public abstract class FacadeData {
-    public final HashMap<Button, ButtonData> buttonDataList;
+    public Map<Button, ButtonData> buttonDataList;
+    private Boolean inEditMode = false;
 
     public FacadeData() {
         buttonDataList = new HashMap<>();
     }
 
-    public abstract void toggleInEditMode();
+    public void toggleInEditMode() {
+        inEditMode = !inEditMode;
+    }
 
-    public abstract Boolean getInEditMode();
-
+    public Boolean getInEditMode() {
+        return inEditMode;
+    }
 }

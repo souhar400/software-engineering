@@ -1,4 +1,5 @@
 package de.gruppe.e.klingklang.view;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,25 +11,26 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
-import de.gruppe.e.klingklang.viewmodel.MainActivity;
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
     private View view;
     private float gain = 0.2f;
-
-    public MainMenu() {
+    private final FragmentManager associatedManager;
+    public MainMenu(FragmentManager associatedManager) {
         super();
+        this.associatedManager = associatedManager;
     }
 
     /**
@@ -116,6 +118,10 @@ public class MainMenu extends BottomSheetDialogFragment {
             gain = value / 100;
             adjustGain(gain);
         });
+    }
+
+    public FragmentManager getAssociatedFragmentManager() {
+        return associatedManager;
     }
 
     private native void adjustGain(float gain);
