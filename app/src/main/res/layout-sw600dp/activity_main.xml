@@ -223,7 +223,6 @@
         <Button
             android:id="@+id/top_left1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,0"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -234,7 +233,6 @@
         <Button
             android:id="@+id/top_left2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="beeper.sf2,1"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -245,7 +243,6 @@
         <Button
             android:id="@+id/bottom_left1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,2"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -256,7 +253,6 @@
         <Button
             android:id="@+id/bottom_left2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,3"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -268,7 +264,6 @@
         <Button
             android:id="@+id/top_middle1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,4"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
@@ -279,7 +274,6 @@
         <Button
             android:id="@+id/top_middle2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,5"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -290,7 +284,6 @@
         <Button
             android:id="@+id/bottom_middle1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,6"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
@@ -301,7 +294,6 @@
         <Button
             android:id="@+id/bottom_middle2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,7"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -312,7 +304,6 @@
         <Button
             android:id="@+id/top_right1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,8"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -323,7 +314,6 @@
         <Button
             android:id="@+id/top_right2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,9"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -334,7 +324,6 @@
         <Button
             android:id="@+id/bottom_right1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,10"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -345,7 +334,6 @@
         <Button
             android:id="@+id/bottom_right2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             android:tag="jazz_riff.sf2,11"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -359,12 +347,12 @@
             android:layout_height="0dp"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:onClick="openMainMenu"
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
             app:layout_constraintDimensionRatio="1:1"
-            app:srcCompat="@drawable/einstellungen" />
+            app:srcCompat="@drawable/einstellungen"
+            android:contentDescription="@string/pull_up_settings_drawer" />
 
         <ImageButton
             android:id="@+id/edit_button"
@@ -372,12 +360,12 @@
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             android:background="@null"
-            android:onClick="changeButton"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB1"
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_2"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_1"
-            app:srcCompat="@drawable/edit_mode" />
+            app:srcCompat="@drawable/edit_mode"
+            android:contentDescription="@string/toggle_between_play_and_edit_mode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

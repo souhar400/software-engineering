@@ -346,24 +346,24 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@null"
-            android:onClick="openMainMenu"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB3"
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
-            app:srcCompat="@drawable/einstellungen" />
+            app:srcCompat="@drawable/einstellungen"
+            android:contentDescription="@string/pull_up_settings_drawer" />
 
         <ImageButton
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:onClick="changeButton"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB1"
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_2"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_1"
             app:layout_constraintTop_toTopOf="@id/guideline_YB2"
-            app:srcCompat="@drawable/edit_mode" />
+            app:srcCompat="@drawable/edit_mode"
+            android:contentDescription="@string/toggle_between_play_and_edit_mode" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

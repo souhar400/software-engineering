@@ -5,4 +5,6 @@
     <string name="channel_description">Notifications for when the device is near the currently relevant facade.</string>
     <string name="location_region_name">location_region_name</string>
     <string name="location_region_address">location_region_address</string>
+    <string name="toggle_between_play_and_edit_mode">Toggle between Play- and Edit-Mode</string>
+    <string name="pull_up_settings_drawer">Pull up Settings-Drawer</string>
 </resources>
