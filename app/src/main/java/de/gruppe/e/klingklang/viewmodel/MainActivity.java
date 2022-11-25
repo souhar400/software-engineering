@@ -86,12 +86,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
-        buildGeofenceList("R. de Mouzinho da Silveira 42", 41.141, -8.614, 200);
-        if (lacksPermissions()) {
-            requestPermissions();
-        }
-        startLocationUpdates();
-        addGeofences();
         Log.d(LOG_TAG, "App successfully created!");
 
     }
