@@ -17,7 +17,7 @@ void cleanup();
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobject thiz,
+Java_de_gruppe_e_klingklang_services_SynthService_playFluidSynthSound(JNIEnv *env, jobject thiz,
                                                              jstring soundfont_path, jint channel,
                                                              jint key, jint velocity, jint preset,
                                                              jboolean toggle) {
@@ -51,19 +51,19 @@ Java_de_gruppe_e_klingklang_MainActivity_playFluidSynthSound(JNIEnv *env, jobjec
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_MainActivity_cleanupFluidSynth(JNIEnv *env, jobject thiz) {
+Java_de_gruppe_e_klingklang_services_SynthService_cleanupFluidSynth(JNIEnv *env, jobject thiz) {
     cleanup();
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz, jint channel, jint volume) {
+Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz, jint channel, jint volume) {
     fluid_synth_cc(synth, channel, 7, volume);
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_MainMenu_adjustGain(JNIEnv *env, jobject thiz, jfloat gain) {
+Java_de_gruppe_e_klingklang_view_MainMenu_adjustGain(JNIEnv *env, jobject thiz, jfloat gain) {
     fluid_synth_set_gain(synth, gain);
 }
 
