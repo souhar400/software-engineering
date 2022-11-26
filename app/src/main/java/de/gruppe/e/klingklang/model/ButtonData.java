@@ -4,7 +4,8 @@ import java.util.Observable;
 
 // Temporary Storage Class for the Volume of a single Button
 public class ButtonData {
-    private int volume = 100;
+    private int volume = 127;
+    private int displayedVolume = 100;
     private final String soundfontPath;
     private final int channel;
     private final int key;
@@ -22,13 +23,14 @@ public class ButtonData {
 
     }
 
-    public void setVolume(int v) {
-        volume = v;
-        setChannelVolume(channel, volume + 20);
+    public void setVolume(int volume) {
+        displayedVolume = volume;
+        this.volume = Math.round(1.27f * volume);
+        setChannelVolume(channel, volume);
     }
 
     public float getVolume() {
-        return volume;
+        return displayedVolume;
     }
 
     public String getString() {

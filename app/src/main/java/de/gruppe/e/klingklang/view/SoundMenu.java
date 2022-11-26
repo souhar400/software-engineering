@@ -117,41 +117,20 @@ public class SoundMenu extends BottomSheetDialogFragment {
         slider3.setValue(50);
 
         TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("slider1");
+        slider1Name.setText("Reverb");
         TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("slider2");
+        slider2Name.setText("Pitch-Up");
         TextView slider3Name = view.findViewById(R.id.slider3Name);
-        slider3Name.setText("slider3");
+        slider3Name.setText("Pitch-Down");
 
-        TextView slider1Value = view.findViewById(R.id.slider1Value);
-        slider1Value.setText("50");
-        TextView slider2Value = view.findViewById(R.id.slider2Value);
-        slider2Value.setText("50");
-        TextView slider3Value = view.findViewById(R.id.slider3Value);
-        slider3Value.setText("50");
-
-        addSliderListener(slider1, slider1Value);
-        addSliderListener(slider2, slider2Value);
-        addSliderListener(slider3, slider3Value);
-
-        TextView volumeName = view.findViewById(R.id.volumeName);
-        volumeName.setText("Lautstärke");
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
         volumeSlider.setValue(buttonData.getVolume());
-        TextView volumeValue = view.findViewById(R.id.volumeValue);
-        volumeValue.setText(buttonData.getString());
+
 
         addSliderListenerForVolume(volumeSlider);
-        addSliderListener(volumeSlider, volumeValue);
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
-    }
-
-    private void addSliderListener(Slider s, TextView v) {
-        s.addOnChangeListener((slider, value, fromUser) -> {
-            v.setText(String.format(Locale.ENGLISH, "%d",Math.round(value)));
-        });
     }
 
     private void addSliderListenerForVolume(Slider s) {
