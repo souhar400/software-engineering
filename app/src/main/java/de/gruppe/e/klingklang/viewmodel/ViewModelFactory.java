@@ -9,6 +9,7 @@ import java.util.HashMap;
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
+import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 
@@ -22,11 +23,13 @@ public class ViewModelFactory {
                                         SynthService synthService,
                                         FragmentManager manager) {
         HashMap<Button, ButtonData> oldViewButtons = initialiseOldViewButtons();
+        NamedLocation location = new NamedLocation(41.141, -8.614, 200,
+                "R. de Mouzinho da Silveira 42",
+                "Portugal, Porto");
         return new FacadeViewModel(controlButtonsOverlayView,
-                new FacadeData(),
+                new FacadeData(oldViewButtons, location),
                 synthService,
-                manager,
-                oldViewButtons);
+                manager);
     }
 
     private HashMap<Button,ButtonData> initialiseOldViewButtons() {
