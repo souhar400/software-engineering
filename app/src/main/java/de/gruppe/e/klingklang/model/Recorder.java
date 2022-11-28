@@ -7,23 +7,35 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Recorder {
     Context context;
-    private File currentFile;
+    private File currentTrack;
+    private boolean isRecording;
 
     public Recorder(Context context) {
         this.context = context;
+        this.isRecording = false;
     }
 
 
 
     public void startRecording() {
+        isRecording = true;
+        currentTrack = createTrack();
 
     }
 
     public void stopRecording() {
 
+        isRecording = false;
+    }
+
+    public void debug() {
+        currentTrack = createTrack();
+        getTracks();
     }
 
     /**
@@ -33,39 +45,44 @@ public class Recorder {
 
     }
 
-    public void getTracks() {
-
-    }
-
     public void playTrack() {
 
     }
 
-    public void createTrack() {
-        String file = "Recording_" + getDate();
-        String ret;
-
-
-        writeToFile("MoinMeista", file);
-        ret = readFromFile(file);
-        System.out.println("erfolg" + ret);
-        getTracks();
+    private void saveButtonSettings() {
 
     }
 
-    private File[] getFilesInContext() {
-        File path = context.getFilesDir();
-        File[] files = path.listFiles();
-        System.out.println("Erfolg2"+ files.length);
-        for (File f : files) {
-            System.out.println(f.getName());
+    public File createTrack() {
+        File file = new File(context.getFilesDir(), "Recording_" + getDate() + ".kk");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return files;
+        return file;
     }
 
-    private void writeToFile(String data, String fileName) {
-        File file = new File(context.getFilesDir(), fileName + ".kk");
+    /**
+     * @return A File Array with all .kk files
+     */
+    private File[] getTracks() {
+        File[] files = context.getFilesDir().listFiles();
+        List<File> tracks = new ArrayList<>();
 
+        assert files != null;
+        for (File f : files) {
+            if(f.getName().contains(".kk"))
+                tracks.add(f);
+        }
+        File[] t = new File[tracks.size()];
+        for (int i = 0; i < tracks.size(); i++) {
+            t[i] = tracks.get(i);
+        }
+        return t;
+    }
+
+    private void writeToFile(File file, String data) {
         try {
             FileOutputStream stream = new FileOutputStream(file);
             stream.write(data.getBytes());

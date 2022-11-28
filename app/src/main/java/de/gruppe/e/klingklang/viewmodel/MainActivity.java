@@ -90,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Just for testing purposes
         Recorder recorder = new Recorder(getApplicationContext());
-        recorder.createTrack();
-        recorder.playTrack();
+        recorder.debug();
 
         Log.d(LOG_TAG, "App successfully created!");
 
