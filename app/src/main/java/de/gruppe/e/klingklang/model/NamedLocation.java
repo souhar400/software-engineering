@@ -7,7 +7,11 @@ public class NamedLocation {
     private final String address;
     private final String shortName;
 
-    public NamedLocation(double longitude, double latitude, int radius, String adress, String shortName) {
+    public NamedLocation(double longitude,
+                         double latitude,
+                         int radius,
+                         String adress,
+                         String shortName) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.radius = radius;
