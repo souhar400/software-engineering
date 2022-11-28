@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -86,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+
+        // Just for testing purposes
+        Recorder recorder = new Recorder(getApplicationContext());
+        recorder.createTrack();
+        recorder.playTrack();
+
         Log.d(LOG_TAG, "App successfully created!");
 
     }
