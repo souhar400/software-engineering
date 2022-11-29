@@ -167,7 +167,7 @@
         <Button
             android:id="@+id/top_left1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
+            android:onClick="playMidi"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
@@ -177,7 +177,6 @@
         <Button
             android:id="@+id/top_left2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"
@@ -187,7 +186,6 @@
         <Button
             android:id="@+id/bottom_left1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
@@ -197,7 +195,6 @@
         <Button
             android:id="@+id/bottom_left2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"
@@ -208,7 +205,6 @@
         <Button
             android:id="@+id/top_middle1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
             app:layout_constraintStart_toStartOf="@id/guideline_X5"
@@ -218,7 +214,6 @@
         <Button
             android:id="@+id/top_middle2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
             app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -228,7 +223,6 @@
         <Button
             android:id="@+id/bottom_middle1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
             app:layout_constraintStart_toStartOf="@id/guideline_X5"
@@ -238,7 +232,6 @@
         <Button
             android:id="@+id/bottom_middle2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
             app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -248,7 +241,6 @@
         <Button
             android:id="@+id/top_right1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
@@ -258,7 +250,6 @@
         <Button
             android:id="@+id/top_right2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
             app:layout_constraintStart_toStartOf="@id/guideline_X11"
@@ -268,7 +259,6 @@
         <Button
             android:id="@+id/bottom_right1"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
@@ -278,7 +268,6 @@
         <Button
             android:id="@+id/bottom_right2"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
             app:layout_constraintStart_toStartOf="@id/guideline_X11"

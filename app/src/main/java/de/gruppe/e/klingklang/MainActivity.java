@@ -115,23 +115,6 @@ public class MainActivity extends AppCompatActivity {
         mainMenu.show(getSupportFragmentManager(), "");
     }
 
-    public void playSynth(View view) {
-        String[] parameters = view.getTag().toString().split(",");
-        String fileName = parameters[0];
-        int channel = Integer.parseInt(parameters[1]);
-        int key = Integer.parseInt(parameters[2]);
-        int velocity = Integer.parseInt(parameters[3]);
-        int preset = Integer.parseInt(parameters[4]);
-        boolean toggle = preset == 3 || preset == 4 || preset == 7 || preset == 11;
-        try {
-            String tempSoundfontPath = copyAssetToTmpFile(fileName);
-            playFluidSynthSound(tempSoundfontPath, channel, key, velocity, preset, toggle);
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Failed to play synthesizer sound");
-            throw new RuntimeException(e);
-        }
-    }
-
     public void changeButton(View view) {
         ImageButton ib = findViewById(R.id.edit_button);
         inEditMode = !inEditMode;
@@ -309,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
     private native void cleanupFluidSynth();
 
     private void initialiseButtons() {
-        Buttons.put((Button) findViewById(R.id.top_left1), new ButtonData("klingklang.sf2",5,62,127,5, false));
+        //Buttons.put((Button) findViewById(R.id.top_left1), new ButtonData("klingklang.sf2",5,62,127,5, false));
         Buttons.put((Button) findViewById(R.id.top_left2), new ButtonData("klingklang.sf2",0,10,127,0, false));
         Buttons.put((Button) findViewById(R.id.bottom_left1), new ButtonData("klingklang.sf2",6,62,127,6, false));
         Buttons.put((Button) findViewById(R.id.bottom_left2), new ButtonData("klingklang.sf2",1,62,127,1, false));
@@ -342,4 +325,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
     }
+
+    public void playMidi(View view) throws IOException {
+        String midiFile = copyAssetToTmpFile("Beat.mid");
+        String soundfontFile = copyAssetToTmpFile("klingklang.sf2");
+        playMidi(midiFile, soundfontFile);
+    }
+
+    private native void playMidi(String path, String path2);
 }
