@@ -30,7 +30,9 @@ public class ControlButtonsOverlayView {
                 this.recorder.stopRecording();
                 File[] tracks = this.recorder.getTracks();
                 this.recorder.playTrack(tracks[tracks.length-1]);
+                recordButton.setImageResource(R.drawable.start_recording);
             } else {
+                recordButton.setImageResource(R.drawable.stop_recording);
                 this.recorder.startRecording();
             }
         });

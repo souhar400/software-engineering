@@ -375,7 +375,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB2"
-            app:srcCompat="@drawable/play_mode" />
+            app:srcCompat="@drawable/start_recording" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
