@@ -46,7 +46,6 @@ public class Recorder {
 
     public void playTrack(File track) {
         System.out.println("playTrack: " + track.getName());
-        System.out.println("\nFile content\n" + readFromFile(track) + "\n");
         List<TrackComponent> trackComponents = importTrackComponents(track);
         long startTime = System.currentTimeMillis();
 
