@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
+        recorder = new Recorder(getApplicationContext(), this.SynthService);
+
         /*
         TODO: this does not work properly
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -78,11 +80,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
+                findViewById(R.id.record_button),
+                this.recorder,
                 mainMenu);
-
-        // Just for testing purposes
-        recorder = new Recorder(getApplicationContext());
-        recorder.debug();
 
         ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
                 SynthService, getSupportFragmentManager());
