@@ -26,7 +26,8 @@ public class ViewModelFactory {
                 new FacadeData(),
                 synthService,
                 manager,
-                oldViewButtons);
+                oldViewButtons,
+                mainActivity.recorder);
     }
 
     private HashMap<Button,ButtonData> initialiseOldViewButtons() {

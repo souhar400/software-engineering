@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
+    public Recorder recorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
                 mainMenu);
+
+        // Just for testing purposes
+        recorder = new Recorder(getApplicationContext());
+        recorder.debug();
+
         ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
                 SynthService, getSupportFragmentManager());
 
@@ -87,10 +93,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
-
-        // Just for testing purposes
-        Recorder recorder = new Recorder(getApplicationContext());
-        recorder.debug();
 
         Log.d(LOG_TAG, "App successfully created!");
 

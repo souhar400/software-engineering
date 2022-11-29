@@ -12,8 +12,10 @@ import java.util.List;
 
 public class Recorder {
     Context context;
-    private File currentTrack;
+    private File currentTrackFile;
     private boolean isRecording;
+    private long startOfRecording;
+    List<TrackComponent> trackComponents;
 
     public Recorder(Context context) {
         this.context = context;
@@ -24,8 +26,9 @@ public class Recorder {
 
     public void startRecording() {
         isRecording = true;
-        currentTrack = createTrack();
-
+        currentTrackFile = createTrackFile();
+        trackComponents = new ArrayList<>();
+        startOfRecording = System.currentTimeMillis();
     }
 
     public void stopRecording() {
@@ -34,26 +37,41 @@ public class Recorder {
     }
 
     public void debug() {
-        currentTrack = createTrack();
+        currentTrackFile = createTrackFile();
         getTracks();
     }
 
     /**
      * Needs to be called in the Button Listeners for it to log when a button is pressed
      */
-    public void buttonPressed() {
-
+    public void addTrackComponent(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
+        if (isRecording) {
+            long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
+            this.trackComponents.add(new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle));
+        }
     }
 
     public void playTrack() {
 
     }
 
-    private void saveButtonSettings() {
-
+    private void exportTrackComponents() {
+        for (TrackComponent trackComponent : this.trackComponents) {
+            writeToFile(this.currentTrackFile, String.format(
+                    "%s;%s;%s;%s;%s,%s,%s\n",
+                    Long.toString(trackComponent.momentPlayed),
+                    trackComponent.soundfontPath,
+                    Integer.toString(trackComponent.channel),
+                    Integer.toString(trackComponent.key),
+                    Integer.toString(trackComponent.velocity),
+                    Integer.toString(trackComponent.preset),
+                    Boolean.toString(trackComponent.toggle)
+            ));
+        }
     }
 
-    public File createTrack() {
+
+    public File createTrackFile() {
         File file = new File(context.getFilesDir(), "Recording_" + getDate() + ".kk");
         try {
             file.createNewFile();
