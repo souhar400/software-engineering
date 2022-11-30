@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
-    public Recorder recorder;
+    public static Recorder recorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
+        MainActivity.recorder = new Recorder(getApplicationContext(), this.SynthService);
+        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
-        recorder = new Recorder(getApplicationContext(), this.SynthService);
 
         /*
         TODO: this does not work properly
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
                 findViewById(R.id.record_button),
-                this.recorder,
                 mainMenu);
 
         ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,

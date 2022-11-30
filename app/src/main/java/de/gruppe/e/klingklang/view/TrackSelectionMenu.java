@@ -3,15 +3,17 @@ package de.gruppe.e.klingklang.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,22 +21,19 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.slider.Slider;
 
-import java.util.Locale;
+import java.io.File;
+import java.util.List;
 
 import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
     private View view;
-    private final ButtonData buttonData;
 
     public TrackSelectionMenu() {
         super();
-        this.buttonData = new ButtonData("", 1, 1, 1, 1, true);
     }
 
     /**
@@ -100,66 +99,44 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.sound_menu, container, false);
-
+        view = inflater.inflate(R.layout.recordings_menu, container, false);
         createSoundMenu();
         return view;
     }
 
     private void createSoundMenu() {
         EditText title = view.findViewById(R.id.title);
-        title.setText("Instrument A Tonleiter");
+        title.setText("Aufnahmen");
 
-        Slider slider1 = view.findViewById(R.id.slider1);
-        slider1.setValue(50);
-        Slider slider2 = view.findViewById(R.id.slider2);
-        slider2.setValue(50);
-        Slider slider3 = view.findViewById(R.id.slider3);
-        slider3.setValue(50);
-
-        TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("slider1");
-        TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("slider2");
-        TextView slider3Name = view.findViewById(R.id.slider3Name);
-        slider3Name.setText("slider3");
-
-        TextView slider1Value = view.findViewById(R.id.slider1Value);
-        slider1Value.setText("50");
-        TextView slider2Value = view.findViewById(R.id.slider2Value);
-        slider2Value.setText("50");
-        TextView slider3Value = view.findViewById(R.id.slider3Value);
-        slider3Value.setText("50");
-
-        addSliderListener(slider1, slider1Value);
-        addSliderListener(slider2, slider2Value);
-        addSliderListener(slider3, slider3Value);
-
-        TextView volumeName = view.findViewById(R.id.volumeName);
-        volumeName.setText("Lautstärke");
-        Slider volumeSlider = view.findViewById(R.id.volumeSlider);
-        volumeSlider.setValue(buttonData.getVolume());
-        TextView volumeValue = view.findViewById(R.id.volumeValue);
-        volumeValue.setText(buttonData.getString());
-
-        addSliderListenerForVolume(volumeSlider);
-        addSliderListener(volumeSlider, volumeValue);
+        setButtons();
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
     }
 
-    private void addSliderListener(Slider s, TextView v) {
-        s.addOnChangeListener((slider, value, fromUser) -> {
-            v.setText(String.format(Locale.ENGLISH, "%d",Math.round(value)));
-        });
-    }
+    private void setButtons() {
+        File[] tracks = MainActivity.recorder.getTracks();
+        LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
 
-    private void addSliderListenerForVolume(Slider s) {
-        s.addOnChangeListener((slider, value, fromUser) -> {
-            int slide_value = Math.round(value);
-            buttonData.setVolume(slide_value);
-        });
+        for (int i = 0; i < tracks.length; i++) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 30, 0, 0);
+            Button button = new Button(view.getContext());
+            button.setId(i);
+            button.setLayoutParams(params);
+            button.setText(tracks[i].getName().substring(0, tracks[i].getName().indexOf(".")));
+            button.setBackgroundColor(Color.GRAY);
+
+            int finalI = i;
+            button.setOnClickListener(view -> {
+                MainActivity.recorder.playTrack(tracks[finalI]);
+            });
+
+            linearLayout.addView(button);
+        }
+
     }
 
 }

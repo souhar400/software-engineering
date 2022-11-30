@@ -7,6 +7,7 @@ import java.io.File;
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class ControlButtonsOverlayView {
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
@@ -14,26 +15,22 @@ public class ControlButtonsOverlayView {
     private ImageButton menuButton;
     private ImageButton recordButton;
     private FacadeViewModel viewModel;
-    private Recorder recorder;
+
     public ControlButtonsOverlayView(ImageButton editButton,
                                      ImageButton menuButton,
                                      ImageButton recordButton,
-                                     Recorder recorder,
                                      MainMenu mainMenu) {
         this.editButton = editButton;
         this.menuButton = menuButton;
         this.recordButton = recordButton;
-        this.recorder = recorder;
 
         this.recordButton.setOnClickListener(view -> {
-            if (this.recorder.isRecording()) {
-                this.recorder.stopRecording();
-                File[] tracks = this.recorder.getTracks();
-                this.recorder.playTrack(tracks[tracks.length-1]);
+            if (MainActivity.recorder.isRecording()) {
+                MainActivity.recorder.stopRecording();
                 recordButton.setImageResource(R.drawable.start_recording);
             } else {
                 recordButton.setImageResource(R.drawable.stop_recording);
-                this.recorder.startRecording();
+                MainActivity.recorder.startRecording();
             }
         });
 

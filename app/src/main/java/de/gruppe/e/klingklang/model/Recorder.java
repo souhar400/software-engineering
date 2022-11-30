@@ -141,7 +141,7 @@ public class Recorder {
         return t;
     }
 
-    private void deleteAllTracks() {
+    public void deleteAllTracks() {
         File[] tracks = getTracks();
         for (File track : tracks) {
             deleteFile(track);
