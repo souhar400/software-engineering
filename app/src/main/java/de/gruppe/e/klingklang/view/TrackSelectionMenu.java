@@ -118,7 +118,6 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
         File[] tracks = MainActivity.recorder.getTracks();
         LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
 
-
         if (tracks.length == 0) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
