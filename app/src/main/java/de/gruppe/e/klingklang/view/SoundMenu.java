@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -117,9 +118,9 @@ public class SoundMenu extends BottomSheetDialogFragment {
         slider3.setValue(50);
 
         TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("Reverb");
+        slider1Name.setText("Reverb        ");
         TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("Pitch-Up");
+        slider2Name.setText("Pitch-Up     ");
         TextView slider3Name = view.findViewById(R.id.slider3Name);
         slider3Name.setText("Pitch-Down");
 
@@ -131,6 +132,9 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
+
+        SwitchCompat hide = view.findViewById(R.id.switchHideButton);
+        hide.setOnClickListener(e -> buttonData.toggleVisibility());
     }
 
     private void addSliderListenerForVolume(Slider s) {

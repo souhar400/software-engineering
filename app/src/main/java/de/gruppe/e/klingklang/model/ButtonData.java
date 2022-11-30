@@ -12,6 +12,7 @@ public class ButtonData {
     private final int velocity;
     private final int preset;
     private final boolean toggle;
+    private boolean visibility = true;
 
     public ButtonData(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
         this.soundfontPath = soundfontPath;
@@ -60,6 +61,14 @@ public class ButtonData {
 
     public boolean isToggle() {
         return toggle;
+    }
+
+    public void toggleVisibility() {
+        visibility = !visibility;
+    }
+
+    public boolean getVisibility(){
+        return visibility;
     }
 
     private native void setChannelVolume(int channel, int volume);
