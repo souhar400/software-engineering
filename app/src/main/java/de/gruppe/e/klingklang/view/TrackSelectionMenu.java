@@ -118,6 +118,20 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
         File[] tracks = MainActivity.recorder.getTracks();
         LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
 
+
+        if (tracks.length == 0) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 30, 0, 0);
+            Button button = new Button(view.getContext());
+            button.setId(0);
+            button.setLayoutParams(params);
+            button.setText("Keine Aufnahmen vorhanden");
+            button.setBackgroundColor(Color.GRAY);
+            linearLayout.addView(button);
+        }
+
         for (int i = 0; i < tracks.length; i++) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
