@@ -143,6 +143,14 @@ public class Recorder {
         return t;
     }
 
+    public String getTrackLength(File track) {
+        if (track.length() == 0)
+            return "0";
+        List<TrackComponent> trackComponents = importTrackComponents(track);
+        long length = trackComponents.get(trackComponents.size() - 1).momentPlayed;
+        return Long.toString(length / 1000);
+    }
+
     public void deleteAllTracks() {
         File[] tracks = getTracks();
         for (File track : tracks) {
