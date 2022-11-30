@@ -45,7 +45,9 @@ public class Recorder {
     }
 
     public void playTrack(File track) {
-        System.out.println("playTrack: " + track.getName());
+        if(track.length() == 0)
+            return;
+
         List<TrackComponent> trackComponents = importTrackComponents(track);
         long startTime = System.currentTimeMillis();
 
@@ -146,6 +148,10 @@ public class Recorder {
         for (File track : tracks) {
             deleteFile(track);
         }
+    }
+
+    public void deleteTrack(File file) {
+        deleteFile(file);
     }
 
     private void deleteFile(File fdelete) {
