@@ -144,7 +144,9 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
             int finalI = i;
             button.setOnClickListener(view -> {
+                button.setBackgroundColor(Color.MAGENTA);
                 MainActivity.recorder.playTrack(tracks[finalI]);
+                button.setBackgroundColor(Color.GRAY);
             });
 
             linearLayout.addView(button);
