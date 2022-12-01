@@ -28,11 +28,8 @@ public class FacadeViewModel implements ViewModel{
                            FassadeModel model,
                            SynthService synthService,
                            FragmentManager associatedManager){
-        //this.model = model;
-        this.fassadenModel = model;
-        //this.model.initialiseNextFassade();
-        this.actualFassade = model.getInitialFassade();
-        this.actualFassade.initialiseNextFassade();
+        fassadenModel = model;
+        actualFassade = model.getInitialFassade();
         this.synthService = synthService;
         this.associatedManager = associatedManager;
         this.overlayView = controlButtonsOverlayView;

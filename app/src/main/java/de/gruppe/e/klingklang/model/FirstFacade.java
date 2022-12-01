@@ -58,14 +58,16 @@ public class FirstFacade extends FacadeData {
         context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
+
+
     public FacadeData getNextFassade() {
         return nextFassade;
     }
 
-    public void initialiseNextFassade() {
+    @Override
+    public void setNextFassade(FacadeData facadeData) {
         if (nextFassade == null){
-            nextFassade = SecondFacade.getInstance(context);
-            nextFassade.initialiseNextFassade();
+            nextFassade = facadeData;
         }
     }
 

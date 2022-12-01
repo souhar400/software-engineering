@@ -15,10 +15,11 @@ public abstract class FacadeData {
         return inEditMode;
     }
 
+
     public abstract  Map<Button, ButtonData> getButtons();
     public abstract void initialisebuttons();
     public abstract void setContentView();
     public abstract void setOrientation();
-    public abstract void initialiseNextFassade();
     public abstract FacadeData getNextFassade();
+    public abstract void setNextFassade(FacadeData facadeData);
 }

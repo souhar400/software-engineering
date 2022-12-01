@@ -72,19 +72,12 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
-        //ViewModelFactory viewModelFactory = new ViewModelFactory(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
-
-       // ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,  SynthService, getSupportFragmentManager());
-
         FassadeModel fassadenModel = new FassadeModel(this);
-        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView,
-                fassadenModel,
-                SynthService,
-                getSupportFragmentManager() );
+        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager() );
 
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
