@@ -26,6 +26,7 @@ public class FacadeViewModel implements ViewModel{
                            SynthService synthService,
                            FragmentManager associatedManager){
         this.model = model;
+        this.model.initialiseNextFassade();
         this.synthService = synthService;
         this.associatedManager = associatedManager;
         setButtonListener();
