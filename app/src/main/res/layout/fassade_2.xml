@@ -172,7 +172,6 @@
             android:layout_width="71dp"
             android:layout_height="79dp"
             android:background="@drawable/roundedbutton"
-            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintHorizontal_bias="0.0"
