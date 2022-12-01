@@ -350,7 +350,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
-            app:srcCompat="@drawable/einstellungen"
+            app:srcCompat="@drawable/edit_mode"
             android:contentDescription="@string/pull_up_settings_drawer" />
 
         <ImageButton
@@ -364,6 +364,18 @@
             app:layout_constraintTop_toTopOf="@id/guideline_YB2"
             app:srcCompat="@drawable/edit_mode"
             android:contentDescription="@string/toggle_between_play_and_edit_mode" />
+
+        <ImageButton
+            android:id="@+id/change_fassade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
+            app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB1"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB2"
+            app:srcCompat="@drawable/ic_baseline_change_circle_24"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="21dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
