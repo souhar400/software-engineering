@@ -13,7 +13,8 @@ public class FassadeModel {
         fassaden = new HashMap<>();
         fassaden.put(0, FirstFacade.getInstance(activity));
         fassaden.put(1, SecondFacade.getInstance(activity));
-        linkFacades(); 
+        fassaden.put(2, ThirdFacade.getInstance(activity));
+        linkFacades();
     }
 
     private void linkFacades() {
