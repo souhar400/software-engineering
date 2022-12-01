@@ -14,7 +14,7 @@ public abstract class FacadeData {
     {
         return inEditMode;
     }
-
+    public void setInEditMode(boolean inEditMode)  { this.inEditMode=inEditMode; }
 
     public abstract  Map<Button, ButtonData> getButtons();
     public abstract void initialisebuttons();

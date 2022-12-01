@@ -8,6 +8,8 @@ import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class ControlButtonsOverlayView {
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
+
+
     private ImageButton editButton;
     private ImageButton menuButton;
     private ImageButton changeFassadeButton;
@@ -26,6 +28,11 @@ public class ControlButtonsOverlayView {
         this.viewModel = viewModel;
         setListeners();
     }
+
+    public ImageButton getEditButton() {
+        return editButton;
+    }
+
 
     public void setListeners(){
 

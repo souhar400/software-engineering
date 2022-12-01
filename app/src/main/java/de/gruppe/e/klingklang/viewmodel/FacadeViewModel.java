@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import java.io.IOException;
 import java.util.Map;
 
+import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
 import de.gruppe.e.klingklang.model.FassadeModel;
@@ -45,8 +46,8 @@ public class FacadeViewModel implements ViewModel{
         this.overlayView.setListeners();
         actualFassade.initialisebuttons();
         setButtonListener();
-
-        //TODO inEdit richtig initialisieren
+        actualFassade.setInEditMode(false);
+        overlayView.getEditButton().setImageResource( R.drawable.edit_mode );
     }
 
     private void setButtonListener() {

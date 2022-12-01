@@ -350,7 +350,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
             app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
-            app:srcCompat="@drawable/edit_mode"
+            app:srcCompat="@drawable/einstellungen"
             android:contentDescription="@string/pull_up_settings_drawer" />
 
         <ImageButton
