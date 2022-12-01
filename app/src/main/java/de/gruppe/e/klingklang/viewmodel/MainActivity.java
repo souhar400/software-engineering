@@ -85,9 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 SynthService,
                 getSupportFragmentManager() );
 
-
-
-
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);

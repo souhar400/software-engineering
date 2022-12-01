@@ -42,9 +42,8 @@ public class FacadeViewModel implements ViewModel{
         this.model.setOrientation();
         this.model.setContentView();
         this.overlayView.setListeners();
-       // overlayView.setListeners();
-        //model.initialisebuttons();
-        //setButtonListener();
+        model.initialisebuttons();
+        setButtonListener();
     }
 
     private void setButtonListener() {

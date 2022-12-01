@@ -34,6 +34,7 @@ public class FirstFassade extends FacadeData {
 
 
     public void initialisebuttons() {
+        buttonDataList.clear();
         buttonDataList.put((Button) context.findViewById(R.id.top_left1), new ButtonData("klingklang.sf2", 5, 62, 127, 5, false));
         buttonDataList.put((Button) context.findViewById(R.id.top_left2), new ButtonData("klingklang.sf2", 0, 10, 127, 0, false));
         buttonDataList.put((Button) context.findViewById(R.id.bottom_left1), new ButtonData("klingklang.sf2", 6, 62, 127, 6, false));

@@ -37,6 +37,7 @@ public class SecondFassade extends FacadeData {
 
     @Override
     public void initialisebuttons() {
+        buttonDataList.clear();
         buttonDataList.put((Button) context.findViewById(R.id.neu_test_button), new ButtonData("klingklang.sf2",12,62,127,12, false));
         //context.setButtonListener(buttons);
     }
