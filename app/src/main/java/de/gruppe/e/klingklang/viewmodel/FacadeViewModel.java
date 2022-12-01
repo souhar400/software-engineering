@@ -24,12 +24,13 @@ public class FacadeViewModel implements ViewModel{
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
                            FacadeData model,
                            SynthService synthService,
-                           FragmentManager associatedManager,
-                           Map<Button, ButtonData> facadeButtons){
+                           FragmentManager associatedManager){
         this.model = model;
         this.synthService = synthService;
         this.associatedManager = associatedManager;
-        this.model.buttonDataList = facadeButtons;
+        //this.model.buttonDataList = facadeButtons;
+
+
         setButtonListener();
         controlButtonsOverlayView.setViewModel(this);
     }

@@ -35,6 +35,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.FacadeData;
+import de.gruppe.e.klingklang.model.FirstFassade;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -74,11 +76,19 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         */
         setContentView(R.layout.activity_main);
+
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
                 mainMenu);
-        ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
-                SynthService, getSupportFragmentManager());
+       // ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,  SynthService, getSupportFragmentManager());
+
+        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView,
+                FirstFassade.getInstance(this),
+                SynthService,
+                getSupportFragmentManager() );
+
+
+
 
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
