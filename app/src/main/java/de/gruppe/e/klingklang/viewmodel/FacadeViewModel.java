@@ -15,7 +15,7 @@ import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.SoundMenu;
 
 public class FacadeViewModel implements ViewModel{
-    private final FacadeData model;
+    private FacadeData model;
     private final SynthService synthService;
     private final String LOG_TAG = getClass().getSimpleName();
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
@@ -30,6 +30,14 @@ public class FacadeViewModel implements ViewModel{
         this.associatedManager = associatedManager;
         setButtonListener();
         controlButtonsOverlayView.setViewModel(this);
+    }
+
+
+    public void changeFassade ( ){
+        this.model = model.getNextFassade();
+        model.setOrientation();
+        model.setContentView();
+        model.initialisebuttons();
     }
 
     private void setButtonListener() {

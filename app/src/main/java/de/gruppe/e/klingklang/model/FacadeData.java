@@ -16,9 +16,9 @@ public abstract class FacadeData {
     }
 
     public abstract  Map<Button, ButtonData> getButtons();
-    abstract void initialisebuttons();
-    abstract void setContentView();
-    abstract void setOrientation();
-    abstract void initialiseNextFassade();
-    abstract FacadeData getNextFassade();
+    public abstract void initialisebuttons();
+    public abstract void setContentView();
+    public abstract void setOrientation();
+    public abstract void initialiseNextFassade();
+    public abstract FacadeData getNextFassade();
 }
