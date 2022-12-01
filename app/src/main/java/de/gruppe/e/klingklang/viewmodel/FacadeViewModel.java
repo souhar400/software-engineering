@@ -10,12 +10,14 @@ import java.util.Map;
 
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
+import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.SoundMenu;
 
 public class FacadeViewModel implements ViewModel{
-    private FacadeData model;
+    private FassadeModel fassadenModel;
+    private FacadeData actualFassade ;
     private final SynthService synthService;
     private final String LOG_TAG = getClass().getSimpleName();
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
@@ -23,11 +25,14 @@ public class FacadeViewModel implements ViewModel{
     private final ControlButtonsOverlayView overlayView;
 
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
-                           FacadeData model,
+                           FassadeModel model,
                            SynthService synthService,
                            FragmentManager associatedManager){
-        this.model = model;
-        this.model.initialiseNextFassade();
+        //this.model = model;
+        this.fassadenModel = model;
+        //this.model.initialiseNextFassade();
+        this.actualFassade = model.getInitialFassade();
+        this.actualFassade.initialiseNextFassade();
         this.synthService = synthService;
         this.associatedManager = associatedManager;
         this.overlayView = controlButtonsOverlayView;
@@ -37,19 +42,20 @@ public class FacadeViewModel implements ViewModel{
 
 
     public void changeFassade ( ){
-        this.model = model.getNextFassade();
-        //TODO maybe hier direkt machen : Änderungen an der View hier vornehmen
-        this.model.setOrientation();
-        this.model.setContentView();
+        actualFassade = actualFassade.getNextFassade();
+        actualFassade.setOrientation();
+        actualFassade.setContentView();
         this.overlayView.setListeners();
-        model.initialisebuttons();
+        actualFassade.initialisebuttons();
         setButtonListener();
+
+        //TODO inEdit richtig initialisieren
     }
 
     private void setButtonListener() {
-        for (Map.Entry<Button, ButtonData> entry : model.getButtons().entrySet())
+        for (Map.Entry<Button, ButtonData> entry : actualFassade.getButtons().entrySet())
             entry.getKey().setOnClickListener(view -> {
-                if (model.getInEditMode()) {
+                if (actualFassade.getInEditMode()) {
                     SoundMenu smenu = new SoundMenu(entry.getValue());
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
@@ -65,10 +71,10 @@ public class FacadeViewModel implements ViewModel{
     }
 
     public void toggleInEditMode() {
-        model.toggleInEditMode();
+        actualFassade.toggleInEditMode();
     }
 
     public boolean getInEditMode() {
-        return model.getInEditMode();
+        return actualFassade.getInEditMode();
     }
 }

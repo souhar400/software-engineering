@@ -10,19 +10,19 @@ import java.util.Map;
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
-public class FirstFassade extends FacadeData {
+public class FirstFacade extends FacadeData {
     private final HashMap<Button, ButtonData> buttonDataList = new HashMap<>();
     private MainActivity context;
     private FacadeData nextFassade=null;
-    private static FirstFassade instance;
+    private static FirstFacade instance;
 
     public static FacadeData getInstance(MainActivity activity) {
         if (instance == null)
-            instance = new FirstFassade(activity);
+            instance = new FirstFacade(activity);
         return instance;
     }
 
-    private FirstFassade(MainActivity activity) {
+    private FirstFacade(MainActivity activity) {
         context = activity;
         initialisebuttons();
     }
@@ -47,7 +47,6 @@ public class FirstFassade extends FacadeData {
         buttonDataList.put((Button) context.findViewById(R.id.top_right2), new ButtonData("klingklang.sf2", 3, 62, 127, 3, true));
         buttonDataList.put((Button) context.findViewById(R.id.bottom_right1), new ButtonData("klingklang.sf2", 7, 62, 127, 7, true));
         buttonDataList.put((Button) context.findViewById(R.id.bottom_right2), new ButtonData("klingklang.sf2", 11, 90, 127, 11, true));
-        //context.setButtonListener(buttonDataList);
     }
 
 
@@ -65,7 +64,7 @@ public class FirstFassade extends FacadeData {
 
     public void initialiseNextFassade() {
         if (nextFassade == null){
-            nextFassade = SecondFassade.getInstance(context);
+            nextFassade = SecondFacade.getInstance(context);
             nextFassade.initialiseNextFassade();
         }
     }

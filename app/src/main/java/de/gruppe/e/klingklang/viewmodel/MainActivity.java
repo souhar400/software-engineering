@@ -37,7 +37,8 @@ import java.util.List;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.FacadeData;
-import de.gruppe.e.klingklang.model.FirstFassade;
+import de.gruppe.e.klingklang.model.FassadeModel;
+import de.gruppe.e.klingklang.model.FirstFacade;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
        // ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,  SynthService, getSupportFragmentManager());
 
-        FacadeData facadeData = FirstFassade.getInstance(this);
+        FassadeModel fassadenModel = new FassadeModel(this);
         ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView,
-                facadeData,
+                fassadenModel,
                 SynthService,
                 getSupportFragmentManager() );
 
