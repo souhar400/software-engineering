@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.widget.Button;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
@@ -23,7 +24,13 @@ public class FirstFassade extends FacadeData {
 
     private FirstFassade(MainActivity activity) {
         context = activity;
+        initialisebuttons();
     }
+
+    @Override
+    public Map<Button, ButtonData> getButtons(){
+        return buttonDataList;
+    } 
 
 
     public void initialisebuttons() {

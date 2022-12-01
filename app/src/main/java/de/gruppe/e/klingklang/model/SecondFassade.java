@@ -5,12 +5,13 @@ import android.content.pm.ActivityInfo;
 import android.widget.Button;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SecondFassade extends FacadeData {
-    private final HashMap<Button, ButtonData> buttons = new HashMap<>();
+    private final HashMap<Button, ButtonData> buttonDataList = new HashMap<>();
     private MainActivity context;
     private FacadeData nextFassade=null;
     private static SecondFassade instance;
@@ -25,11 +26,18 @@ public class SecondFassade extends FacadeData {
 
     private SecondFassade(MainActivity activity) {
         context = activity;
+        initialisebuttons();
     }
 
     @Override
+    public Map<Button, ButtonData> getButtons(){
+        return  buttonDataList;
+    }
+
+
+    @Override
     public void initialisebuttons() {
-        buttons.put((Button) context.findViewById(R.id.neu_test_button), new ButtonData("klingklang.sf2",12,62,127,12, false));
+        buttonDataList.put((Button) context.findViewById(R.id.neu_test_button), new ButtonData("klingklang.sf2",12,62,127,12, false));
         //context.setButtonListener(buttons);
     }
 

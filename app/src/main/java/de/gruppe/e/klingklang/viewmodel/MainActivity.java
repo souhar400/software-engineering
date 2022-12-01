@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
-        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
+        //ViewModelFactory viewModelFactory = new ViewModelFactory(this);
         /*
         TODO: this does not work properly
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

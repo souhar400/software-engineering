@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.43" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_L_Y4"
@@ -164,17 +164,22 @@
             app:layout_constraintGuide_percent="0.47" />
 
         <!-- Buttons-->
+
+
         <Button
             android:id="@+id/neu_test_button"
             style="@style/windowbutton_style"
-            android:onClick="playSynth"
+            android:layout_width="71dp"
+            android:layout_height="79dp"
             android:background="@drawable/roundedbutton"
+            android:onClick="playSynth"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
 
         <ImageButton
             android:id="@+id/setting_button"
