@@ -20,6 +20,7 @@ public class FacadeViewModel implements ViewModel{
     private final String LOG_TAG = getClass().getSimpleName();
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
     private final FragmentManager associatedManager;
+    private final ControlButtonsOverlayView overlayView;
 
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
                            FacadeData model,
@@ -29,6 +30,7 @@ public class FacadeViewModel implements ViewModel{
         this.model.initialiseNextFassade();
         this.synthService = synthService;
         this.associatedManager = associatedManager;
+        this.overlayView = controlButtonsOverlayView;
         setButtonListener();
         controlButtonsOverlayView.setViewModel(this);
     }
@@ -36,9 +38,13 @@ public class FacadeViewModel implements ViewModel{
 
     public void changeFassade ( ){
         this.model = model.getNextFassade();
-        model.setOrientation();
-        model.setContentView();
-        model.initialisebuttons();
+        //TODO maybe hier direkt machen : Änderungen an der View hier vornehmen
+        this.model.setOrientation();
+        this.model.setContentView();
+        this.overlayView.setListeners();
+       // overlayView.setListeners();
+        //model.initialisebuttons();
+        //setButtonListener();
     }
 
     private void setButtonListener() {

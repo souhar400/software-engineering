@@ -59,7 +59,7 @@ public class SecondFassade extends FacadeData {
     @Override
     public void initialiseNextFassade() {
         if (nextFassade == null){
-            nextFassade = SecondFassade.getInstance(context);
+            nextFassade = FirstFassade.getInstance(context);
             nextFassade.initialiseNextFassade();
         }
     }

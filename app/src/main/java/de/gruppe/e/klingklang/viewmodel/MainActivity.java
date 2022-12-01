@@ -75,14 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
+        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
 
-        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
-                findViewById(R.id.setting_button), findViewById(R.id.change_fassade),
-                mainMenu);
        // ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,  SynthService, getSupportFragmentManager());
 
+        FacadeData facadeData = FirstFassade.getInstance(this);
         ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView,
-                FirstFassade.getInstance(this),
+                facadeData,
                 SynthService,
                 getSupportFragmentManager() );
 
