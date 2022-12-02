@@ -125,6 +125,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.71" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.78" />
+
 
     <EditText
         android:id="@+id/title"
@@ -196,9 +203,8 @@
 
     <TextView
         android:id="@+id/slider1Name"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textAlignment="viewStart"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
@@ -208,9 +214,8 @@
 
     <TextView
         android:id="@+id/slider3Name"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textAlignment="viewStart"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
@@ -220,9 +225,8 @@
 
     <TextView
         android:id="@+id/slider2Name"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textAlignment="viewStart"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
@@ -273,6 +277,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y9"
+        tools:layout_editor_absoluteX="333dp" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/playLoopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Loop Switch"
+        app:layout_constraintStart_toStartOf="@id/guideline_X4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y11"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y10"
         tools:layout_editor_absoluteX="333dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

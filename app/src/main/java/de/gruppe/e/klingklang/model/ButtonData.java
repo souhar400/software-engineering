@@ -12,6 +12,7 @@ public class ButtonData {
     private final int velocity;
     private final int preset;
     private final boolean toggle;
+    private boolean loop = false;
     private boolean visibility = true;
 
     public ButtonData(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
@@ -59,8 +60,16 @@ public class ButtonData {
         return preset;
     }
 
+    public void setLoop() {
+        loop = !loop;
+    }
+
     public boolean isToggle() {
         return toggle;
+    }
+
+    public boolean getLoop() {
+        return loop;
     }
 
     public void toggleVisibility() {

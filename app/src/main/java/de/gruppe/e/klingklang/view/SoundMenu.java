@@ -118,9 +118,9 @@ public class SoundMenu extends BottomSheetDialogFragment {
         slider3.setValue(50);
 
         TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("Reverb        ");
+        slider1Name.setText("Reverb");
         TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("Pitch-Up     ");
+        slider2Name.setText("Pitch-Up");
         TextView slider3Name = view.findViewById(R.id.slider3Name);
         slider3Name.setText("Pitch-Down");
 
@@ -134,7 +134,12 @@ public class SoundMenu extends BottomSheetDialogFragment {
         close.setOnClickListener(view -> dismiss());
 
         SwitchCompat hide = view.findViewById(R.id.switchHideButton);
+        hide.setChecked(buttonData.getVisibility());
         hide.setOnClickListener(e -> buttonData.toggleVisibility());
+
+        SwitchCompat loop = view.findViewById(R.id.playLoopButton);
+        loop.setChecked(buttonData.getLoop());
+        loop.setOnClickListener(e -> buttonData.setLoop());
     }
 
     private void addSliderListenerForVolume(Slider s) {
