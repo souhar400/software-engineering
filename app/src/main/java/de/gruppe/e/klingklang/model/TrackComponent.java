@@ -19,4 +19,23 @@ public class TrackComponent {
         this.toggle = toggle;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null)
+            return false;
+        if (obj.getClass() != this.getClass())
+            return false;
+        TrackComponent that = (TrackComponent) obj;
+        return  this.momentPlayed == that.momentPlayed &&
+                this.soundfontPath.equals(that.soundfontPath) &&
+                this.channel == that.channel &&
+                this.key == that.key &&
+                this.velocity == that.velocity &&
+                this.preset == that.preset &&
+                this.toggle == that.toggle;
+    }
+
 }

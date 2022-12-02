@@ -151,7 +151,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             String trackName = tracks[i].getName().substring(0, tracks[i].getName().indexOf("."));
             String trackLength = MainActivity.recorder.getTrackLength(tracks[i]);
 
-            button.setText(String.format("%s\t\t\t-\t\t%s\tsec", trackName, trackLength));
+            button.setText(String.format("%s\t\t\t-\t\t%s\t", trackName, trackLength));
             button.setBackgroundColor(Color.LTGRAY);
 
             int finalI = i;

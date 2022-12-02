@@ -22,6 +22,7 @@ public class Recorder {
     private boolean isRecording;
     private long startOfRecording;
     List<TrackComponent> trackComponents;
+    List<TrackComponent> toggledTrackComponents;
     SynthService synthService;
 
     public Recorder(Context context, SynthService synthService) {
@@ -35,11 +36,13 @@ public class Recorder {
         isRecording = true;
         currentTrackFile = createTrackFile();
         trackComponents = new ArrayList<>();
+        toggledTrackComponents = new ArrayList<>();
         startOfRecording = System.currentTimeMillis();
     }
 
     public void stopRecording() {
         System.out.println("Stop Recording");
+        untoggleToggledTrackComponents();
         exportTrackComponents(this.currentTrackFile);
         isRecording = false;
     }
@@ -64,6 +67,10 @@ public class Recorder {
         }
     }
 
+    private void untoggleToggledTrackComponents() {
+        trackComponents.addAll(toggledTrackComponents);
+    }
+
 
     /**
      * Needs to be called in the Button Listeners for it to log when a button is pressed
@@ -71,7 +78,17 @@ public class Recorder {
     public void addTrackComponent(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
         if (isRecording) {
             long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-            this.trackComponents.add(new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle));
+            TrackComponent newTrackComponent = new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle);
+            this.trackComponents.add(newTrackComponent);
+
+            // Keeps track of loop buttons that where activated, but not deactivated.
+            if (toggle) {
+                if (toggledTrackComponents.contains(newTrackComponent)) {
+                    toggledTrackComponents.remove(newTrackComponent);
+                } else {
+                    toggledTrackComponents.add(newTrackComponent);
+                }
+            }
         }
     }
 
@@ -137,18 +154,19 @@ public class Recorder {
                 tracks.add(f);
         }
         File[] t = new File[tracks.size()];
-        for (int i = 0; i < tracks.size(); i++) {
-            t[i] = tracks.get(i);
+        for (int j = 0, i = tracks.size() - 1; i >= 0; i--, j++) {
+            t[j] = tracks.get(i);
         }
         return t;
     }
 
     public String getTrackLength(File track) {
         if (track.length() == 0)
-            return "0";
+            return "00:00";
         List<TrackComponent> trackComponents = importTrackComponents(track);
         long length = trackComponents.get(trackComponents.size() - 1).momentPlayed;
-        return Long.toString(length / 1000);
+        length /= 1000;
+        return String.format("%02d:%02d", length / 60, length % 60);
     }
 
     public void deleteAllTracks() {
