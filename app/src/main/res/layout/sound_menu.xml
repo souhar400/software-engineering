@@ -67,14 +67,14 @@
         app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y9"
+        android:id="@+id/guideline_Y_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.3" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y10"
+        android:id="@+id/guideline_Y_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -104,7 +104,7 @@
         app:layout_constraintGuide_percent="0.06" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X2"
+        android:id="@+id/guideline_X_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -178,10 +178,10 @@
         android:inputType="text"
         android:maxLength="30"
         android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y10"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y9"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_Y_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_Y_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X2"/>
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_X_2"/>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider"

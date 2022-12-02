@@ -2,15 +2,14 @@ package de.gruppe.e.klingklang.model;
 
 import android.content.Context;
 
-import com.google.android.gms.common.util.WorkSourceUtil;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,21 +21,21 @@ public class Recorder {
     private boolean isRecording;
     private long startOfRecording;
     List<TrackComponent> trackComponents;
-    List<TrackComponent> toggledTrackComponents;
+    List<TrackComponent> notUntoggledTrackComponents;
     SynthService synthService;
 
     public Recorder(Context context, SynthService synthService) {
         this.context = context;
         this.isRecording = false;
         this.synthService = synthService;
+        trackComponents = new ArrayList<>();
+        notUntoggledTrackComponents = new ArrayList<>();
     }
 
     public void startRecording() {
         System.out.println("Start Recording");
         isRecording = true;
         currentTrackFile = createTrackFile();
-        trackComponents = new ArrayList<>();
-        toggledTrackComponents = new ArrayList<>();
         startOfRecording = System.currentTimeMillis();
     }
 
@@ -44,6 +43,8 @@ public class Recorder {
         System.out.println("Stop Recording");
         untoggleToggledTrackComponents();
         exportTrackComponents(this.currentTrackFile);
+        trackComponents = new ArrayList<>();
+        notUntoggledTrackComponents = new ArrayList<>();
         isRecording = false;
     }
 
@@ -68,7 +69,10 @@ public class Recorder {
     }
 
     private void untoggleToggledTrackComponents() {
-        trackComponents.addAll(toggledTrackComponents);
+        for (TrackComponent trackComponent : notUntoggledTrackComponents) {
+            long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
+            trackComponents.add(new TrackComponent(momentPlayed, trackComponent.soundfontPath, trackComponent.channel, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.toggle));
+        }
     }
 
 
@@ -76,17 +80,17 @@ public class Recorder {
      * Needs to be called in the Button Listeners for it to log when a button is pressed
      */
     public void addTrackComponent(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
-        if (isRecording) {
-            long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-            TrackComponent newTrackComponent = new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle);
-            this.trackComponents.add(newTrackComponent);
+        long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
+        TrackComponent newTrackComponent = new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle);
 
+        if (isRecording) {
+            this.trackComponents.add(newTrackComponent);
             // Keeps track of loop buttons that where activated, but not deactivated.
             if (toggle) {
-                if (toggledTrackComponents.contains(newTrackComponent)) {
-                    toggledTrackComponents.remove(newTrackComponent);
+                if (notUntoggledTrackComponents.contains(newTrackComponent)) {
+                    notUntoggledTrackComponents.remove(newTrackComponent);
                 } else {
-                    toggledTrackComponents.add(newTrackComponent);
+                    notUntoggledTrackComponents.add(newTrackComponent);
                 }
             }
         }
@@ -223,7 +227,7 @@ public class Recorder {
      * @return Example output: 2022-11-28_15-49-00
      */
     private String getDate() {
-        String date = LocalDateTime.now().toString();
+        String date = ZonedDateTime.now(ZoneId.of("Europe/Paris")).toString();
         date = date.replace("T", "_");
         date = date.substring(0, date.indexOf("."));
         date = date.replaceAll(":", "-");

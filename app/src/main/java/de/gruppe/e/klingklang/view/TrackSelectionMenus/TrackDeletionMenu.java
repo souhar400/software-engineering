@@ -1,15 +1,12 @@
-package de.gruppe.e.klingklang.view;
+package de.gruppe.e.klingklang.view.TrackSelectionMenus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,17 +23,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
-import java.util.List;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
-public class TrackSelectionMenu extends BottomSheetDialogFragment {
+public class TrackDeletionMenu extends BottomSheetDialogFragment {
 
     private View view;
+    private File track;
+    private LinearLayout linearLayout;
+    private Button button;
 
-    public TrackSelectionMenu() {
+    public TrackDeletionMenu(File track, LinearLayout linearLayout, Button button) {
         super();
+        this.track = track;
+        this.linearLayout = linearLayout;
+        this.button = button;
     }
 
     /**
@@ -102,68 +104,29 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.recordings_menu, container, false);
-        createSoundMenu();
+        view = inflater.inflate(R.layout.deletion_menu, container, false);
+        createDeletionMenu();
         return view;
     }
 
-    private void createSoundMenu() {
+    private void createDeletionMenu() {
         EditText title = view.findViewById(R.id.title);
-        title.setText("Aufnahmen");
+        title.setText("Bist du dir sicher, dass du diesen Track löschen möchtest?");
 
-        setButtons();
+        Button yes = view.findViewById(R.id.ja);
+        Button no = view.findViewById(R.id.abbrechen);
+        no.setBackgroundColor(Color.GRAY);
+        yes.setBackgroundColor(Color.GRAY);
+
+        yes.setOnClickListener(view -> {
+            MainActivity.recorder.deleteTrack(this.track);
+            linearLayout.removeView(button);
+            this.dismiss();
+        });
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
+        no.setOnClickListener(view -> dismiss());
     }
-
-    @SuppressLint("RtlHardcoded")
-    private void setButtons() {
-        File[] tracks = MainActivity.recorder.getTracks();
-        LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
-
-        if (tracks.length == 0) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 30, 0, 0);
-            Button button = new Button(view.getContext());
-            button.setId(0);
-            button.setLayoutParams(params);
-            button.setText("Keine Aufnahmen vorhanden");
-            button.setBackgroundColor(Color.LTGRAY);
-            linearLayout.addView(button);
-        }
-
-        for (int i = 0; i < tracks.length; i++) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.weight = 1.0f;
-            params.gravity = Gravity.LEFT;
-
-            params.setMargins(0, 30, 0, 0);
-            Button button = new Button(view.getContext());
-            button.setId(i);
-            button.setLayoutParams(params);
-
-
-            String trackName = tracks[i].getName().substring(0, tracks[i].getName().indexOf("."));
-            String trackLength = MainActivity.recorder.getTrackLength(tracks[i]);
-
-            button.setText(String.format("%s\t\t\t-\t\t%s\t", trackName, trackLength));
-            button.setBackgroundColor(Color.LTGRAY);
-
-            int finalI = i;
-            button.setOnClickListener(view -> {
-                button.setBackgroundColor(Color.MAGENTA);
-                MainActivity.recorder.playTrack(tracks[finalI]);
-                button.setBackgroundColor(Color.LTGRAY);
-            });
-
-            linearLayout.addView(button);
-        }
-
-    }
-
 }
+
