@@ -28,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
             "Piano - 6 - Phrygisch.mid",
             "Piano - 7 - Lokirsch"};
 
+    private Button[] buttons;
     public FileSelectionMenu(ButtonData buttonData) {
         this.buttonData = buttonData;
     }
@@ -135,6 +137,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
     @SuppressLint("RtlHardcoded")
     private void setButtons() {
         LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
+        buttons = new Button[fileNames.length];
 
         for (int i = 0; i < fileNames.length; i++) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -151,9 +154,17 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
 
             button.setText(fileNames[i]);
             button.setBackgroundColor(Color.LTGRAY);
+            if(fileNames[i].equals(buttonData.getMidiPath())){
+                button.setBackgroundColor(getResources().getColor(R.color.teal_200));
+            }
 
+            buttons[i] = button;
             button.setOnClickListener(view -> {
                 buttonData.setMidiPath(button.getText().toString());
+                for (Button value : buttons) {
+                    value.setBackgroundColor(Color.LTGRAY);
+                }
+                button.setBackgroundColor(getResources().getColor(R.color.teal_200));
             });
 
             linearLayout.addView(button);
