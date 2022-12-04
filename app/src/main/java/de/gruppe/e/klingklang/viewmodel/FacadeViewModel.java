@@ -42,6 +42,7 @@ public class FacadeViewModel implements ViewModel{
                     SoundMenu smenu = new SoundMenu(entry.getValue());
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
+                    synthService.play(entry.getValue());
                     try {
                         String tempSoundfontPath = synthService.copyAssetToTmpFile(entry.getValue().getSoundfontPath());
                         synthService.playFluidSynthSound(tempSoundfontPath, entry.getValue().getChannel(), entry.getValue().getKey(), entry.getValue().getVelocity(), entry.getValue().getPreset(), entry.getValue().isToggle());

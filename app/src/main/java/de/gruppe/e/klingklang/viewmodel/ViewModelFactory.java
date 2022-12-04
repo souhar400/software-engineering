@@ -14,6 +14,7 @@ import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 
 public class ViewModelFactory {
     private final MainActivity mainActivity;
+
     public ViewModelFactory(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
@@ -29,20 +30,46 @@ public class ViewModelFactory {
                 oldViewButtons);
     }
 
-    private HashMap<Button,ButtonData> initialiseOldViewButtons() {
-        HashMap<Button,ButtonData> map = new HashMap<>();
-        map.put((Button) mainActivity.findViewById(R.id.top_left1), new ButtonData("klingklang.sf2",5,62,127,5, false));
-        map.put((Button) mainActivity.findViewById(R.id.top_left2), new ButtonData("klingklang.sf2",0,10,127,0, false));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_left1), new ButtonData("klingklang.sf2",6,62,127,6, false));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_left2), new ButtonData("klingklang.sf2",1,62,127,1, false));
-        map.put((Button) mainActivity.findViewById(R.id.top_middle1), new ButtonData("klingklang.sf2",8,62,127,8, false));
-        map.put((Button) mainActivity.findViewById(R.id.top_middle2), new ButtonData("klingklang.sf2",8,80,127,8, false));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_middle1), new ButtonData("klingklang.sf2",10,62,127,10, false));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_middle2), new ButtonData("klingklang.sf2",2,10,127,2, false));
-        map.put((Button) mainActivity.findViewById(R.id.top_right1), new ButtonData("klingklang.sf2",4,62,127,4, true));
-        map.put((Button) mainActivity.findViewById(R.id.top_right2), new ButtonData("klingklang.sf2",3,62,127,3, true));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_right1), new ButtonData("klingklang.sf2",7,62,127,7, true));
-        map.put((Button) mainActivity.findViewById(R.id.bottom_right2), new ButtonData("klingklang.sf2",11,90,127,11, true));
+    private HashMap<Button, ButtonData> initialiseOldViewButtons() {
+        HashMap<Button, ButtonData> map = new HashMap<>();
+
+        map.put((Button) mainActivity.findViewById(R.id.top_left1),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
+                        .withVelocity(127).withPreset(0).withToggle(false).create());
+        map.put((Button) mainActivity.findViewById(R.id.top_left2),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(1).withToggle(false).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_left1),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
+                        .withVelocity(127).withPreset(2).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_left1),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(3).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.top_middle1),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(5).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.top_middle2),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(5).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_middle1),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(6).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_middle2),
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(7).withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.top_right1),
+                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
+                        .withSoundfontPath("Piano.sf2").withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.top_right2),
+                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 2 - Ionisch.mid")
+                        .withSoundfontPath("Piano.sf2").withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_right1),
+                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 3 - Mixolydisch.mid")
+                        .withSoundfontPath("Piano.sf2").withToggle(true).create());
+        map.put((Button) mainActivity.findViewById(R.id.bottom_right2),
+                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 4 - Dorisch.mid")
+                        .withSoundfontPath("Piano.sf2").withToggle(true).create());
+
         return map;
     }
 }
