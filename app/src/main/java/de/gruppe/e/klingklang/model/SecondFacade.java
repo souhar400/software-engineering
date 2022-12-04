@@ -38,8 +38,16 @@ public class SecondFacade extends FacadeData {
     @Override
     public void initialisebuttons() {
         buttonDataList.clear();
-        buttonDataList.put((Button) context.findViewById(R.id.neu_test_button), new ButtonData("klingklang.sf2",12,62,127,12, false));
-    }
+        buttonDataList.put((Button) context.findViewById(R.id.button1), new ButtonData("klingklang.sf2", 5, 62, 127, 5, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button2), new ButtonData("klingklang.sf2", 0, 10, 127, 0, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button3), new ButtonData("klingklang.sf2", 6, 62, 127, 6, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button4), new ButtonData("klingklang.sf2", 1, 62, 127, 1, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button5), new ButtonData("klingklang.sf2", 8, 62, 127, 8, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button6), new ButtonData("klingklang.sf2", 8, 80, 127, 8, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button7), new ButtonData("klingklang.sf2", 10, 62, 127, 10, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button8), new ButtonData("klingklang.sf2", 2, 10, 127, 2, false));
+        buttonDataList.put((Button) context.findViewById(R.id.button9), new ButtonData("klingklang.sf2", 4, 62, 127, 4, true));
+        buttonDataList.put((Button) context.findViewById(R.id.button10), new ButtonData("klingklang.sf2", 3, 62, 127, 3, true));    }
 
     @Override
     public void setContentView() {
