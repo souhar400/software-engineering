@@ -22,8 +22,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
-import java.util.Locale;
-
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
@@ -127,7 +125,6 @@ public class SoundMenu extends BottomSheetDialogFragment {
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
         volumeSlider.setValue(buttonData.getVolume());
 
-
         addSliderListenerForVolume(volumeSlider);
 
         ImageButton close = view.findViewById(R.id.returnButton);
@@ -135,11 +132,11 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
         SwitchCompat hide = view.findViewById(R.id.switchHideButton);
         hide.setChecked(buttonData.getVisibility());
-        hide.setOnClickListener(e -> buttonData.toggleVisibility());
+        hide.setOnClickListener(e -> buttonData.setVisibility());
 
         SwitchCompat loop = view.findViewById(R.id.playLoopButton);
-        loop.setChecked(buttonData.getLoop());
-        loop.setOnClickListener(e -> buttonData.setLoop());
+        loop.setChecked(buttonData.isToggle());
+        loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
     }
 
     private void addSliderListenerForVolume(Slider s) {
