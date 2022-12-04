@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -57,12 +56,7 @@ public class Recorder {
 
         while (!trackComponents.isEmpty()) {
             if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
-                try {
-                    String tempSoundfontPath = synthService.copyAssetToTmpFile(trackComponents.get(0).soundfontPath);
-                    synthService.playFluidSynthSound(tempSoundfontPath, trackComponents.get(0).channel, trackComponents.get(0).key, trackComponents.get(0).velocity, trackComponents.get(0).preset, trackComponents.get(0).toggle);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                synthService.play(trackComponents.get(0).midiPath, trackComponents.get(0).soundfontPath, trackComponents.get(0).buttonNumber, trackComponents.get(0).key, trackComponents.get(0).velocity, trackComponents.get(0).preset, trackComponents.get(0).toggle);
                 trackComponents.remove(0);
             }
         }
@@ -71,7 +65,7 @@ public class Recorder {
     private void untoggleToggledTrackComponents() {
         for (TrackComponent trackComponent : notUntoggledTrackComponents) {
             long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-            trackComponents.add(new TrackComponent(momentPlayed, trackComponent.soundfontPath, trackComponent.channel, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.toggle));
+            trackComponents.add(new TrackComponent(momentPlayed, trackComponent.midiPath, trackComponent.soundfontPath, trackComponent.buttonNumber, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.toggle));
         }
     }
 
@@ -79,9 +73,9 @@ public class Recorder {
     /**
      * Needs to be called in the Button Listeners for it to log when a button is pressed
      */
-    public void addTrackComponent(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
+    public void addTrackComponent(String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
         long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-        TrackComponent newTrackComponent = new TrackComponent(momentPlayed, soundfontPath, channel, key, velocity, preset, toggle);
+        TrackComponent newTrackComponent = new TrackComponent(momentPlayed, midiPath, soundfontPath, buttonNumber, key, velocity, preset, toggle);
 
         if (isRecording) {
             this.trackComponents.add(newTrackComponent);
@@ -110,11 +104,12 @@ public class Recorder {
             trackComponents.add(new TrackComponent(
                     Long.parseLong(values[0]),
                     values[1],
-                    Integer.parseInt(values[2]),
+                    values[2],
                     Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]),
                     Integer.parseInt(values[5]),
-                    Boolean.parseBoolean(values[6])
+                    Integer.parseInt(values[6]),
+                    Boolean.parseBoolean(values[7])
             ));
         }
         return trackComponents;
@@ -123,10 +118,11 @@ public class Recorder {
     private void exportTrackComponents(File file) {
         for (TrackComponent trackComponent : this.trackComponents) {
             writeToFile(file, String.format(
-                    "%s,%s,%s,%s,%s,%s,%s\n",
+                    "%s,%s,%s,%s,%s,%s,%s,%s\n",
                     trackComponent.momentPlayed,
+                    trackComponent.midiPath,
                     trackComponent.soundfontPath,
-                    trackComponent.channel,
+                    trackComponent.buttonNumber,
                     trackComponent.key,
                     trackComponent.velocity,
                     trackComponent.preset,

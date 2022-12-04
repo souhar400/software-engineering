@@ -3,22 +3,23 @@ package de.gruppe.e.klingklang.model;
 public class TrackComponent {
     public long momentPlayed;
     public String soundfontPath;
-    public int channel;
+    public String midiPath;
+    public int buttonNumber;
     public int key;
     public int velocity;
     public int preset;
     public boolean toggle;
 
-    public TrackComponent(long momentPlayed, String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
+    public TrackComponent(long momentPlayed, String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
         this.momentPlayed = momentPlayed;
+        this.midiPath = midiPath;
         this.soundfontPath = soundfontPath;
-        this.channel = channel;
+        this.buttonNumber = buttonNumber;
         this.key = key;
         this.velocity = velocity;
         this.preset = preset;
         this.toggle = toggle;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -31,11 +32,11 @@ public class TrackComponent {
         TrackComponent that = (TrackComponent) obj;
         return  this.momentPlayed == that.momentPlayed &&
                 this.soundfontPath.equals(that.soundfontPath) &&
-                this.channel == that.channel &&
+                this.midiPath.equals(that.midiPath) &&
+                this.buttonNumber == that.buttonNumber &&
                 this.key == that.key &&
                 this.velocity == that.velocity &&
                 this.preset == that.preset &&
                 this.toggle == that.toggle;
     }
-
 }

@@ -43,14 +43,6 @@ public class FacadeViewModel implements ViewModel{
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
                     synthService.play(entry.getValue());
-                    try {
-                        String tempSoundfontPath = synthService.copyAssetToTmpFile(entry.getValue().getSoundfontPath());
-                        synthService.playFluidSynthSound(tempSoundfontPath, entry.getValue().getChannel(), entry.getValue().getKey(), entry.getValue().getVelocity(), entry.getValue().getPreset(), entry.getValue().isToggle());
-                        MainActivity.recorder.addTrackComponent(entry.getValue().getSoundfontPath(), entry.getValue().getChannel(), entry.getValue().getKey(), entry.getValue().getVelocity(), entry.getValue().getPreset(), entry.getValue().isToggle());
-                    } catch (IOException e) {
-                        Log.e(LOG_TAG, "Failed to play synthesizer sound");
-                        throw new RuntimeException(e);
-                    }
                 }
             });
     }

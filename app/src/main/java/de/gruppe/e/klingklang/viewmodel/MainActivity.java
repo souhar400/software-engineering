@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.recorder = new Recorder(getApplicationContext(), this.SynthService);
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
-
+        // MainActivity.recorder.deleteAllTracks();
         /*
         TODO: this does not work properly
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

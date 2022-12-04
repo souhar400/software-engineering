@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SynthService {
     private final Activity activity;
@@ -22,8 +23,22 @@ public class SynthService {
             // Play midi
             String midiPath = copyAssetToTmpFile(buttonData.getMidiPath());
             play(midiPath, soundfontPath, buttonData.getButtonNumber(), buttonData.isToggle());
+            MainActivity.recorder.addTrackComponent(buttonData.getMidiPath(), buttonData.getSoundfontPath(), buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset(), buttonData.isToggle());
         } else {
             play(soundfontPath, buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset(), buttonData.isToggle());
+            MainActivity.recorder.addTrackComponent(null, buttonData.getSoundfontPath(), buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset(), buttonData.isToggle());
+
+        }
+    }
+
+    public void play(String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
+        String midiPathPlay;
+        String soundfontPathPlay = copyAssetToTmpFile(soundfontPath);
+        if (!midiPath.equals("null")) {
+            midiPathPlay = copyAssetToTmpFile(midiPath);
+            play(midiPathPlay, soundfontPathPlay, buttonNumber, toggle);
+        } else {
+            play(soundfontPathPlay, buttonNumber, key, velocity, preset, toggle);
         }
     }
 
