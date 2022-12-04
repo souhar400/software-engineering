@@ -155,15 +155,23 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
             button.setText(String.format("%s\t\t\t-\t\t%s\t", trackName, trackLength));
             button.setBackgroundColor(Color.LTGRAY);
+            button.setLongClickable(true);
 
-
-            /*button.setOnClickListener(view -> {
+            int finalI = i;
+            button.setOnClickListener(view -> {
                 button.setBackgroundColor(Color.GRAY);
                 MainActivity.recorder.playTrack(tracks[finalI]);
                 button.setBackgroundColor(Color.LTGRAY);
-            });*/
+            });
 
-            int finalI = i;
+            button.setOnLongClickListener(v -> {
+                TrackDeletionMenu trackDeletionMenu = new TrackDeletionMenu(tracks[finalI], linearLayout, button);
+                trackDeletionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
+                return true;
+            });
+
+
+            /*
             button.setOnClickListener(new DoubleClickListener() {
                 @Override
                 public void onDoubleClick() {
@@ -176,8 +184,10 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
                     MainActivity.recorder.playTrack(tracks[finalI]);
                     button.setBackgroundColor(Color.LTGRAY);
                 }
-            });
 
+             *
+            });
+*/
 
 
             linearLayout.addView(button);
