@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/GebaeudeE"
+        android:background="@drawable/gebaeudee"
         tools:context=".viewmodel.MainActivity">
 
         <!--Vertical  guidelines  -->
@@ -142,20 +142,6 @@
             app:layout_constraintGuide_percent="0.035" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_L_Y1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.98" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_L_Y2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.555" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_LC_Y3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -182,13 +168,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.577" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_R_Y1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_R_Y3"
