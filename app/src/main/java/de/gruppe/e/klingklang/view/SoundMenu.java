@@ -143,7 +143,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
         loop.setChecked(buttonData.isToggle());
         loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
 
-        AppCompatButton files = view.findViewById(R.id.files);
+        TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
             fileSelectionMenu = new FileSelectionMenu(buttonData);
             fileSelectionMenu.show(associatedManager, null);

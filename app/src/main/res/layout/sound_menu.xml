@@ -137,7 +137,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.78" />
+        app:layout_constraintGuide_percent="0.72" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.79" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
 
 
     <EditText
@@ -212,6 +226,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -222,6 +237,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y6"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -232,6 +248,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y5"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -244,7 +261,7 @@
         android:backgroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y8"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintTop_toTopOf="@id/guideline_Y7"
         app:srcCompat="@drawable/volume_up_black_36dp" />
 
@@ -255,16 +272,18 @@
         android:layout_marginTop="4dp"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@+id/guideline_X5"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-    <Button
+    <TextView
         android:id="@+id/files"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Files"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y10"
         app:layout_constraintEnd_toEndOf="@id/guideline_X2"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
@@ -276,10 +295,10 @@
         android:layout_height="0dp"
         android:checked="true"
         android:text="Hide Button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y12"
         app:layout_constraintEnd_toEndOf="@id/guideline_X6"
-        app:layout_constraintStart_toStartOf="@id/guideline_X4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y11" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/playLoopButton"
@@ -287,9 +306,9 @@
         android:layout_height="0dp"
         android:checked="true"
         android:text="Loop Switch"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_Y11"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y13"
         app:layout_constraintEnd_toEndOf="@id/guideline_X6"
-        app:layout_constraintStart_toStartOf="@id/guideline_X4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y10" />
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
