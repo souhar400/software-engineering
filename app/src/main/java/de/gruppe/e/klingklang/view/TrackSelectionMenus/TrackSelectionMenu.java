@@ -132,6 +132,8 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             linearLayout.addView(textView);
         }
 
+
+
         for (int i = 0; i < tracks.length; i++) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -143,7 +145,8 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             params.setMargins(0, 30, 0, 0);
             Button button = new Button(view.getContext());
             button.setId(i);
-            button.setMaxHeight(50);
+            button.setMaxHeight(20);
+            button.setMinHeight(0);
             button.setLayoutParams(params);
 
 

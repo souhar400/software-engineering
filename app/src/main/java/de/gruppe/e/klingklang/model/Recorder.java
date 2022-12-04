@@ -11,6 +11,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import de.gruppe.e.klingklang.services.SynthService;
 
@@ -22,6 +25,7 @@ public class Recorder {
     List<TrackComponent> trackComponents;
     List<TrackComponent> notUntoggledTrackComponents;
     SynthService synthService;
+    ExecutorService executor = Executors.newFixedThreadPool(1);
 
     public Recorder(Context context, SynthService synthService) {
         this.context = context;
@@ -51,15 +55,17 @@ public class Recorder {
         if(track.length() == 0)
             return;
 
-        List<TrackComponent> trackComponents = importTrackComponents(track);
-        long startTime = System.currentTimeMillis();
+        executor.execute(() -> {
+            List<TrackComponent> trackComponents = importTrackComponents(track);
+            long startTime = System.currentTimeMillis();
 
-        while (!trackComponents.isEmpty()) {
-            if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
-                synthService.play(trackComponents.get(0).midiPath, trackComponents.get(0).soundfontPath, trackComponents.get(0).buttonNumber, trackComponents.get(0).key, trackComponents.get(0).velocity, trackComponents.get(0).preset, trackComponents.get(0).toggle);
-                trackComponents.remove(0);
+            while (!trackComponents.isEmpty()) {
+                if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
+                    synthService.play(trackComponents.get(0).midiPath, trackComponents.get(0).soundfontPath, trackComponents.get(0).buttonNumber, trackComponents.get(0).key, trackComponents.get(0).velocity, trackComponents.get(0).preset, trackComponents.get(0).toggle);
+                    trackComponents.remove(0);
+                }
             }
-        }
+        });
     }
 
     private void untoggleToggledTrackComponents() {
