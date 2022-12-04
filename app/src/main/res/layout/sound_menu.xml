@@ -16,14 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.19" />
+        app:layout_constraintGuide_percent="0.24" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X3"
@@ -34,17 +34,17 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.81" />
+        app:layout_constraintGuide_percent="0.76" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X7"
@@ -136,159 +136,153 @@
     <EditText
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:autofillHints=""
         android:background="@android:color/transparent"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLength="30"
         android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/guideline_X2"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X4"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y2"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+        app:layout_constraintStart_toStartOf="@id/guideline_X2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider"
-        android:layout_width="560dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="10.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y8"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y7" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider1"
-        android:layout_width="560dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider3"
-        android:layout_width="560dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y6"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y5" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider2"
-        android:layout_width="560dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y5"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y4" />
 
     <TextView
         android:id="@+id/slider1Name"
-        android:layout_width="74dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y3"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
 
     <TextView
         android:id="@+id/slider3Name"
-        android:layout_width="74dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y6"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y5"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y5" />
 
     <TextView
         android:id="@+id/slider2Name"
-        android:layout_width="74dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y5"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y4"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y4" />
 
     <ImageButton
         android:id="@+id/SoundIcon"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y8"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline_Y7"
-        app:srcCompat="@drawable/volume_up_black_36dp"
-        tools:layout_editor_absoluteX="50dp" />
+        app:srcCompat="@drawable/volume_up_black_36dp" />
 
     <ImageButton
         android:id="@+id/returnButton"
-        android:layout_width="31dp"
-        android:layout_height="24dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/guideline_X5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X5"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <Button
         android:id="@+id/files"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Files"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_Y10"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X2"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchHideButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:checked="true"
         android:text="Hide Button"
-        app:layout_constraintStart_toStartOf="@id/guideline_X4"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y9"
-        tools:layout_editor_absoluteX="333dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_X4"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/playLoopButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:checked="true"
         android:text="Loop Switch"
-        app:layout_constraintStart_toStartOf="@id/guideline_X4"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y11"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y10"
-        tools:layout_editor_absoluteX="333dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_X4"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
