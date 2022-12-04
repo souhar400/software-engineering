@@ -1,84 +1,138 @@
 package de.gruppe.e.klingklang.model;
 
-import java.util.Observable;
-
-// Temporary Storage Class for the Volume of a single Button
 public class ButtonData {
-    private int volume = 127;
-    private int displayedVolume = 100;
-    private final String soundfontPath;
-    private final int channel;
-    private final int key;
-    private final int velocity;
-    private final int preset;
-    private final boolean toggle;
-    private boolean loop = false;
-    private boolean visibility = true;
+    private int volume = 100;
+    private final int buttonNumber;
+    private String soundfontPath;
+    private String midiPath;
+    private int key;
+    private int velocity;
+    private int preset;
+    private boolean toggle;
 
-    public ButtonData(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle) {
-        this.soundfontPath = soundfontPath;
-        this.channel = channel;
-        this.key = key;
-        this.velocity = velocity;
-        this.preset = preset;
-        this.toggle = toggle;
+    private ButtonData(ButtonDataBuilder buttonDataBuilder) {
+        this.buttonNumber = buttonDataBuilder.buttonNumber;
+        this.soundfontPath = buttonDataBuilder.soundfontPath;
+        this.midiPath = buttonDataBuilder.midiPath;
+        this.key = buttonDataBuilder.key;
+        this.velocity = buttonDataBuilder.velocity;
+        this.preset = buttonDataBuilder.preset;
+        this.toggle = buttonDataBuilder.toggle;
+    }
 
+    private native void setChannelVolume(int buttonNumber, int volume);
+
+    /* Getter and Setter */
+
+    public int getVolume() {
+        return volume;
     }
 
     public void setVolume(int volume) {
-        displayedVolume = volume;
-        this.volume = Math.round(1.27f * volume);
-        setChannelVolume(channel, volume);
+        this.volume = volume;
+        setChannelVolume(buttonNumber, this.volume + 20);
     }
 
-    public float getVolume() {
-        return displayedVolume;
-    }
-
-    public String getString() {
-        int ret = Math.round(volume);
-        return Integer.toString(ret);
+    public int getButtonNumber() {
+        return buttonNumber;
     }
 
     public String getSoundfontPath() {
         return soundfontPath;
     }
 
-    public int getChannel() {
-        return channel;
+    public void setSoundfontPath(String soundfontPath) {
+        this.soundfontPath = soundfontPath;
+    }
+
+    public String getMidiPath() {
+        return midiPath;
+    }
+
+    public void setMidiPath(String midiPath) {
+        this.midiPath = midiPath;
     }
 
     public int getKey() {
         return key;
     }
 
+    public void setKey(int key) {
+        this.key = key;
+    }
+
     public int getVelocity() {
         return velocity;
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 
     public int getPreset() {
         return preset;
     }
 
-    public void setLoop() {
-        loop = !loop;
+    public void setPreset(int preset) {
+        this.preset = preset;
     }
 
     public boolean isToggle() {
         return toggle;
     }
 
-    public boolean getLoop() {
-        return loop;
+    public void setToggle(boolean toggle) {
+        this.toggle = toggle;
     }
 
-    public void toggleVisibility() {
-        visibility = !visibility;
-    }
+    public static class ButtonDataBuilder {
+        private static int BUTTONS = 0;
 
-    public boolean getVisibility(){
-        return visibility;
-    }
+        private final int buttonNumber;
+        private String soundfontPath;
+        private String midiPath;
+        private int key;
+        private int velocity;
+        private int preset;
+        private boolean toggle;
 
-    private native void setChannelVolume(int channel, int volume);
+        public ButtonDataBuilder() {
+            this.buttonNumber = BUTTONS;
+            BUTTONS++;
+        }
+
+        public ButtonDataBuilder withMidiPath(String midiPath) {
+            this.midiPath = midiPath;
+            return this;
+        }
+
+        public ButtonDataBuilder withSoundfontPath(String soundfontPath) {
+            this.soundfontPath = soundfontPath;
+            return this;
+        }
+
+        public ButtonDataBuilder withKey(int key) {
+            this.key = key;
+            return this;
+        }
+
+        public ButtonDataBuilder withVelocity(int velocity) {
+            this.velocity = velocity;
+            return this;
+        }
+
+        public ButtonDataBuilder withPreset(int preset) {
+            this.preset = preset;
+            return this;
+        }
+
+        public ButtonDataBuilder withToggle(boolean toggle) {
+            this.toggle = toggle;
+            return this;
+        }
+
+        public ButtonData create() {
+            return new ButtonData(this);
+        }
+    }
 }

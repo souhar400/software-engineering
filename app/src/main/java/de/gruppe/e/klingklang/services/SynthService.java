@@ -7,17 +7,29 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SynthService {
-    private final Activity Activity;
+import de.gruppe.e.klingklang.model.ButtonData;
 
-    public SynthService(Activity Activity){
-        this.Activity = Activity;
+public class SynthService {
+    private final Activity activity;
+
+    public SynthService(Activity activity) {
+        this.activity = activity;
     }
 
-    /**
-     * Cleans up the driver, synth and settings.
-     */
-    public native void cleanupFluidSynth();
+    public void play(ButtonData buttonData) {
+        String soundfontPath = copyAssetToTmpFile(buttonData.getSoundfontPath());
+        if (buttonData.getMidiPath() != null) {
+            // Play midi
+            String midiPath = copyAssetToTmpFile(buttonData.getMidiPath());
+            play(midiPath, soundfontPath, buttonData.getButtonNumber(), buttonData.isToggle());
+        } else {
+            play(soundfontPath, buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset(), buttonData.isToggle());
+        }
+    }
+
+    private native void play(String midiPath, String soundfontPath, int buttonNumber, boolean toggle);
+
+    private native void play(String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle);
 
     /**
      * Turns a assets file that is a series of bytes in the compressed APK into a playable temporary
@@ -25,30 +37,21 @@ public class SynthService {
      *
      * @param fileName Name of the .sf2 file in /assets
      * @return Path of the temporary file
-     * @throws IOException IOException when file does not exist or is not openable
      */
-    public String copyAssetToTmpFile(String fileName) throws IOException {
-        try (InputStream is = Activity.getAssets().open(fileName)) {
+    private String copyAssetToTmpFile(String fileName) {
+        try (InputStream is = activity.getAssets().open(fileName)) {
             String tempFileName = "tmp_" + fileName;
-            try (FileOutputStream fos = Activity.openFileOutput(tempFileName, Context.MODE_PRIVATE)) {
+            try (FileOutputStream fos = activity.openFileOutput(tempFileName, Context.MODE_PRIVATE)) {
                 int bytes_read;
                 byte[] buffer = new byte[4096];
                 while ((bytes_read = is.read(buffer)) != -1) {
                     fos.write(buffer, 0, bytes_read);
                 }
             }
-            return Activity.getFilesDir() + "/" + tempFileName;
+            return activity.getFilesDir() + "/" + tempFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
-
-    /**
-     * Native method that calls methods from the FluidSynth library to play a synth.
-     *
-     * @param soundfontPath Path of the .sf2 soundfont file to be played (in /assets folder)
-     * @param channel       MIDI channel number (0 - 16)
-     * @param key           MIDI note number (0 - 127)
-     * @param velocity      MIDI velocity (0 - 127, 0 = note off)
-     */
-    public native void playFluidSynthSound(String soundfontPath, int channel, int key, int velocity, int preset, boolean toggle);
-
 }
