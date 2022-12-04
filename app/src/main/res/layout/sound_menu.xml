@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.24" />
+        app:layout_constraintGuide_percent="0.26" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X3"
@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.76" />
+        app:layout_constraintGuide_percent="0.74" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X5"
@@ -45,6 +45,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_X6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_X7"
@@ -270,7 +277,7 @@
         android:checked="true"
         android:text="Hide Button"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@id/guideline_X4"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
 
@@ -281,7 +288,7 @@
         android:checked="true"
         android:text="Loop Switch"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y11"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@id/guideline_X4"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y10" />
 
