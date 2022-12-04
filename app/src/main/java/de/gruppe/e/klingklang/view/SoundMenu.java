@@ -139,7 +139,7 @@ public class SoundMenu extends BottomSheetDialogFragment {
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
         volumeSlider.setValue(buttonData.getVolume());
         TextView volumeValue = view.findViewById(R.id.volumeValue);
-        volumeValue.setText(buttonData.getString());
+        volumeValue.setText(buttonData.getVolume());
 
         addSliderListenerForVolume(volumeSlider);
         addSliderListener(volumeSlider, volumeValue);
