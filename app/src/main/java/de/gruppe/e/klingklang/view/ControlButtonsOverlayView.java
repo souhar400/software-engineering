@@ -9,15 +9,12 @@ import de.gruppe.e.klingklang.viewmodel.MainActivity;
 public class ControlButtonsOverlayView {
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
 
-
     private ImageButton editButton;
     private ImageButton menuButton;
     private ImageButton changeFassadeButton;
     private MainActivity activity;
     private MainMenu mainMenu;
     private FacadeViewModel viewModel;
-
-
 
     public ControlButtonsOverlayView(MainActivity activity, MainMenu mainMenu) {
         this.activity = activity;
@@ -35,7 +32,6 @@ public class ControlButtonsOverlayView {
 
 
     public void setListeners(){
-
         this.editButton=  activity.findViewById(R.id.edit_button);
         this.menuButton =activity.findViewById(R.id.setting_button);
         this.changeFassadeButton = activity.findViewById(R.id.change_fassade);
