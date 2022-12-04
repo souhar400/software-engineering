@@ -16,12 +16,9 @@ public abstract class DoubleClickListener implements View.OnClickListener {
         doubleClickQualificationSpanInMillis = DEFAULT_QUALIFICATION_SPAN;
         timestampLastClick = 0;
         handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (isSingleEvent) {
-                    onSingleClick();
-                }
+        runnable = () -> {
+            if (isSingleEvent) {
+                onSingleClick();
             }
         };
     }
