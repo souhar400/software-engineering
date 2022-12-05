@@ -74,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
         FassadeModel fassadenModel = new FassadeModel(this);
-        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager() );
-
+        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager(), this );
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

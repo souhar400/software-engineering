@@ -34,7 +34,6 @@ public class ViewModelFactory {
 
     private HashMap<Button, ButtonData> initialiseOldViewButtons() {
         HashMap<Button, ButtonData> map = new HashMap<>();
-
         map.put((Button) mainActivity.findViewById(R.id.top_left1),
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(0).withToggle(false).create());
@@ -75,103 +74,103 @@ public class ViewModelFactory {
         return map;
     }
 
-    private Map<Button, ButtonData> initialiseFacadeOneButtons() {
-        HashMap<Button, ButtonData> map = new HashMap<>();
-        map.put((Button) mainActivity.findViewById(R.id.button1),
+    private Map<Integer, ButtonData> initialiseFacadeOneButtons() {
+        HashMap<Integer, ButtonData> map = new HashMap<>();
+        map.put(R.id.button1,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(0).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button2),
+        map.put(R.id.button2,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(1).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button3),
+        map.put(R.id.button3,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(2).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button4),
+        map.put(R.id.button4,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(3).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button5),
+        map.put(R.id.button5,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button6),
+        map.put(R.id.button6,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button7),
+        map.put(R.id.button7,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(6).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button8),
+        map.put(R.id.button8,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(7).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button9),
+        map.put(R.id.button9,
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button10),
+        map.put(R.id.button10,
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 2 - Ionisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
         return map;
     }
 
-    public Map<Button, ButtonData> initialiseFacadeTwoButtons() {
-        HashMap<Button, ButtonData> map = new HashMap<>();
-        map.put((Button) mainActivity.findViewById(R.id.button1),
+    public Map<Integer, ButtonData> initialiseFacadeTwoButtons() {
+        HashMap<Integer, ButtonData> map = new HashMap<>();
+        map.put(R.id.button1,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(0).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button2),
+        map.put(R.id.button2,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(1).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button3),
+        map.put(R.id.button3,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(2).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button4),
+        map.put(R.id.button4,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(3).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button5),
+        map.put(R.id.button5,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button6),
+        map.put(R.id.button6,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button7),
+        map.put(R.id.button7,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(6).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button8),
+        map.put(R.id.button8,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(7).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button9),
+        map.put(R.id.button9,
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button10),
+        map.put(R.id.button10,
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 2 - Ionisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
         return map;
     }
 
-    public Map<Button, ButtonData> initialiseFacadeThreeButtons() {
-        HashMap<Button, ButtonData> map = new HashMap<>();
-        map.put((Button) mainActivity.findViewById(R.id.button1),
+    public Map<Integer, ButtonData> initialiseFacadeThreeButtons() {
+        HashMap<Integer, ButtonData> map = new HashMap<>();
+        map.put(R.id.button1,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(0).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button2),
+        map.put(R.id.button2,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(1).withToggle(false).create());
-        map.put((Button) mainActivity.findViewById(R.id.button3),
+        map.put(R.id.button3,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(2).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button4),
+        map.put(R.id.button4,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(3).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button5),
+        map.put(R.id.button5,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button6),
+        map.put(R.id.button6,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button7),
+        map.put(R.id.button7,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(6).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button8),
+        map.put(R.id.button8,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(7).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.button9),
+        map.put(R.id.button9,
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
         return map;

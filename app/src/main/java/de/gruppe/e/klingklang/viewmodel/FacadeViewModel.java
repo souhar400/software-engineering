@@ -1,7 +1,7 @@
 package de.gruppe.e.klingklang.viewmodel;
 
+import android.app.Activity;
 import android.util.Log;
-import android.widget.Button;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -23,16 +23,18 @@ public class FacadeViewModel implements ViewModel{
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
     private final FragmentManager associatedManager;
     private final ControlButtonsOverlayView overlayView;
-
+    private final Activity activity;
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
                            FassadeModel model,
                            SynthService synthService,
-                           FragmentManager associatedManager){
+                           FragmentManager associatedManager,
+                           Activity activity){
         fassadenModel = model;
         actualFassade = model.getInitialFassade();
         this.synthService = synthService;
         this.associatedManager = associatedManager;
         this.overlayView = controlButtonsOverlayView;
+        this.activity = activity;
         setButtonListener();
         controlButtonsOverlayView.setViewModel(this);
     }
@@ -51,9 +53,9 @@ public class FacadeViewModel implements ViewModel{
     private void setButtonListener() {
         Log.d(LOG_TAG, "Adding buttonlisteners to facade-buttons for facade: " + actualFassade);
         Log.d(LOG_TAG, "Iterating over " + actualFassade.getButtons().size() + " buttons.");
-        for (Map.Entry<Button, ButtonData> entry : actualFassade.getButtons().entrySet()) {
+        for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet()) {
             Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
-            entry.getKey().setOnClickListener(view -> {
+            activity.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (actualFassade.getInEditMode()) {
                     SoundMenu smenu = new SoundMenu(entry.getValue());

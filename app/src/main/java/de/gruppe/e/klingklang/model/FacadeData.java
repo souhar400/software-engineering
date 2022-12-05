@@ -1,7 +1,6 @@
 package de.gruppe.e.klingklang.model;
 
 import android.app.Activity;
-import android.widget.Button;
 
 import java.util.Map;
 
@@ -15,18 +14,18 @@ public class FacadeData {
         return inEditMode;
     }
     public void setInEditMode(boolean inEditMode)  { this.inEditMode=inEditMode; }
-    private Map<Button, ButtonData> buttonDataMap;
+    private Map<Integer, ButtonData> buttonDataMap;
     private Activity context;
     private int orientation;
     private int facadeId;
-    public FacadeData(Activity context, int facadeId, int orientation, Map<Button, ButtonData> buttonDataMap) {
+    public FacadeData(Activity context, int facadeId, int orientation, Map<Integer, ButtonData> buttonDataMap) {
         this.context = context;
         this.buttonDataMap = buttonDataMap;
         this.orientation = orientation;
         this.facadeId = facadeId;
     }
 
-    public Map<Button, ButtonData> getButtons(){
+    public Map<Integer, ButtonData> getButtons(){
         return buttonDataMap;
     }
 
