@@ -5,7 +5,6 @@ import android.widget.Button;
 
 import androidx.fragment.app.FragmentManager;
 
-import java.io.IOException;
 import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
@@ -40,19 +39,22 @@ public class FacadeViewModel implements ViewModel{
 
 
     public void changeFassade ( ){
-        actualFassade = actualFassade.getNextFassade();
+        actualFassade = fassadenModel.getNextFacade();
         actualFassade.setOrientation();
         actualFassade.setContentView();
         this.overlayView.setListeners();
-        actualFassade.initialisebuttons();
         setButtonListener();
         actualFassade.setInEditMode(false);
         overlayView.getEditButton().setImageResource( R.drawable.edit_mode );
     }
 
     private void setButtonListener() {
-        for (Map.Entry<Button, ButtonData> entry : actualFassade.getButtons().entrySet())
+        Log.d(LOG_TAG, "Adding buttonlisteners to facade-buttons for facade: " + actualFassade);
+        Log.d(LOG_TAG, "Iterating over " + actualFassade.getButtons().size() + " buttons.");
+        for (Map.Entry<Button, ButtonData> entry : actualFassade.getButtons().entrySet()) {
+            Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
             entry.getKey().setOnClickListener(view -> {
+                Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (actualFassade.getInEditMode()) {
                     SoundMenu smenu = new SoundMenu(entry.getValue());
                     smenu.show(associatedManager, FRAGMENT_TAG);
@@ -60,6 +62,7 @@ public class FacadeViewModel implements ViewModel{
                     synthService.play(entry.getValue());
                 }
             });
+        }
     }
 
     public void toggleInEditMode() {

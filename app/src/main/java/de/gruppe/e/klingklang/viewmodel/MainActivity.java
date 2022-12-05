@@ -19,7 +19,6 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -36,9 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.model.FacadeData;
 import de.gruppe.e.klingklang.model.FassadeModel;
-import de.gruppe.e.klingklang.model.FirstFacade;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -79,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         FassadeModel fassadenModel = new FassadeModel(this);
         ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager() );
 
-        DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

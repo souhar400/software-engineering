@@ -1,11 +1,11 @@
 package de.gruppe.e.klingklang.model;
 
+import android.app.Activity;
 import android.widget.Button;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public abstract class FacadeData {
+public class FacadeData {
     private Boolean inEditMode = false;
     public void toggleInEditMode() {
         inEditMode = !inEditMode;
@@ -15,11 +15,26 @@ public abstract class FacadeData {
         return inEditMode;
     }
     public void setInEditMode(boolean inEditMode)  { this.inEditMode=inEditMode; }
+    private Map<Button, ButtonData> buttonDataMap;
+    private Activity context;
+    private int orientation;
+    private int facadeId;
+    public FacadeData(Activity context, int facadeId, int orientation, Map<Button, ButtonData> buttonDataMap) {
+        this.context = context;
+        this.buttonDataMap = buttonDataMap;
+        this.orientation = orientation;
+        this.facadeId = facadeId;
+    }
 
-    public abstract  Map<Button, ButtonData> getButtons();
-    public abstract void initialisebuttons();
-    public abstract void setContentView();
-    public abstract void setOrientation();
-    public abstract FacadeData getNextFassade();
-    public abstract void setNextFassade(FacadeData facadeData);
+    public Map<Button, ButtonData> getButtons(){
+        return buttonDataMap;
+    }
+
+    public void setContentView() {
+        context.setContentView(context.getLayoutInflater().inflate(facadeId, null));
+    }
+
+    public void setOrientation() {
+        context.setRequestedOrientation(orientation);
+    }
 }
