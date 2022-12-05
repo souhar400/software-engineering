@@ -10,349 +10,305 @@
     android:orientation="vertical">
 
     <!--Vertical  guidelines  -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.24213406" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y2"
+        android:id="@+id/guideline_X1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7619699" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y3"
+        android:id="@+id/guideline_X2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.18" />
+        app:layout_constraintGuide_percent="0.26" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y4"
+        android:id="@+id/guideline_X3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.81" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/guideline_X4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.74" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y6"
+        android:id="@+id/guideline_X5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.88" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y7"
+        android:id="@+id/guideline_X6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.09" />
+        app:layout_constraintGuide_percent="0.98" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y8"
+        android:id="@+id/guideline_X7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.96" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7017784" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.92" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.03" />
+        app:layout_constraintGuide_percent="0.02" />
 
 
     <!--Horizontal guidlines -->
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X1"
+        android:id="@+id/guideline_Y1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.06" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X2"
+        android:id="@+id/guideline_Y2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X3"
+        android:id="@+id/guideline_Y3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.14" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X4"
+        android:id="@+id/guideline_Y4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.22" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X5"
+        android:id="@+id/guideline_Y5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.34" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X6"
+        android:id="@+id/guideline_Y6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.41" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X7"
+        android:id="@+id/guideline_Y7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.47" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X8"
+        android:id="@+id/guideline_Y8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.59" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X9"
+        android:id="@+id/guideline_Y9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.64" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_X10"
+        android:id="@+id/guideline_Y10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.71" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.79" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
+
 
     <EditText
         android:id="@+id/title"
-        android:layout_width="288dp"
-        android:layout_height="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:autofillHints=""
         android:background="@android:color/transparent"
-        android:hint="Edit Title"
-        android:imeOptions="actionSend"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLength="30"
         android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y10"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y9"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X2"/>
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y2"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+        app:layout_constraintStart_toStartOf="@id/guideline_X2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider"
-        android:layout_width="460dp"
-        android:layout_height="46dp"
-        android:stepSize="1.0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stepSize="10.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X8"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y4"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y3"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X7" />
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y8"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y7" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider1"
-        android:layout_width="382dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X4"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X3" />
-
-    <TextView
-        android:id="@+id/slider1Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X4"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y11"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X3" />
-
-    <TextView
-        android:id="@+id/slider1Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X4"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y3"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X3" />
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider3"
-        android:layout_width="382dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X6"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X5" />
-
-    <TextView
-        android:id="@+id/slider3Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X6"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y11"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X5" />
-
-    <TextView
-        android:id="@+id/slider3Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X6"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y3"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X5" />
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y6"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y5" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/slider2"
-        android:layout_width="382dp"
-        android:layout_height="73dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:stepSize="1.0"
         android:theme="@style/sliderTheme"
         android:valueFrom="0.0"
         android:valueTo="100.0"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X5"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X4" />
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y5"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
+        app:layout_constraintStart_toStartOf="@id/guideline_X1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y4" />
 
     <TextView
-        android:id="@+id/slider2Value"
-        android:layout_width="wrap_content"
+        android:id="@+id/slider1Name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X5"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y11"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y4"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X4" />
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
+
+    <TextView
+        android:id="@+id/slider3Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y6"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y5" />
 
     <TextView
         android:id="@+id/slider2Name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X5"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y3"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X4" />
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y5"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y4" />
 
-    <TextView
-        android:id="@+id/volumeName"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/SoundIcon"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X8"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y5"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y12"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X7" />
-
-    <TextView
-        android:id="@+id/volumeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X8"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y8"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y6"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X7" />
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_Y8"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@id/guideline_Y7"
+        app:srcCompat="@drawable/volume_up_black_36dp" />
 
     <ImageButton
         android:id="@+id/returnButton"
-        android:layout_width="31dp"
-        android:layout_height="24dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y11"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y6"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y1"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X5"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X1"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-    <Button
+    <TextView
         android:id="@+id/files"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Files"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_X10"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_Y5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X9" />
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y10"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchHideButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hide Button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:checked="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_X10"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_Y11"
-        app:layout_constraintStart_toStartOf="@+id/guideline_Y2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_X9" />
+        android:text="Hide Button"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y12"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y11" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/playLoopButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:checked="true"
+        android:text="Loop Switch"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y13"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,13 +15,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
-
-import java.util.Locale;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
@@ -30,10 +31,13 @@ import de.gruppe.e.klingklang.viewmodel.MainActivity;
 public class SoundMenu extends BottomSheetDialogFragment {
     private View view;
     private final ButtonData buttonData;
+    private FileSelectionMenu fileSelectionMenu;
+    private final FragmentManager associatedManager;
 
-    public SoundMenu(ButtonData vd) {
+    public SoundMenu(ButtonData vd, FragmentManager associatedManager) {
         super();
         this.buttonData = vd;
+        this.associatedManager = associatedManager;
     }
 
     /**
@@ -117,40 +121,32 @@ public class SoundMenu extends BottomSheetDialogFragment {
         slider3.setValue(50);
 
         TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("slider1");
+        slider1Name.setText("Reverb");
         TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("slider2");
+        slider2Name.setText("Pitch-Up");
         TextView slider3Name = view.findViewById(R.id.slider3Name);
-        slider3Name.setText("slider3");
+        slider3Name.setText("Pitch-Down");
 
-        TextView slider1Value = view.findViewById(R.id.slider1Value);
-        slider1Value.setText("50");
-        TextView slider2Value = view.findViewById(R.id.slider2Value);
-        slider2Value.setText("50");
-        TextView slider3Value = view.findViewById(R.id.slider3Value);
-        slider3Value.setText("50");
-
-        addSliderListener(slider1, slider1Value);
-        addSliderListener(slider2, slider2Value);
-        addSliderListener(slider3, slider3Value);
-
-        TextView volumeName = view.findViewById(R.id.volumeName);
-        volumeName.setText("Lautstärke");
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
         volumeSlider.setValue(buttonData.getVolume());
-        TextView volumeValue = view.findViewById(R.id.volumeValue);
-        volumeValue.setText(buttonData.getVolume());
 
         addSliderListenerForVolume(volumeSlider);
-        addSliderListener(volumeSlider, volumeValue);
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
-    }
 
-    private void addSliderListener(Slider s, TextView v) {
-        s.addOnChangeListener((slider, value, fromUser) -> {
-            v.setText(String.format(Locale.ENGLISH, "%d",Math.round(value)));
+        SwitchCompat hide = view.findViewById(R.id.switchHideButton);
+        hide.setChecked(buttonData.getVisibility());
+        hide.setOnClickListener(e -> buttonData.setVisibility());
+
+        SwitchCompat loop = view.findViewById(R.id.playLoopButton);
+        loop.setChecked(buttonData.isToggle());
+        loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
+
+        TextView files = view.findViewById(R.id.files);
+        files.setOnClickListener(e -> {
+            fileSelectionMenu = new FileSelectionMenu(buttonData);
+            fileSelectionMenu.show(associatedManager, null);
         });
     }
 
@@ -160,4 +156,9 @@ public class SoundMenu extends BottomSheetDialogFragment {
             buttonData.setVolume(slide_value);
         });
     }
+
+    public FragmentManager getAssociatedFragmentManager() {
+        return associatedManager;
+    }
+
 }

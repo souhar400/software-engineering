@@ -1,7 +1,8 @@
 package de.gruppe.e.klingklang.model;
 
 public class ButtonData {
-    private int volume = 100;
+    private int volume = 127;
+    private int displayedVolume = 100;
     private final int buttonNumber;
     private String soundfontPath;
     private String midiPath;
@@ -9,6 +10,7 @@ public class ButtonData {
     private int velocity;
     private int preset;
     private boolean toggle;
+    private boolean visibility;
 
     private ButtonData(ButtonDataBuilder buttonDataBuilder) {
         this.buttonNumber = buttonDataBuilder.buttonNumber;
@@ -25,12 +27,13 @@ public class ButtonData {
     /* Getter and Setter */
 
     public int getVolume() {
-        return volume;
+        return displayedVolume;
     }
 
     public void setVolume(int volume) {
-        this.volume = volume;
-        setChannelVolume(buttonNumber, this.volume + 20);
+        this.displayedVolume = volume;
+        this.volume = Math.round(1.27f * volume);
+        setChannelVolume(buttonNumber, this.volume);
     }
 
     public int getButtonNumber() {
@@ -84,6 +87,15 @@ public class ButtonData {
     public void setToggle(boolean toggle) {
         this.toggle = toggle;
     }
+
+    public void setVisibility() {
+        visibility = !visibility;
+    }
+
+    public boolean getVisibility() {
+        return visibility;
+    }
+
 
     public static class ButtonDataBuilder {
         private static int BUTTONS = 0;
