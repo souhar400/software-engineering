@@ -49,7 +49,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
             "Piano - 4 - Dorisch.mid",
             "Piano - 5 - Äolisch.mid",
             "Piano - 6 - Phrygisch.mid",
-            "Piano - 7 - Lokirsch"};
+            "Piano - 7 - Lokrisch"};
 
     private Button[] buttons;
     public FileSelectionMenu(ButtonData buttonData) {
