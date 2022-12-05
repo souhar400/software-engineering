@@ -61,6 +61,7 @@ public class FacadeViewModel implements ViewModel{
                     SoundMenu smenu = new SoundMenu(entry.getValue());
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
+                    Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
                     synthService.play(entry.getValue());
                 }
             });
