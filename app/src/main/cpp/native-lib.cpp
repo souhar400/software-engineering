@@ -162,7 +162,7 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz,
                                                               jint button_number, jint volume) {
-    fluid_synth_cc(buttonData[button_number].fluidSynth, 0, 7, volume);
+    fluid_synth_cc(buttonData[button_number].fluidSynth, button_number, 7, volume);
 }
 
 extern "C"
