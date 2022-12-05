@@ -3,6 +3,7 @@ package de.gruppe.e.klingklang.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -21,16 +22,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
+import de.gruppe.e.klingklang.viewmodel.ViewModel;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
     private View view;
     private float gain = 0.2f;
     private final FragmentManager associatedManager;
-    public MainMenu(FragmentManager associatedManager) {
+    private final Activity activity;
+    private final ViewModel viewModel;
+    public MainMenu(FragmentManager associatedManager, Activity activity, ViewModel viewModel) {
         super();
+        this.activity = activity;
         this.associatedManager = associatedManager;
+        this.viewModel = viewModel;
     }
 
     /**
@@ -109,9 +116,9 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton recordingsButton = view.findViewById(R.id.Aufnahmen);
         ImageButton taktButton = view.findViewById(R.id.Takt);
         ImageButton exitButton = view.findViewById(R.id.exitButton);
-
+        ImageButton mapButton = view.findViewById(R.id.mapButton);
         exitButton.setOnClickListener(view -> dismiss());
-
+        mapButton.setOnClickListener( view -> startActivity();
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
         volumeSlider.setValue(gain* 100);
         volumeSlider.addOnChangeListener((slider, value, fromUser) -> {
@@ -120,6 +127,10 @@ public class MainMenu extends BottomSheetDialogFragment {
         });
     }
 
+    private Intent createMapViewIntent() {
+        Intent intent = new Intent(activity, FacadeMapView.class);
+        return intent;
+    }
     public FragmentManager getAssociatedFragmentManager() {
         return associatedManager;
     }

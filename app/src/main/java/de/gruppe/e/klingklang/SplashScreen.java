@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SplashScreen extends AppCompatActivity {
     private static int TIME_OUT = 3000;
@@ -20,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         new Handler().postDelayed(() -> {
-            Intent i = new Intent(SplashScreen.this, FacadeMapView.class);
+            Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
             finish();
         }, TIME_OUT);

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
+        MainMenu mainMenu = new MainMenu(getSupportFragmentManager(), this);
         SynthService = new SynthService(this);
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
         /*
