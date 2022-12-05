@@ -1,6 +1,7 @@
 package de.gruppe.e.klingklang.viewmodel;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +9,9 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.ScaleBarOverlay;
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import de.gruppe.e.klingklang.BuildConfig;
 import de.gruppe.e.klingklang.R;
@@ -16,6 +19,7 @@ import de.gruppe.e.klingklang.R;
 public class FacadeMapView extends AppCompatActivity {
     private static final String MAP_FRAGMENT_TAG = "org.osmdroid.MAP_FRAGMENT_TAG";
     private FacadeMapFragment facadeMapFragment;
+    private MyLocationNewOverlay locationOverlay;
     /**
      * Called when the activity is first created.
      */
@@ -26,7 +30,6 @@ public class FacadeMapView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_mapview);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        //noinspection ConstantConditions
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -34,18 +37,34 @@ public class FacadeMapView extends AppCompatActivity {
         MapView view = findViewById(R.id.mapview);
         view.setTilesScaledToDpi(true);
         view.setMultiTouchControls(true);
+        locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), view);
+        locationOverlay.enableMyLocation();
+        view.getOverlays().add(locationOverlay);
+        DisplayMetrics dm = this.getResources().getDisplayMetrics();
+        ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(view);
+        scaleBarOverlay.setCentred(true);
+        scaleBarOverlay.setScaleBarOffset((int) (dm.widthPixels * 0.1), (int) (dm.heightPixels * 0.9));
+        view.getOverlays().add(scaleBarOverlay);
         IMapController mapController = view.getController();
         mapController.setZoom(18.0);
         GeoPoint startPoint = new GeoPoint(latitude, longitude);
         mapController.setCenter(startPoint);
-        RotationGestureOverlay mRotationGestureOverlay = new RotationGestureOverlay(view);
-        mRotationGestureOverlay.setEnabled(true);
         view.setMultiTouchControls(true);
-        view.getOverlays().add(mRotationGestureOverlay);
 //        FragmentManager fm = this.getSupportFragmentManager();
 //        if (fm.findFragmentByTag(MAP_FRAGMENT_TAG) == null) {
 //            facadeMapFragment = FacadeMapFragment.newInstance();
 //            fm.beginTransaction().add(R.id.mapview, facadeMapFragment, MAP_FRAGMENT_TAG).commit();
 //        }
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        locationOverlay.disableMyLocation();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        locationOverlay.enableMyLocation();
     }
 }
