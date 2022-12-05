@@ -16,20 +16,30 @@ public class SynthService {
         this.activity = activity;
     }
 
+    public void register(ButtonData buttonData) {
+        String tempSoundfontPath = copyAssetToTmpFile(buttonData.getSoundfontPath());
+        String tempMidiPath = null;
+        if (buttonData.getMidiPath() != null) {
+            tempMidiPath = copyAssetToTmpFile(buttonData.getMidiPath());
+        }
+        register(buttonData.getButtonNumber(), tempSoundfontPath, tempMidiPath, buttonData.isLoop());
+    }
+
     public void play(ButtonData buttonData) {
-        String soundfontPath = copyAssetToTmpFile(buttonData.getSoundfontPath());
         if (buttonData.getMidiPath() != null) {
             // Play midi
-            String midiPath = copyAssetToTmpFile(buttonData.getMidiPath());
-            play(midiPath, soundfontPath, buttonData.getButtonNumber(), buttonData.isToggle());
+            play(buttonData.getButtonNumber());
         } else {
-            play(soundfontPath, buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset(), buttonData.isToggle());
+            // Play soundfont
+            play(buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset());
         }
     }
 
-    private native void play(String midiPath, String soundfontPath, int buttonNumber, boolean toggle);
+    private native void register(int buttonNumber, String soundfontPath, String midiPath, boolean isLoop);
 
-    private native void play(String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle);
+    private native void play(int buttonNumber);
+
+    private native void play(int buttonNumber, int key, int velocity, int preset);
 
     /**
      * Turns a assets file that is a series of bytes in the compressed APK into a playable temporary
@@ -38,7 +48,7 @@ public class SynthService {
      * @param fileName Name of the .sf2 file in /assets
      * @return Path of the temporary file
      */
-    private String copyAssetToTmpFile(String fileName) {
+    public String copyAssetToTmpFile(String fileName) {
         try (InputStream is = activity.getAssets().open(fileName)) {
             String tempFileName = "tmp_" + fileName;
             try (FileOutputStream fos = activity.openFileOutput(tempFileName, Context.MODE_PRIVATE)) {
