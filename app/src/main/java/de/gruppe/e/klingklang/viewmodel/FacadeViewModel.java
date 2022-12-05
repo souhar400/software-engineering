@@ -1,20 +1,16 @@
 package de.gruppe.e.klingklang.viewmodel;
 
-import android.widget.Button;
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.fragment.app.FragmentManager;
 
 import java.util.Map;
 
-import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
-import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.model.FassadeModel;
+import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.services.SynthService;
-import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.SoundMenu;
 
 public class FacadeViewModel implements ViewModel{
@@ -24,21 +20,16 @@ public class FacadeViewModel implements ViewModel{
     private final String LOG_TAG = getClass().getSimpleName();
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
     private final FragmentManager associatedManager;
-    private final ControlButtonsOverlayView overlayView;
-    private final Activity activity;
-    public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
-                           FassadeModel model,
+    private final MainActivity activity;
+    public FacadeViewModel(FassadeModel model,
                            SynthService synthService,
-                           FragmentManager associatedManager,
-                           Activity activity){
+                           MainActivity activity){
         fassadenModel = model;
-        actualFassade = model.getInitialFassade();
+        actualFassade = model.getCurrentFacade();
         this.synthService = synthService;
-        this.associatedManager = associatedManager;
-        this.overlayView = controlButtonsOverlayView;
+        this.associatedManager = activity.getSupportFragmentManager();
         this.activity = activity;
         setButtonListener();
-        controlButtonsOverlayView.setViewModel(this);
     }
 
 
@@ -46,10 +37,8 @@ public class FacadeViewModel implements ViewModel{
         actualFassade = fassadenModel.getNextFacade();
         actualFassade.setOrientation();
         actualFassade.setContentView();
-        this.overlayView.setListeners();
         setButtonListener();
         actualFassade.setInEditMode(false);
-        overlayView.getEditButton().setImageResource( R.drawable.edit_mode );
     }
 
     private void setButtonListener() {
@@ -80,6 +69,6 @@ public class FacadeViewModel implements ViewModel{
 
     @Override
     public NamedLocation getNamedLocation() {
-        return model.getNamedLocation();
+        return actualFassade.getNamedLocation();
     }
 }

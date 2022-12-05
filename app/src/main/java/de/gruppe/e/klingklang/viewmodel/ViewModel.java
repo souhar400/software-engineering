@@ -7,4 +7,5 @@ public interface ViewModel {
     void toggleInEditMode();
     boolean getInEditMode();
     NamedLocation getNamedLocation();
+    void changeFassade();
 }

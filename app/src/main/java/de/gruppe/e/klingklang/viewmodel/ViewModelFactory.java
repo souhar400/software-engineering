@@ -10,8 +10,6 @@ import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
 import de.gruppe.e.klingklang.model.NamedLocation;
-import de.gruppe.e.klingklang.services.SynthService;
-import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 
 public class ViewModelFactory {
     private final MainActivity mainActivity;
@@ -25,17 +23,23 @@ public class ViewModelFactory {
                 "R. de Mouzinho da Silveira 42",
                 "Portugal, Porto");
         return new FacadeData(mainActivity, R.layout.activity_main,
-                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, initialiseFacadeOneButtons());
+                ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE, initialiseFacadeOneButtons(), location);
     }
 
     public FacadeData createFacadeTwo() {
+        NamedLocation location = new NamedLocation(41.141, -8.614, 200,
+                "R. de Mouzinho da Silveira 42",
+                "Portugal, Porto");
         return new FacadeData(mainActivity, R.layout.fassade_2,
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT, initialiseFacadeTwoButtons());
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT, initialiseFacadeTwoButtons(), location);
     }
 
     public FacadeData createFacadeThree() {
+        NamedLocation location = new NamedLocation(41.141, -8.614, 200,
+                "R. de Mouzinho da Silveira 42",
+                "Portugal, Porto");
         return new FacadeData(mainActivity, R.layout.fassade_3,
-                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT, initialiseFacadeThreeButtons());
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT, initialiseFacadeThreeButtons(), location);
     }
 
     private HashMap<Button, ButtonData> initialiseOldViewButtons() {

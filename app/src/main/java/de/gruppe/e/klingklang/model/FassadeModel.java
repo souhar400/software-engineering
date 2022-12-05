@@ -7,9 +7,9 @@ import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
 
 public class FassadeModel {
     private ArrayList<FacadeData> fassaden ;
-    private int counter;
+    private int currentFacadeIndex;
     public FassadeModel(MainActivity activity){
-        counter = 0;
+        currentFacadeIndex = 0;
         fassaden = new ArrayList<>();
         ViewModelFactory factory = new ViewModelFactory(activity);
         fassaden.add(factory.createFacadeOne());
@@ -17,12 +17,11 @@ public class FassadeModel {
         fassaden.add(factory.createFacadeThree());
     }
     public FacadeData getNextFacade() {
-        counter = (counter + 1) % 3;
-        return fassaden.get(counter);
-    }
-    public FacadeData getInitialFassade() {
-        return fassaden.get(0);
+        currentFacadeIndex = (currentFacadeIndex + 1) % 3;
+        return fassaden.get(currentFacadeIndex);
     }
 
-
+    public FacadeData getCurrentFacade() {
+        return fassaden.get(currentFacadeIndex);
+    }
 }

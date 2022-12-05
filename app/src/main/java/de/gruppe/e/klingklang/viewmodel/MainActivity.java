@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
@@ -33,13 +34,11 @@ import com.google.android.gms.location.Priority;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
-import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.MainMenu;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String OPEN_COUNT_KEY = "openedCount";
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
+    private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -61,24 +61,23 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
     private static String[] backgroundPermissions;
-    private ViewModel currentViewModel;
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
-
+    private ViewModel facadeViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
         FassadeModel fassadenModel = new FassadeModel(this);
-        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager(), this );
+        facadeViewModel = new FacadeViewModel(fassadenModel,SynthService, this);
+        MainMenu mainMenu = new MainMenu(this, facadeViewModel);
+        setControlButtonListeners(facadeViewModel, mainMenu);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -101,10 +100,10 @@ public class MainActivity extends AppCompatActivity {
             if(lacksPermissions()) {
                 requestPermissions();
             }
-            buildGeofenceList(currentViewModel.getNamedLocation().getAddress(),
-                    currentViewModel.getNamedLocation().getLatitude(),
-                    currentViewModel.getNamedLocation().getLongitude(),
-                    currentViewModel.getNamedLocation().getRadius());
+            buildGeofenceList(facadeViewModel.getNamedLocation().getAddress(),
+                    facadeViewModel.getNamedLocation().getLatitude(),
+                    facadeViewModel.getNamedLocation().getLongitude(),
+                    facadeViewModel.getNamedLocation().getRadius());
             startLocationUpdates();
             addGeofences();
         }
@@ -146,6 +145,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setControlButtonListeners(ViewModel viewModel, MainMenu mainMenu){
+        ImageButton editButton = findViewById(R.id.edit_button);
+        editButton.setImageResource( R.drawable.edit_mode );
+        ImageButton menuButton = findViewById(R.id.setting_button);
+        ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
+
+        editButton.setOnClickListener(view -> {
+            viewModel.toggleInEditMode();
+            editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
+        });
+        changeFassadeButton.setOnClickListener(view -> {
+            viewModel.changeFassade();
+            setControlButtonListeners(viewModel, mainMenu);
+        });
+        menuButton.setOnClickListener(view -> {
+            mainMenu.show(mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+    }
+
     /**
      * This is needed to continuously receive location updates, enabling a
      * {@link android.content.BroadcastReceiver} to pick up Intents regarding location-changes.
@@ -176,19 +194,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-    public void switchViewModel(ViewModel target) {
-        currentViewModel = target;
-        geofencingClient.removeGeofences(geofenceList.stream()
-                .map(Geofence::getRequestId)
-                .collect(Collectors.toList()));
-        geofenceList.clear();
-        currentViewModel = target;
-        buildGeofenceList(currentViewModel.getNamedLocation().getAddress(),
-                currentViewModel.getNamedLocation().getLatitude(),
-                currentViewModel.getNamedLocation().getLongitude(),
-                currentViewModel.getNamedLocation().getRadius());
-        addGeofences();
-    }
     /**
      * Checks whether all permissions required by this app are granted.
      *
@@ -232,9 +237,9 @@ public class MainActivity extends AppCompatActivity {
     private void setGeofencePendingIntent() {
         Intent intent = new Intent(this, FacadeProximityBroadcastReceiver.class);
         intent.putExtra(getString(R.string.location_region_name),
-                currentViewModel.getNamedLocation().getShortName());
+                facadeViewModel.getNamedLocation().getShortName());
         intent.putExtra(getString(R.string.location_region_address),
-                currentViewModel.getNamedLocation().getAddress());
+                facadeViewModel.getNamedLocation().getAddress());
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;

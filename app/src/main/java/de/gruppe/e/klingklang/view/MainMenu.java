@@ -29,16 +29,16 @@ import de.gruppe.e.klingklang.viewmodel.ViewModel;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
+    private final ViewModel viewModel;
     private View view;
     private float gain = 0.2f;
     private final FragmentManager associatedManager;
-    private final Activity activity;
-    private final ViewModel viewModel;
-    public MainMenu(FragmentManager associatedManager, Activity activity, ViewModel viewModel) {
+    private final MainActivity activity;
+    public MainMenu(MainActivity activity, ViewModel viewModel) {
         super();
         this.activity = activity;
-        this.associatedManager = associatedManager;
         this.viewModel = viewModel;
+        this.associatedManager = activity.getSupportFragmentManager();
     }
 
     /**

@@ -7,8 +7,8 @@ public class NamedLocation {
     private final String address;
     private final String shortName;
 
-    public NamedLocation(double longitude,
-                         double latitude,
+    public NamedLocation(double latitude,
+                         double longitude,
                          int radius,
                          String adress,
                          String shortName) {

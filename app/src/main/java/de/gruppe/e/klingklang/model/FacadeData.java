@@ -12,11 +12,16 @@ public class FacadeData {
     private Activity context;
     private int orientation;
     private int facadeId;
-    public FacadeData(Activity context, int facadeId, int orientation, Map<Integer, ButtonData> buttonDataMap) {
+    public FacadeData(Activity context,
+                      int facadeId,
+                      int orientation,
+                      Map<Integer, ButtonData> buttonDataMap,
+                      NamedLocation namedLocation) {
         this.context = context;
         this.buttonDataMap = buttonDataMap;
         this.orientation = orientation;
         this.facadeId = facadeId;
+        this.namedLocation = namedLocation;
     }
 
     public Map<Integer, ButtonData> getButtons(){
