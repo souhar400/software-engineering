@@ -42,7 +42,7 @@ public class ViewModelFactory {
         map.put((Button) mainActivity.findViewById(R.id.bottom_left1),
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(2).withToggle(true).create());
-        map.put((Button) mainActivity.findViewById(R.id.bottom_left1),
+        map.put((Button) mainActivity.findViewById(R.id.bottom_left2),
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(3).withToggle(true).create());
         map.put((Button) mainActivity.findViewById(R.id.top_middle1),

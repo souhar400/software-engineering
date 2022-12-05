@@ -1,43 +1,59 @@
 package de.gruppe.e.klingklang.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.slider.Slider;
+
+import java.io.File;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
-public class SoundMenu extends BottomSheetDialogFragment {
-    private View view;
-    private final ButtonData buttonData;
-    private FileSelectionMenu fileSelectionMenu;
-    private final FragmentManager associatedManager;
+public class FileSelectionMenu extends BottomSheetDialogFragment{
 
-    public SoundMenu(ButtonData vd, FragmentManager associatedManager) {
-        super();
-        this.buttonData = vd;
-        this.associatedManager = associatedManager;
+    private View view;
+    private ButtonData buttonData;
+    private final String[] fileNames = {"Melodie.mid",
+            "Bass.mid",
+            "Beat.mid",
+            "Piano - 1 - Lydisch.mid",
+            "Piano - 2 - Ionisch.mid",
+            "Piano - 3 - Mixolydisch",
+            "Piano - 4 - Dorisch.mid",
+            "Piano - 5 - Äolisch.mid",
+            "Piano - 6 - Phrygisch.mid",
+            "Piano - 7 - Lokrisch"};
+
+    private Button[] buttons;
+    public FileSelectionMenu(ButtonData buttonData) {
+        this.buttonData = buttonData;
     }
 
     /**
@@ -103,62 +119,58 @@ public class SoundMenu extends BottomSheetDialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.sound_menu, container, false);
-
-        createSoundMenu();
+        view = inflater.inflate(R.layout.file_selection_menu, container, false);
+        createSelectionMenu();
         return view;
     }
 
-    private void createSoundMenu() {
-        EditText title = view.findViewById(R.id.title);
-        title.setText("Instrument A Tonleiter");
+    private void createSelectionMenu() {
+        TextView title = view.findViewById(R.id.title);
+        title.setText("Files");
 
-        Slider slider1 = view.findViewById(R.id.slider1);
-        slider1.setValue(50);
-        Slider slider2 = view.findViewById(R.id.slider2);
-        slider2.setValue(50);
-        Slider slider3 = view.findViewById(R.id.slider3);
-        slider3.setValue(50);
-
-        TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("Reverb");
-        TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("Pitch-Up");
-        TextView slider3Name = view.findViewById(R.id.slider3Name);
-        slider3Name.setText("Pitch-Down");
-
-        Slider volumeSlider = view.findViewById(R.id.volumeSlider);
-        volumeSlider.setValue(buttonData.getVolume());
-
-        addSliderListenerForVolume(volumeSlider);
+        setButtons();
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
-
-        SwitchCompat hide = view.findViewById(R.id.switchHideButton);
-        hide.setChecked(buttonData.getVisibility());
-        hide.setOnClickListener(e -> buttonData.setVisibility());
-
-        SwitchCompat loop = view.findViewById(R.id.playLoopButton);
-        loop.setChecked(buttonData.isToggle());
-        loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
-
-        TextView files = view.findViewById(R.id.files);
-        files.setOnClickListener(e -> {
-            fileSelectionMenu = new FileSelectionMenu(buttonData);
-            fileSelectionMenu.show(associatedManager, null);
-        });
     }
 
-    private void addSliderListenerForVolume(Slider s) {
-        s.addOnChangeListener((slider, value, fromUser) -> {
-            int slide_value = Math.round(value);
-            buttonData.setVolume(slide_value);
-        });
+    @SuppressLint("RtlHardcoded")
+    private void setButtons() {
+        LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
+        buttons = new Button[fileNames.length];
+
+        for (int i = 0; i < fileNames.length; i++) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.weight = 1.0f;
+            params.gravity = Gravity.LEFT;
+
+            params.setMargins(0, 30, 0, 0);
+            Button button = new Button(view.getContext());
+            button.setId(i);
+            button.setMaxHeight(50);
+            button.setLayoutParams(params);
+
+            button.setText(fileNames[i]);
+            button.setBackgroundColor(Color.LTGRAY);
+            if(fileNames[i].equals(buttonData.getMidiPath())){
+                button.setBackgroundColor(getResources().getColor(R.color.teal_200));
+            }
+
+            buttons[i] = button;
+            button.setOnClickListener(view -> {
+                buttonData.setMidiPath(button.getText().toString());
+                for (Button value : buttons) {
+                    value.setBackgroundColor(Color.LTGRAY);
+                }
+                button.setBackgroundColor(getResources().getColor(R.color.teal_200));
+            });
+
+            linearLayout.addView(button);
+        }
+
     }
 
-    public FragmentManager getAssociatedFragmentManager() {
-        return associatedManager;
-    }
 
 }

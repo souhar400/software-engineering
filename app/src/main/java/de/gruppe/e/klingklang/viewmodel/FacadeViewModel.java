@@ -38,7 +38,7 @@ public class FacadeViewModel implements ViewModel{
         for (Map.Entry<Button, ButtonData> entry : model.buttonDataList.entrySet())
             entry.getKey().setOnClickListener(view -> {
                 if (model.getInEditMode()) {
-                    SoundMenu smenu = new SoundMenu(entry.getValue());
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager);
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
                     synthService.play(entry.getValue());
