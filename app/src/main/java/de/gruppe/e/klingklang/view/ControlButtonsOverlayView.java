@@ -11,10 +11,13 @@ public class ControlButtonsOverlayView {
     private ImageButton menuButton;
     private FacadeViewModel viewModel;
     public ControlButtonsOverlayView(ImageButton editButton,
-                                     ImageButton menuButton,
-                                     MainMenu mainMenu) {
+                                     ImageButton menuButton)
+    {
         this.editButton = editButton;
         this.menuButton = menuButton;
+    }
+
+    public void setMainMenu(MainMenu mainMenu) {
         this.menuButton.setOnClickListener(view -> {
             mainMenu.show(mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
         });

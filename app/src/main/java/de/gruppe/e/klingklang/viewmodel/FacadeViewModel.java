@@ -1,11 +1,9 @@
 package de.gruppe.e.klingklang.viewmodel;
 
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.fragment.app.FragmentManager;
 
-import java.io.IOException;
 import java.util.Map;
 
 import de.gruppe.e.klingklang.model.ButtonData;

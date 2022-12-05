@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 import de.gruppe.e.klingklang.viewmodel.ViewModel;
@@ -118,7 +119,7 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton exitButton = view.findViewById(R.id.exitButton);
         ImageButton mapButton = view.findViewById(R.id.mapButton);
         exitButton.setOnClickListener(view -> dismiss());
-        mapButton.setOnClickListener( view -> startActivity();
+        mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
         volumeSlider.setValue(gain* 100);
         volumeSlider.addOnChangeListener((slider, value, fromUser) -> {
@@ -129,6 +130,9 @@ public class MainMenu extends BottomSheetDialogFragment {
 
     private Intent createMapViewIntent() {
         Intent intent = new Intent(activity, FacadeMapView.class);
+        NamedLocation facadeLocation = viewModel.getNamedLocation();
+        intent.putExtra(getString(R.string.location_latitude), facadeLocation.getLatitude());
+        intent.putExtra(getString(R.string.location_longitude), facadeLocation.getLongitude());
         return intent;
     }
     public FragmentManager getAssociatedFragmentManager() {

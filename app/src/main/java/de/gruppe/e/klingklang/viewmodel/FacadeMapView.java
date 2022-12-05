@@ -21,8 +21,8 @@ public class FacadeMapView extends AppCompatActivity {
      */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        double latitude = getIntent().getExtras().getDouble("latitude");
-        double longitude = getIntent().getExtras().getDouble("longitude");
+        double latitude = getIntent().getExtras().getDouble(getString(R.string.location_latitude));
+        double longitude = getIntent().getExtras().getDouble(getString(R.string.location_longitude));
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_mapview);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);

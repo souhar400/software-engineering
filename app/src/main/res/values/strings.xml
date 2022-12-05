@@ -7,4 +7,6 @@
     <string name="location_region_address">location_region_address</string>
     <string name="toggle_between_play_and_edit_mode">Toggle between Play- and Edit-Mode</string>
     <string name="pull_up_settings_drawer">Pull up Settings-Drawer</string>
+    <string name="location_latitude">location_latitude</string>
+    <string name="location_longitude">location_longitude</string>
 </resources>

@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager(), this);
         SynthService = new SynthService(this);
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
         /*
@@ -81,10 +80,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(
                 findViewById(R.id.edit_button),
-                findViewById(R.id.setting_button),
-                mainMenu);
+                findViewById(R.id.setting_button));
         currentViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
                 SynthService, getSupportFragmentManager());
+        MainMenu mainMenu = new MainMenu(getSupportFragmentManager(), this, currentViewModel);
+        controlButtonsOverlayView.setMainMenu(mainMenu);
         DrawerLayout mDrawerLayout = findViewById(R.id.drawer_layout);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
