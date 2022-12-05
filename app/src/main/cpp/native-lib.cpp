@@ -144,17 +144,17 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__Ljava_lang_String_2IIIIZ
         buttonData[button_number].initialized = true;
     }
 
-    fluid_synth_program_change(buttonData[button_number].fluidSynth, button_number, preset);
+    fluid_synth_program_change(buttonData[button_number].fluidSynth, 0, preset);
 
     // Play the sound
-    fluid_synth_noteoff(buttonData[button_number].fluidSynth, button_number, key);
+    fluid_synth_noteoff(buttonData[button_number].fluidSynth, 0, key);
 
     if (toggle && buttonData[button_number].loop) {
         buttonData[button_number].loop = false;
         return;
     }
 
-    fluid_synth_noteon(buttonData[button_number].fluidSynth, button_number, key, velocity);
+    fluid_synth_noteon(buttonData[button_number].fluidSynth, 0, key, velocity);
     buttonData[button_number].loop = true;
 }
 

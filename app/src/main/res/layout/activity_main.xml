@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/fassade"
+        android:background="@drawable/gebaeudee"
         tools:context=".viewmodel.MainActivity">
 
         <!--Vertical  guidelines  -->
@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.015" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_XB_2"
             android:layout_width="wrap_content"
@@ -48,84 +47,70 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.093" />
+            app:layout_constraintGuide_percent="0.055" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.19" />
+            app:layout_constraintGuide_percent="0.135" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.245" />
+            app:layout_constraintGuide_percent="0.255" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.345" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_X5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.420" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_X6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.508" />
+            app:layout_constraintGuide_percent="0.332" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.544" />
+            app:layout_constraintGuide_percent="0.453" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.63" />
+            app:layout_constraintGuide_percent="0.53" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.695" />
+            app:layout_constraintGuide_percent="0.65" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.785" />
+            app:layout_constraintGuide_percent="0.73" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.816" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.91" />
+            app:layout_constraintGuide_percent="0.9" />
 
         <!-- horizontal guidelines  -->
         <androidx.constraintlayout.widget.Guideline
@@ -147,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.122" />
+            app:layout_constraintGuide_percent="0.12" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_YB4"
@@ -157,60 +142,32 @@
             app:layout_constraintGuide_percent="0.035" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_L_Y1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.98" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_L_Y2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.555" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_LC_Y3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.41" />
+            app:layout_constraintGuide_percent="0.34" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_L_Y4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.12" />
+            app:layout_constraintGuide_percent="0.089" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_C_Y1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.88" />
+            app:layout_constraintGuide_percent="0.835" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_CR_Y2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.54" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_CR_Y4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.049" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_R_Y1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.577" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_R_Y3"
@@ -220,79 +177,65 @@
             app:layout_constraintGuide_percent="0.47" />
 
         <!-- Buttons-->
+
         <Button
-            android:id="@+id/top_left1"
+            android:id="@+id/button1"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,0"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
-            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/top_left2"
-            style="@style/windowbutton_style"
-            android:tag="beeper.sf2,1"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
-            app:layout_constraintStart_toStartOf="@id/guideline_X3"
-            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_left1"
+            android:id="@+id/button2"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,2"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
-            app:layout_constraintTop_toTopOf="@id/guideline_L_Y2"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_left2"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,3"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_L_Y1"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
-            app:layout_constraintStart_toStartOf="@id/guideline_X3"
-            app:layout_constraintTop_toTopOf="@id/guideline_L_Y2"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-
-        <Button
-            android:id="@+id/top_middle1"
+            android:id="@+id/button3"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,4"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X6"
-            app:layout_constraintStart_toStartOf="@id/guideline_X5"
-            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y4"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/top_middle2"
+            android:id="@+id/button4"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,5"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
             app:layout_constraintStart_toStartOf="@id/guideline_X7"
-            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y4"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_middle1"
+            android:id="@+id/button5"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,6"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X6"
-            app:layout_constraintStart_toStartOf="@id/guideline_X5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_middle2"
+            android:id="@+id/button6"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,7"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
@@ -302,42 +245,42 @@
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/top_right1"
+            android:id="@+id/button7"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,8"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
-            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y4"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/top_right2"
+            android:id="@+id/button8"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,9"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y3"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
             app:layout_constraintStart_toStartOf="@id/guideline_X11"
-            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y4"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_right1"
+            android:id="@+id/button9"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,10"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/bottom_right2"
+            android:id="@+id/button10"
             style="@style/windowbutton_style"
             android:tag="jazz_riff.sf2,11"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_R_Y1"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
             app:layout_constraintStart_toStartOf="@id/guideline_X11"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
@@ -364,6 +307,18 @@
             app:layout_constraintTop_toTopOf="@id/guideline_YB2"
             app:srcCompat="@drawable/edit_mode"
             android:contentDescription="@string/toggle_between_play_and_edit_mode" />
+
+        <ImageButton
+            android:id="@+id/change_fassade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/guideline_XB_4"
+            app:layout_constraintStart_toStartOf="@id/guideline_XB_3"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB1"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB2"
+            app:srcCompat="@drawable/ic_baseline_change_circle_24"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="21dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
