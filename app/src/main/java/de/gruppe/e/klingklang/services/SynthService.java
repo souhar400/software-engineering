@@ -26,6 +26,8 @@ public class SynthService {
         register(buttonData.getButtonNumber(), tempSoundfontPath, tempMidiPath, buttonData.isLoop());
     }
 
+
+
     public void play(ButtonData buttonData) {
         if (buttonData.getMidiPath() != null) {
             // Play midi
@@ -33,6 +35,23 @@ public class SynthService {
         } else {
             // Play soundfont
             play(buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset());
+        }
+
+        MainActivity.recorder.addTrackComponent(
+                buttonData.getMidiPath(),
+                buttonData.getSoundfontPath(),
+                buttonData.getButtonNumber(),
+                buttonData.getKey(),
+                buttonData.getVelocity(),
+                buttonData.getPreset(),
+                buttonData.isLoop());
+    }
+
+    public void play(String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
+        if (!midiPath.equals("null")) {
+            play(buttonNumber);
+        } else {
+            play(buttonNumber, key, velocity, preset);
         }
     }
 

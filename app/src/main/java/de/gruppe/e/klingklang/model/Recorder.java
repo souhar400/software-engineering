@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import de.gruppe.e.klingklang.services.SynthService;
 
@@ -71,7 +70,7 @@ public class Recorder {
                             trackComponents.get(0).key,
                             trackComponents.get(0).velocity,
                             trackComponents.get(0).preset,
-                            trackComponents.get(0).toggle);
+                            trackComponents.get(0).isLoop);
                     trackComponents.remove(0);
                 }
             }
@@ -81,7 +80,7 @@ public class Recorder {
     private void untoggleToggledTrackComponents() {
         for (TrackComponent trackComponent : notUntoggledTrackComponents) {
             long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-            trackComponents.add(new TrackComponent(momentPlayed, trackComponent.midiPath, trackComponent.soundfontPath, trackComponent.buttonNumber, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.toggle));
+            trackComponents.add(new TrackComponent(momentPlayed, trackComponent.midiPath, trackComponent.soundfontPath, trackComponent.buttonNumber, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.isLoop));
 
 
             trackComponent.midiPath = trackComponent.midiPath == null ? "null" : trackComponent.midiPath;
@@ -94,7 +93,7 @@ public class Recorder {
                     trackComponent.key,
                     trackComponent.velocity,
                     trackComponent.preset,
-                    trackComponent.toggle);
+                    trackComponent.isLoop);
         }
     }
 
@@ -107,7 +106,7 @@ public class Recorder {
                     trackComponent.key,
                     trackComponent.velocity,
                     trackComponent.preset,
-                    trackComponent.toggle);
+                    trackComponent.isLoop);
         }
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
     }
@@ -116,14 +115,14 @@ public class Recorder {
     /**
      * Needs to be called in the Button Listeners for it to log when a button is pressed
      */
-    public void addTrackComponent(String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
+    public void addTrackComponent(String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean isLoop) {
         long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
-        TrackComponent newTrackComponent = new TrackComponent(momentPlayed, midiPath, soundfontPath, buttonNumber, key, velocity, preset, toggle);
+        TrackComponent newTrackComponent = new TrackComponent(momentPlayed, midiPath, soundfontPath, buttonNumber, key, velocity, preset, isLoop);
 
         if (isRecording) {
             this.trackComponents.add(newTrackComponent);
             // Keeps track of loop buttons that where activated, but not deactivated.
-            if (toggle) {
+            if (isLoop) {
                 if (notUntoggledTrackComponents.contains(newTrackComponent)) {
                     notUntoggledTrackComponents.remove(newTrackComponent);
                 } else {
@@ -131,7 +130,7 @@ public class Recorder {
                 }
             }
         } else {
-            if (toggle) {
+            if (isLoop) {
                 newTrackComponent.momentPlayed = 0;
                 newTrackComponent.midiPath = newTrackComponent.midiPath == null ? "null" : newTrackComponent.midiPath;
                 newTrackComponent.soundfontPath = newTrackComponent.soundfontPath == null ? "null" : newTrackComponent.soundfontPath;
@@ -180,7 +179,7 @@ public class Recorder {
                     trackComponent.key,
                     trackComponent.velocity,
                     trackComponent.preset,
-                    trackComponent.toggle
+                    trackComponent.isLoop
             ));
         }
     }

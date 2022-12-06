@@ -8,9 +8,9 @@ public class TrackComponent {
     public int key;
     public int velocity;
     public int preset;
-    public boolean toggle;
+    public boolean isLoop;
 
-    public TrackComponent(long momentPlayed, String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean toggle) {
+    public TrackComponent(long momentPlayed, String midiPath, String soundfontPath, int buttonNumber, int key, int velocity, int preset, boolean isLoop) {
         this.momentPlayed = momentPlayed;
         this.midiPath = midiPath;
         this.soundfontPath = soundfontPath;
@@ -18,7 +18,7 @@ public class TrackComponent {
         this.key = key;
         this.velocity = velocity;
         this.preset = preset;
-        this.toggle = toggle;
+        this.isLoop = isLoop;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class TrackComponent {
                 this.key == that.key &&
                 this.velocity == that.velocity &&
                 this.preset == that.preset &&
-                this.toggle == that.toggle;
+                this.isLoop == that.isLoop;
     }
 }
