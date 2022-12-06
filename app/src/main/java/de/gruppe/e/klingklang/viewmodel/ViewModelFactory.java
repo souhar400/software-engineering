@@ -61,14 +61,14 @@ public class ViewModelFactory {
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
                         .withSoundfontPath("Piano.sf2").withLoop(true).create());
         map.put((Button) mainActivity.findViewById(R.id.top_right2),
-                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 2 - Ionisch.mid")
-                        .withSoundfontPath("Piano.sf2").withLoop(true).create());
+                new ButtonData.ButtonDataBuilder().withMidiPath("Bass.mid")
+                        .withSoundfontPath("Bass.sf2").withLoop(true).create());
         map.put((Button) mainActivity.findViewById(R.id.bottom_right1),
-                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 3 - Mixolydisch.mid")
-                        .withSoundfontPath("Piano.sf2").withLoop(true).create());
+                new ButtonData.ButtonDataBuilder().withMidiPath("Beat.mid")
+                        .withSoundfontPath("Drum.sf2").withLoop(true).create());
         map.put((Button) mainActivity.findViewById(R.id.bottom_right2),
-                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 4 - Dorisch.mid")
-                        .withSoundfontPath("Piano.sf2").withLoop(true).create());
+                new ButtonData.ButtonDataBuilder().withMidiPath("Melodie.mid")
+                        .withSoundfontPath("Saxophone.sf2").withLoop(true).create());
 
         return map;
     }
