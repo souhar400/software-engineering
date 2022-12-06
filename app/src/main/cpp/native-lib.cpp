@@ -77,6 +77,10 @@ void initialize(int button_number) {
             return;
         }
     } else {
+        if (buttonData[button_number].isLoop) {
+            // Set loop
+            fluid_player_set_loop(buttonData[button_number].fluidPlayer, -1);
+        }
         // Create the audio driver to play the synthesizer
         buttonData[button_number].fluidAudioDriver = new_fluid_audio_driver(
                 buttonData[button_number].fluidSettings, buttonData[button_number].fluidSynth);
