@@ -24,6 +24,7 @@ public class Recorder {
     private long startOfRecording;
     List<TrackComponent> trackComponents;
     List<TrackComponent> notUntoggledTrackComponents;
+    List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
     ExecutorService executor = Executors.newFixedThreadPool(1);
 
@@ -33,11 +34,13 @@ public class Recorder {
         this.synthService = synthService;
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
+        notUntoggledTrackComponentsPreRecording = new ArrayList<>();
     }
 
     public void startRecording() {
         System.out.println("Start Recording");
         isRecording = true;
+        untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
     }
@@ -61,7 +64,14 @@ public class Recorder {
 
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
-                    synthService.play(trackComponents.get(0).midiPath, trackComponents.get(0).soundfontPath, trackComponents.get(0).buttonNumber, trackComponents.get(0).key, trackComponents.get(0).velocity, trackComponents.get(0).preset, trackComponents.get(0).toggle);
+                    synthService.play(
+                            trackComponents.get(0).midiPath,
+                            trackComponents.get(0).soundfontPath,
+                            trackComponents.get(0).buttonNumber,
+                            trackComponents.get(0).key,
+                            trackComponents.get(0).velocity,
+                            trackComponents.get(0).preset,
+                            trackComponents.get(0).toggle);
                     trackComponents.remove(0);
                 }
             }
@@ -72,7 +82,34 @@ public class Recorder {
         for (TrackComponent trackComponent : notUntoggledTrackComponents) {
             long momentPlayed = System.currentTimeMillis() - this.startOfRecording;
             trackComponents.add(new TrackComponent(momentPlayed, trackComponent.midiPath, trackComponent.soundfontPath, trackComponent.buttonNumber, trackComponent.key, trackComponent.velocity, trackComponent.preset, trackComponent.toggle));
+
+
+            trackComponent.midiPath = trackComponent.midiPath == null ? "null" : trackComponent.midiPath;
+            trackComponent.soundfontPath = trackComponent.soundfontPath == null ? "null" : trackComponent.soundfontPath;
+
+            synthService.play(
+                    trackComponent.midiPath,
+                    trackComponent.soundfontPath,
+                    trackComponent.buttonNumber,
+                    trackComponent.key,
+                    trackComponent.velocity,
+                    trackComponent.preset,
+                    trackComponent.toggle);
         }
+    }
+
+    private void untoggleToggledTrackComponentsPreRecording() {
+        for (TrackComponent trackComponent : notUntoggledTrackComponentsPreRecording) {
+            synthService.play(
+                    trackComponent.midiPath,
+                    trackComponent.soundfontPath,
+                    trackComponent.buttonNumber,
+                    trackComponent.key,
+                    trackComponent.velocity,
+                    trackComponent.preset,
+                    trackComponent.toggle);
+        }
+        notUntoggledTrackComponentsPreRecording = new ArrayList<>();
     }
 
 
@@ -91,6 +128,17 @@ public class Recorder {
                     notUntoggledTrackComponents.remove(newTrackComponent);
                 } else {
                     notUntoggledTrackComponents.add(newTrackComponent);
+                }
+            }
+        } else {
+            if (toggle) {
+                newTrackComponent.momentPlayed = 0;
+                newTrackComponent.midiPath = newTrackComponent.midiPath == null ? "null" : newTrackComponent.midiPath;
+                newTrackComponent.soundfontPath = newTrackComponent.soundfontPath == null ? "null" : newTrackComponent.soundfontPath;
+                if (notUntoggledTrackComponentsPreRecording.contains(newTrackComponent)) {
+                    notUntoggledTrackComponentsPreRecording.remove(newTrackComponent);
+                } else {
+                    notUntoggledTrackComponentsPreRecording.add(newTrackComponent);
                 }
             }
         }
