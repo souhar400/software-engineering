@@ -20,6 +20,7 @@ import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -34,12 +35,15 @@ import com.google.android.gms.location.Priority;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
+import de.gruppe.e.klingklang.view.SoundMenu;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String OPEN_COUNT_KEY = "openedCount";
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
+    private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
+
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -66,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
-    private ViewModel facadeViewModel;
+    private FacadeViewModel facadeViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         FassadeModel fassadenModel = new FassadeModel(this);
-        facadeViewModel = new FacadeViewModel(fassadenModel,SynthService, this);
-        MainMenu mainMenu = new MainMenu(this, facadeViewModel);
+        facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
+        facadeViewModel.setModel(fassadenModel);
+        MainMenu mainMenu = new MainMenu();
+        setButtonListener();
         setControlButtonListeners(facadeViewModel, mainMenu);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
@@ -145,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setControlButtonListeners(ViewModel viewModel, MainMenu mainMenu){
+    private void setControlButtonListeners(FacadeViewModel viewModel, MainMenu mainMenu){
         ImageButton editButton = findViewById(R.id.edit_button);
         editButton.setImageResource( R.drawable.edit_mode );
         ImageButton menuButton = findViewById(R.id.setting_button);
@@ -157,11 +165,30 @@ public class MainActivity extends AppCompatActivity {
         });
         changeFassadeButton.setOnClickListener(view -> {
             viewModel.changeFassade();
+            setButtonListener();
             setControlButtonListeners(viewModel, mainMenu);
         });
         menuButton.setOnClickListener(view -> {
-            mainMenu.show(mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
+            mainMenu.show(getSupportFragmentManager(), CONTROL_BUTTON_TAG);
         });
+    }
+
+    private void setButtonListener() {
+        Log.d(LOG_TAG, "Adding buttonlisteners to facade-buttons for facade: " + facadeViewModel.getActualFassade());
+        Log.d(LOG_TAG, "Iterating over " + facadeViewModel.getActualFassade().getButtons().size() + " buttons.");
+        for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet()) {
+            Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
+            this.findViewById(entry.getKey()).setOnClickListener(view -> {
+                Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
+                if (facadeViewModel.getInEditMode()) {
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), this.getSupportFragmentManager());
+                    smenu.show(this.getSupportFragmentManager(), FRAGMENT_TAG);
+                } else {
+                    Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
+                    SynthService.play(entry.getValue());
+                }
+            });
+        }
     }
 
     /**

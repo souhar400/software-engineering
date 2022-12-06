@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -24,23 +24,14 @@ import com.google.android.material.slider.Slider;
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
+import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
-import de.gruppe.e.klingklang.viewmodel.ViewModel;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
-    private final ViewModel viewModel;
+    private FacadeViewModel viewModel;
     private View view;
     private float gain = 0.2f;
-    private final FragmentManager associatedManager;
-    private final MainActivity activity;
-    public MainMenu(MainActivity activity, ViewModel viewModel) {
-        super();
-        this.activity = activity;
-        this.viewModel = viewModel;
-        this.associatedManager = activity.getSupportFragmentManager();
-    }
-
     /**
      * Creates the dialog and calls methods to display it in fullscreen
      * @param savedInstanceState
@@ -107,7 +98,7 @@ public class MainMenu extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_menu, container, false);
-
+        this.viewModel = new ViewModelProvider(getActivity()).get(FacadeViewModel.class);
         createMainMenu();
         return view;
     }
@@ -129,14 +120,11 @@ public class MainMenu extends BottomSheetDialogFragment {
     }
 
     private Intent createMapViewIntent() {
-        Intent intent = new Intent(activity, FacadeMapView.class);
+        Intent intent = new Intent(getContext(), FacadeMapView.class);
         NamedLocation facadeLocation = viewModel.getNamedLocation();
         intent.putExtra(getString(R.string.location_latitude), facadeLocation.getLatitude());
         intent.putExtra(getString(R.string.location_longitude), facadeLocation.getLongitude());
         return intent;
-    }
-    public FragmentManager getAssociatedFragmentManager() {
-        return associatedManager;
     }
 
     private native void adjustGain(float gain);

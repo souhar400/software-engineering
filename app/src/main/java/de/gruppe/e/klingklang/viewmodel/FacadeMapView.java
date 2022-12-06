@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
@@ -39,16 +38,19 @@ public class FacadeMapView extends AppCompatActivity {
         view.setMultiTouchControls(true);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), view);
         locationOverlay.enableMyLocation();
+        locationOverlay.enableFollowLocation();
+        locationOverlay.getMyLocation();
+        IMapController mapController = view.getController();
+        mapController.setZoom(18.0);
+        runOnUiThread(() -> mapController.animateTo(locationOverlay.getMyLocation()));
+//        GeoPoint startPoint = locationOverlay.getMyLocation();
+//        mapController.setCenter(startPoint);
         view.getOverlays().add(locationOverlay);
         DisplayMetrics dm = this.getResources().getDisplayMetrics();
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(view);
         scaleBarOverlay.setCentred(true);
         scaleBarOverlay.setScaleBarOffset((int) (dm.widthPixels * 0.1), (int) (dm.heightPixels * 0.9));
         view.getOverlays().add(scaleBarOverlay);
-        IMapController mapController = view.getController();
-        mapController.setZoom(18.0);
-        GeoPoint startPoint = new GeoPoint(latitude, longitude);
-        mapController.setCenter(startPoint);
         view.setMultiTouchControls(true);
 //        FragmentManager fm = this.getSupportFragmentManager();
 //        if (fm.findFragmentByTag(MAP_FRAGMENT_TAG) == null) {
