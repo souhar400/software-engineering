@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -136,12 +135,12 @@ public class SoundMenu extends BottomSheetDialogFragment {
         close.setOnClickListener(view -> dismiss());
 
         SwitchCompat hide = view.findViewById(R.id.switchHideButton);
-        hide.setChecked(buttonData.getVisibility());
+        hide.setChecked(buttonData.getVisible());
         hide.setOnClickListener(e -> buttonData.setVisibility());
 
         SwitchCompat loop = view.findViewById(R.id.playLoopButton);
-        loop.setChecked(buttonData.isToggle());
-        loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
+        loop.setChecked(buttonData.isLoop());
+        loop.setOnClickListener(e -> buttonData.setLoop(!buttonData.isLoop()));
 
         TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
