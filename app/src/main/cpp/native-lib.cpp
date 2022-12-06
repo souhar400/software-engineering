@@ -66,6 +66,11 @@ void initialize(int button_number) {
             return;
         }
 
+        if (buttonData[button_number].isLoop) {
+            // Set loop
+            fluid_player_set_loop(buttonData[button_number].fluidPlayer, -1);
+        }
+
         if (fluid_is_midifile(buttonData[button_number].midiPath)) {
             if (fluid_player_add(buttonData[button_number].fluidPlayer,
                                  buttonData[button_number].midiPath) == FLUID_FAILED) {
@@ -77,10 +82,6 @@ void initialize(int button_number) {
             return;
         }
     } else {
-        if (buttonData[button_number].isLoop) {
-            // Set loop
-            fluid_player_set_loop(buttonData[button_number].fluidPlayer, -1);
-        }
         // Create the audio driver to play the synthesizer
         buttonData[button_number].fluidAudioDriver = new_fluid_audio_driver(
                 buttonData[button_number].fluidSettings, buttonData[button_number].fluidSynth);
