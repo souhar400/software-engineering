@@ -15,6 +15,18 @@
         tools:context=".MainActivity">
 
         <!--Vertical  guidelines  -->
+        <ImageButton
+            android:id="@+id/record_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/toggle_between_play_and_edit_mode"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_X"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y"
+            app:srcCompat="@drawable/start_recording" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X1"
             android:layout_width="wrap_content"
@@ -80,6 +92,13 @@
             app:layout_constraintGuide_percent="0.74" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_X"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +112,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.7" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_Y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_Y2"

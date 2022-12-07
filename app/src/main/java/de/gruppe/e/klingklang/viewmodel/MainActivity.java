@@ -39,6 +39,8 @@ import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.model.FassadeModel;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
@@ -78,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
+        Recorder.createInstance(getApplicationContext(), this.SynthService);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+
         Log.d(LOG_TAG, "App successfully created!");
 
     }

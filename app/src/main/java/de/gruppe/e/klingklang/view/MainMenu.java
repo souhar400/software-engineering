@@ -24,6 +24,7 @@ import com.google.android.material.slider.Slider;
 import java.util.ArrayList;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.view.TrackSelectionMenus.TrackSelectionMenu;
 import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
 import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
@@ -34,6 +35,8 @@ public class MainMenu extends BottomSheetDialogFragment {
     private FacadeViewModel viewModel;
     private View view;
     private float gain = 0.2f;
+    private final String FRAGMENT_TAG = "TRACKSELECTIONMENU_FRAGMENT_TAG";
+
     /**
      * Creates the dialog and calls methods to display it in fullscreen
      * @param savedInstanceState
@@ -113,6 +116,12 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton mapButton = view.findViewById(R.id.mapButton);
         exitButton.setOnClickListener(view -> dismiss());
         mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
+
+        recordingsButton.setOnClickListener(view -> {
+            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(associatedManager);
+            trackSelectionMenu.show(associatedManager, FRAGMENT_TAG);
+        });
+
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
         volumeSlider.setValue(gain* 100);
         volumeSlider.addOnChangeListener((slider, value, fromUser) -> {

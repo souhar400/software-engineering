@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sound_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <!--Vertical  guidelines  -->
+
+    <Button
+        android:id="@+id/ja"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Ja"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_X_1"
+        app:layout_constraintEnd_toEndOf="@id/guideline_Y_2"
+        app:layout_constraintStart_toStartOf="@id/guideline_Y_1"
+        app:layout_constraintTop_toTopOf="@id/guideline_X_2_1" />
+
+    <Button
+        android:id="@+id/abbrechen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Abbrechen"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_X_1"
+        app:layout_constraintEnd_toEndOf="@id/guideline_Y_3"
+        app:layout_constraintStart_toStartOf="@id/guideline_Y_2"
+        app:layout_constraintTop_toTopOf="@id/guideline_X_2_1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+
+    <!--Horizontal guidlines -->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_X_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_X_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_X_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_X_2_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autofillHints=""
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:hint="Edit Title"
+        android:imeOptions="actionSend"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_X_3"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_Y_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_Y_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/returnButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_X_2"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_Y_5"
+        app:layout_constraintStart_toStartOf="@+id/guideline_Y_4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
