@@ -265,8 +265,8 @@
 
     <TextView
         android:id="@+id/MapTag"
-        android:layout_width="83dp"
-        android:layout_height="27dp"
+        android:layout_width="82dp"
+        android:layout_height="36dp"
         android:gravity="center"
         android:text="Standort"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_"
