@@ -1,6 +1,8 @@
 package de.gruppe.e.klingklang.model;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
 
@@ -30,5 +32,9 @@ public class FassadeModel {
             INSTANCE = new FassadeModel();
         }
         return INSTANCE;
+    }
+
+    public List<NamedLocation> getAllLocations() {
+        return fassaden.stream().map(FacadeData::getNamedLocation).collect(Collectors.toList());
     }
 }

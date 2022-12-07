@@ -7,13 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.ArrayList;
+
 import de.gruppe.e.klingklang.BuildConfig;
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.NamedLocation;
 
 public class FacadeMapView extends AppCompatActivity {
     private static final String MAP_FRAGMENT_TAG = "org.osmdroid.MAP_FRAGMENT_TAG";
@@ -24,14 +29,13 @@ public class FacadeMapView extends AppCompatActivity {
      */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        double latitude = getIntent().getExtras().getDouble(getString(R.string.location_latitude));
-        double longitude = getIntent().getExtras().getDouble(getString(R.string.location_longitude));
         super.onCreate(savedInstanceState);
+        ArrayList<NamedLocation> locations = new ArrayList<>();
+        locations = getIntent().getParcelableArrayListExtra("arraylist");
         this.setContentView(R.layout.activity_mapview);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
-
 //        registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         MapView view = findViewById(R.id.mapview);
         view.setTilesScaledToDpi(true);
@@ -43,8 +47,12 @@ public class FacadeMapView extends AppCompatActivity {
         IMapController mapController = view.getController();
         mapController.setZoom(18.0);
         runOnUiThread(() -> mapController.animateTo(locationOverlay.getMyLocation()));
-//        GeoPoint startPoint = locationOverlay.getMyLocation();
-//        mapController.setCenter(startPoint);
+        locations.stream().map( l -> new GeoPoint(l.getLatitude(), l.getLongitude()))
+                .forEach( g -> {
+                    Marker mark = new Marker(view);
+                    mark.setPosition(g);
+                    view.getOverlays().add(mark);
+                });
         view.getOverlays().add(locationOverlay);
         DisplayMetrics dm = this.getResources().getDisplayMetrics();
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(view);

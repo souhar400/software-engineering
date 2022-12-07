@@ -2,6 +2,8 @@ package de.gruppe.e.klingklang.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 import de.gruppe.e.klingklang.model.FacadeData;
 import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.model.NamedLocation;
@@ -29,5 +31,9 @@ public class FacadeViewModel extends ViewModel {
 
     public FacadeData getNextFacade() {
         return fassadenModel.getNextFacade();
+    }
+
+    public List<NamedLocation> getAllLocations() {
+        return fassadenModel.getAllLocations();
     }
 }

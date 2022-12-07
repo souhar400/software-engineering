@@ -21,6 +21,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
+import java.util.ArrayList;
+
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.NamedLocation;
 import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
@@ -122,6 +124,8 @@ public class MainMenu extends BottomSheetDialogFragment {
     private Intent createMapViewIntent() {
         Intent intent = new Intent(getContext(), FacadeMapView.class);
         NamedLocation facadeLocation = viewModel.getNamedLocation();
+        ArrayList<NamedLocation> locationList = new ArrayList<>(viewModel.getAllLocations());
+        intent.putParcelableArrayListExtra("arraylist", locationList);
         intent.putExtra(getString(R.string.location_latitude), facadeLocation.getLatitude());
         intent.putExtra(getString(R.string.location_longitude), facadeLocation.getLongitude());
         return intent;
