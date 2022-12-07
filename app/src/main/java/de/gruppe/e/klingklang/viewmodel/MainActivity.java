@@ -14,6 +14,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
@@ -52,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
+
+
+
+
+
+
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -164,10 +171,26 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-
+        Button[] buttons = new Button[] {findViewById(R.id.button1),
+                findViewById(R.id.button2),
+                findViewById(R.id.button3),
+                findViewById(R.id.button4),
+                findViewById(R.id.button5),
+                findViewById(R.id.button6),
+                findViewById(R.id.button7),
+                findViewById(R.id.button8),
+                findViewById(R.id.button9),
+                findViewById(R.id.button10)};
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
+
+            if (viewModel.getInEditMode()) {
+                viewModel.makeButtonsVisible(buttons);
+            }
+            else {
+                viewModel.makeButtonsInvisible(buttons);
+            }
         });
         changeFassadeButton.setOnClickListener(view -> {
             viewModel.getNextFacade();
@@ -177,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
             registerButtons();
             setButtonListener();
             setControlButtonListeners(viewModel, mainMenu);
+            viewModel.resetAllButtonVisibilities();
         });
         menuButton.setOnClickListener(view -> {
             mainMenu.show(getSupportFragmentManager(), CONTROL_BUTTON_TAG);
