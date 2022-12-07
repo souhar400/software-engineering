@@ -28,6 +28,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.Recorder;
@@ -37,6 +40,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
     private View view;
     private final FragmentManager associatedManager;
+    ExecutorService executor = Executors.newFixedThreadPool(1);
 
     public TrackSelectionMenu(FragmentManager associatedManager) {
         super();
@@ -160,9 +164,16 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
             int finalI = i;
             button.setOnClickListener(view -> {
-                button.setBackgroundColor(Color.GRAY);
-                Recorder.getInstance().playTrack(tracks[finalI]);
-                button.setBackgroundColor(Color.LTGRAY);
+                executor.execute(() -> {
+                    Recorder.getInstance().playTrack(tracks[finalI]);
+                    button.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                    try {
+                        TimeUnit.SECONDS.sleep(Recorder.getInstance().getTrackLengthLong(tracks[finalI]) + 1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    button.setBackgroundColor(Color.LTGRAY);
+                });
             });
             button.setOnLongClickListener(v -> {
                 TrackDeletionMenu trackDeletionMenu = new TrackDeletionMenu(tracks[finalI], linearLayout, button);

@@ -235,6 +235,13 @@ public class Recorder {
         return String.format("%02d:%02d", length / 60, length % 60);
     }
 
+    public long getTrackLengthLong(File track) {
+        List<TrackComponent> trackComponents = importTrackComponents(track);
+        long length = trackComponents.get(trackComponents.size() - 1).momentPlayed;
+        length /= 1000;
+        return length;
+    }
+
     public void deleteAllTracks() {
         File[] tracks = getTracks();
         for (File track : tracks) {
