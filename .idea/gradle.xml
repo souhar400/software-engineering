@@ -9,8 +9,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/../../../../../new_folder/Code/Uni/5_Semester/kling-klang-e" />
+            <option value="$PROJECT_DIR$/../../../../../new_folder/Code/Uni/5_Semester/kling-klang-e/app" />
           </set>
         </option>
       </GradleProjectSettings>
