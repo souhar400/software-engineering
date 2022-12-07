@@ -31,7 +31,7 @@ public class FacadeMapView extends AppCompatActivity {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ArrayList<NamedLocation> locations = new ArrayList<>();
-        locations = getIntent().getParcelableArrayListExtra("arraylist");
+        locations = getIntent().getParcelableArrayListExtra(getString(R.string.location_arraylist_parcelid));
         this.setContentView(R.layout.activity_mapview);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);

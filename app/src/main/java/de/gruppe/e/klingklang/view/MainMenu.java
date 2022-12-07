@@ -125,7 +125,7 @@ public class MainMenu extends BottomSheetDialogFragment {
         Intent intent = new Intent(getContext(), FacadeMapView.class);
         NamedLocation facadeLocation = viewModel.getNamedLocation();
         ArrayList<NamedLocation> locationList = new ArrayList<>(viewModel.getAllLocations());
-        intent.putParcelableArrayListExtra("arraylist", locationList);
+        intent.putParcelableArrayListExtra(getString(R.string.location_arraylist_parcelid), locationList);
         intent.putExtra(getString(R.string.location_latitude), facadeLocation.getLatitude());
         intent.putExtra(getString(R.string.location_longitude), facadeLocation.getLongitude());
         return intent;

@@ -9,4 +9,5 @@
     <string name="pull_up_settings_drawer">Pull up Settings-Drawer</string>
     <string name="location_latitude">location_latitude</string>
     <string name="location_longitude">location_longitude</string>
+    <string name="location_arraylist_parcelid">location_arraylist_parcelid</string>
 </resources>
