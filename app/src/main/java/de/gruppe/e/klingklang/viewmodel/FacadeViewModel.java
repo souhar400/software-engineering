@@ -59,7 +59,7 @@ public class FacadeViewModel implements ViewModel{
             activity.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (actualFassade.getInEditMode()) {
-                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager);
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager, synthService);
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
