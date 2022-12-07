@@ -32,16 +32,6 @@ public class ControlButtonsOverlayView {
         this.activity = activity;
         this.mainMenu = mainMenu;
 
-        this.recordButton.setOnClickListener(view -> {
-            if (Recorder.getInstance().isRecording()) {
-                Recorder.getInstance().stopRecording();
-                recordButton.setImageResource(R.drawable.start_recording);
-            } else {
-                recordButton.setImageResource(R.drawable.stop_recording);
-                Recorder.getInstance().startRecording();
-            }
-        });
-
         this.menuButton.setOnClickListener(view -> {
             mainMenu.show(mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
         });
@@ -61,6 +51,7 @@ public class ControlButtonsOverlayView {
         this.editButton=  activity.findViewById(R.id.edit_button);
         this.menuButton =activity.findViewById(R.id.setting_button);
         this.changeFassadeButton = activity.findViewById(R.id.change_fassade);
+        this.recordButton = activity.findViewById(R.id.record_button);
 
         this.editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
@@ -71,6 +62,16 @@ public class ControlButtonsOverlayView {
         });
         this.menuButton.setOnClickListener(view -> {
             this.mainMenu.show(this.mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+
+        this.recordButton.setOnClickListener(view -> {
+            if (Recorder.getInstance().isRecording()) {
+                Recorder.getInstance().stopRecording();
+                recordButton.setImageResource(R.drawable.start_recording);
+            } else {
+                recordButton.setImageResource(R.drawable.stop_recording);
+                Recorder.getInstance().startRecording();
+            }
         });
     }
 }

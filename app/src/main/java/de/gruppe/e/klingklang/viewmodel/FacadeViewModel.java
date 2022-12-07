@@ -43,7 +43,7 @@ public class FacadeViewModel implements ViewModel{
     }
 
 
-    public void changeFassade ( ){
+    public void changeFassade() {
         actualFassade = fassadenModel.getNextFacade();
         actualFassade.setOrientation();
         actualFassade.setContentView();
