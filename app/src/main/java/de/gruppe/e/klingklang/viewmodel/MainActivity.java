@@ -71,24 +71,16 @@ public class MainActivity extends AppCompatActivity {
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
         Recorder.createInstance(getApplicationContext(), this.SynthService);
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
-        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
-        // MainActivity.recorder.deleteAllTracks();
-        /*
-        TODO: this does not work properly
+        //ViewModelFactory viewModelFactory = new ViewModelFactory(this);
 
-         */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
                 findViewById(R.id.setting_button),
                 findViewById(R.id.record_button),
-                mainMenu);
+                mainMenu,
+                this);
 
-        ViewModel facadeViewModel = viewModelFactory.createOldViewModel(controlButtonsOverlayView,
-                SynthService, getSupportFragmentManager());
-
-        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
         FassadeModel fassadenModel = new FassadeModel(this);
         ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager(), this );
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

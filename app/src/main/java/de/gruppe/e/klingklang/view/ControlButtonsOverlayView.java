@@ -24,10 +24,13 @@ public class ControlButtonsOverlayView {
     public ControlButtonsOverlayView(ImageButton editButton,
                                      ImageButton menuButton,
                                      ImageButton recordButton,
-                                     MainMenu mainMenu) {
+                                     MainMenu mainMenu,
+                                     MainActivity activity) {
         this.editButton = editButton;
         this.menuButton = menuButton;
         this.recordButton = recordButton;
+        this.activity = activity;
+        this.mainMenu = mainMenu;
 
         this.recordButton.setOnClickListener(view -> {
             if (Recorder.getInstance().isRecording()) {
