@@ -43,9 +43,8 @@ public class FacadeMapView extends AppCompatActivity {
         locationOverlay.enableFollowLocation();
         IMapController mapController = view.getController();
         view.setMinZoomLevel(10.0);
-        mapController.setZoom(12.0);
-        view.post(() -> mapController.animateTo(locationOverlay.getMyLocation()));
-        locationOverlay.runOnFirstFix(() -> mapController.animateTo(locationOverlay.getMyLocation()));
+        mapController.setZoom(18.0);
+        runOnUiThread(() -> mapController.animateTo(locationOverlay.getMyLocation()));
         locations.stream().map(l -> new GeoPoint(l.getLatitude(), l.getLongitude()))
                 .forEach(g -> {
                     Marker mark = new Marker(view);
