@@ -110,6 +110,13 @@
         app:layout_constraintGuide_percent="0.69" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y2_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y2_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -170,12 +177,11 @@
         android:layout_height="29dp"
         android:gravity="center"
         android:text="Einstellungen"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_"
         app:layout_constraintEnd_toStartOf="@+id/guideline_X3_2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_X2_2"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3" />
 
     <TextView
         android:id="@+id/AufnahmenTag"
@@ -270,12 +276,11 @@
         android:layout_height="27dp"
         android:gravity="center"
         android:text="Standort"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_"
         app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_X1_1"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"
