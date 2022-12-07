@@ -21,6 +21,7 @@ public class Recorder {
     private File currentTrackFile;
     private boolean isRecording;
     private long startOfRecording;
+
     List<TrackComponent> trackComponents;
     List<TrackComponent> notUntoggledTrackComponents;
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
