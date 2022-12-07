@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fadingEdge="horizontal">
@@ -159,9 +158,11 @@
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_2"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X1_1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X0_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_1"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/settings_black_36dp" />
 
     <TextView
@@ -172,7 +173,7 @@
         android:text="Einstellungen"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_3"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X0_1"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_2" />
 
     <TextView
@@ -182,8 +183,8 @@
         android:gravity="center"
         android:text="Aufnahmen"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_3"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X2_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X1_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_2" />
 
     <TextView
@@ -193,8 +194,8 @@
         android:gravity="center"
         android:text="Takt"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_3"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X3_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X3_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X3_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X2_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_2" />
 
     <ImageButton
@@ -205,8 +206,8 @@
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_2"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X3_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X3_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X3_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X2_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_1"
         app:srcCompat="@drawable/metronome_1_" />
 
@@ -218,9 +219,11 @@
         android:backgroundTint="@color/white"
         android:elevation="@dimen/button_size"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_2"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
-        app:layout_constraintStart_toStartOf="@id/guideline_X2_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X1_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_1"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/queue_music_black_36dp" />
 
     <TextView
@@ -244,6 +247,19 @@
         app:layout_constraintStart_toStartOf="@id/guideline_X0_1"
         app:layout_constraintTop_toTopOf="@id/guideline_Y3_1"
         app:srcCompat="@drawable/volume_up_black_36dp" />
+
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/button_size"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y1_2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X0_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X3_2"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_1"
+        app:srcCompat="@drawable/osm_ic_center_map" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"

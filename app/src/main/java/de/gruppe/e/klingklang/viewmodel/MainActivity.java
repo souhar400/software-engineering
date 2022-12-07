@@ -14,11 +14,13 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
@@ -33,19 +35,24 @@ import com.google.android.gms.location.Priority;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.model.FassadeModel;
+import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
-import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
 import de.gruppe.e.klingklang.view.MainMenu;
+import de.gruppe.e.klingklang.view.SoundMenu;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String OPEN_COUNT_KEY = "openedCount";
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
+    private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
+    private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
+
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
@@ -55,31 +62,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final int LOCATION_REQUEST = 0;
-    private static final String[] permissions = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+    private static final String[] permissions = new String[]{
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
     private static String[] backgroundPermissions;
     private PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
+    private FacadeViewModel facadeViewModel;
+    private int registerCalls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
-        MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
+        Recorder.createInstance(getApplicationContext(), this.SynthService);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
-        FassadeModel fassadenModel = new FassadeModel(this);
-        ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager(), this );
+        facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
+        MainMenu mainMenu = new MainMenu();
+        setButtonListener();
+        setControlButtonListeners(facadeViewModel, mainMenu);
+        registerButtons();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+
         Log.d(LOG_TAG, "App successfully created!");
 
     }
@@ -97,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
             if(lacksPermissions()) {
                 requestPermissions();
             }
-            buildGeofenceList("R. de Mouzinho da Silveira 42", 41.141, -8.614, 200);
+            buildGeofenceList(facadeViewModel.getNamedLocation().getAddress(),
+                    facadeViewModel.getNamedLocation().getLatitude(),
+                    facadeViewModel.getNamedLocation().getLongitude(),
+                    facadeViewModel.getNamedLocation().getRadius());
             startLocationUpdates();
             addGeofences();
         }
@@ -139,6 +157,59 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("WrongConstant")
+    private void setControlButtonListeners(FacadeViewModel viewModel, MainMenu mainMenu){
+        ImageButton editButton = findViewById(R.id.edit_button);
+        editButton.setImageResource( R.drawable.edit_mode );
+        ImageButton menuButton = findViewById(R.id.setting_button);
+        ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
+        ImageButton recordButton = findViewById(R.id.record_button);
+
+        editButton.setOnClickListener(view -> {
+            viewModel.toggleInEditMode();
+            editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
+        });
+        changeFassadeButton.setOnClickListener(view -> {
+            viewModel.getNextFacade();
+            this.setRequestedOrientation(viewModel.getActualFassade().getOrientation());
+            this.setContentView(viewModel.getActualFassade().getFacadeId());
+            viewModel.getActualFassade().setInEditMode(false);
+            registerButtons();
+            setButtonListener();
+            setControlButtonListeners(viewModel, mainMenu);
+        });
+        menuButton.setOnClickListener(view -> {
+            mainMenu.show(getSupportFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+        recordButton.setOnClickListener(view -> {
+            if (Recorder.getInstance().isRecording()) {
+                Recorder.getInstance().stopRecording();
+                recordButton.setImageResource(R.drawable.start_recording);
+            } else {
+                recordButton.setImageResource(R.drawable.stop_recording);
+                Recorder.getInstance().startRecording();
+            }
+        });
+    }
+
+    private void setButtonListener() {
+        Log.d(LOG_TAG, "Adding buttonlisteners to facade-buttons for facade: " + facadeViewModel.getActualFassade());
+        Log.d(LOG_TAG, "Iterating over " + facadeViewModel.getActualFassade().getButtons().size() + " buttons.");
+        for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet()) {
+            Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
+            this.findViewById(entry.getKey()).setOnClickListener(view -> {
+                Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
+                if (facadeViewModel.getInEditMode()) {
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), this.getSupportFragmentManager(), SynthService);
+                    smenu.show(this.getSupportFragmentManager(), FRAGMENT_TAG);
+                } else {
+                    Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
+                    SynthService.play(entry.getValue());
+                }
+            });
+        }
+    }
+
     /**
      * This is needed to continuously receive location updates, enabling a
      * {@link android.content.BroadcastReceiver} to pick up Intents regarding location-changes.
@@ -169,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-
     /**
      * Checks whether all permissions required by this app are granted.
      *
@@ -198,22 +268,24 @@ public class MainActivity extends AppCompatActivity {
      * @param rad       Radius of circular region defining the geofence around the given location
      */
     private void buildGeofenceList(String id, @FloatRange(from = -90.0, to = 90.0) double latitude, @FloatRange(from = -180.0, to = 180.0) double longitude, @FloatRange(from = 0.0, fromInclusive = false) float rad) {
-        geofenceList.add(new Geofence.Builder().setRequestId(id).setCircularRegion(latitude, longitude, rad).setExpirationDuration(Geofence.NEVER_EXPIRE).setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER).build());
+        geofenceList.add(new Geofence.Builder()
+                .setRequestId(id)
+                .setCircularRegion(latitude, longitude, rad)
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                .build()
+        );
     }
 
     /**
      * Construct the {@link PendingIntent} broadcasting for the {@link FacadeProximityBroadcastReceiver}
-     *
-     * @return The constructed {@link PendingIntent}
      */
-    private PendingIntent getGeofencePendingIntent() {
-        // Reuse the PendingIntent if we already have it.
-        if (geofencePendingIntent != null) {
-            return geofencePendingIntent;
-        }
+    private void setGeofencePendingIntent() {
         Intent intent = new Intent(this, FacadeProximityBroadcastReceiver.class);
-        intent.putExtra(getString(R.string.location_region_name), "Porto, Portugal");
-        intent.putExtra(getString(R.string.location_region_address), "R. de Mouzinho da Silveira");
+        intent.putExtra(getString(R.string.location_region_name),
+                facadeViewModel.getNamedLocation().getShortName());
+        intent.putExtra(getString(R.string.location_region_address),
+                facadeViewModel.getNamedLocation().getAddress());
         // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences().
         int flags = PendingIntent.FLAG_UPDATE_CURRENT;
@@ -221,7 +293,6 @@ public class MainActivity extends AppCompatActivity {
             flags = flags | PendingIntent.FLAG_MUTABLE;
         }
         geofencePendingIntent = PendingIntent.getBroadcast(this, 1, intent, flags);
-        return geofencePendingIntent;
     }
 
     /**
@@ -240,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Add the {@link GeofencingRequest GeofencingRequests} and {@link PendingIntent} constructed by
-     * {@link MainActivity#getGeofencingRequest()} and {@link MainActivity#getGeofencePendingIntent()}
+     * {@link MainActivity#getGeofencingRequest()} and {@link MainActivity#setGeofencePendingIntent()}
      * to this activity's {@link GeofencingClient}.
      */
     @SuppressLint("MissingPermission")
@@ -248,7 +319,16 @@ public class MainActivity extends AppCompatActivity {
         if (lacksPermissions()) {
             requestPermissions();
         }
-        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent()).addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!")).addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
+        setGeofencePendingIntent();
+        geofencingClient.addGeofences(getGeofencingRequest(), geofencePendingIntent).addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!")).addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
     }
 
+
+    private void registerButtons() {
+        if (registerCalls < 3){
+            for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet())
+                SynthService.register(entry.getValue());
+            registerCalls++;
+        }
+    }
 }

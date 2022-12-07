@@ -30,30 +30,38 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.io.File;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class FileSelectionMenu extends BottomSheetDialogFragment{
 
     private View view;
     private ButtonData buttonData;
-    private final String[] fileNames = {"Melodie.mid",
-            "Bass.mid",
-            "Beat.mid",
-            "Piano - 1 - Lydisch.mid",
-            "Piano - 2 - Ionisch.mid",
-            "Piano - 3 - Mixolydisch",
-            "Piano - 4 - Dorisch.mid",
-            "Piano - 5 - Äolisch.mid",
-            "Piano - 6 - Phrygisch.mid",
-            "Piano - 7 - Lokrisch"};
+    private SynthService synthService;
+    private final Map<String, String> fileNames = new HashMap<>();
 
     private Button[] buttons;
-    public FileSelectionMenu(ButtonData buttonData) {
+    public FileSelectionMenu(ButtonData buttonData, SynthService synthService) {
         this.buttonData = buttonData;
+        this.synthService = synthService;
+
+        fileNames.put("Melodie.mid", "Saxophone.sf2");
+        fileNames.put("Bass.mid", "Bass.sf2");
+        fileNames.put("Beat.mid", "Drum.sf2");
+        fileNames.put("Piano - 1 - Lydisch.mid", "Piano.sf2");
+        fileNames.put("Piano - 2 - Ionisch.mid", "Piano.sf2");
+        fileNames.put("Piano - 3 - Mixolydisch", "Piano.sf2");
+        fileNames.put("Piano - 4 - Dorisch.mid", "Piano.sf2");
+        fileNames.put("Piano - 5 - Äolisch.mid", "Piano.sf2");
+        fileNames.put("Piano - 6 - Phrygisch.mid", "Piano.sf2");
+        fileNames.put("Piano - 7 - Lokrisch", "Piano.sf2");
+
     }
 
     /**
@@ -137,9 +145,10 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
     @SuppressLint("RtlHardcoded")
     private void setButtons() {
         LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
-        buttons = new Button[fileNames.length];
+        buttons = new Button[fileNames.size()];
+        int id = 0;
 
-        for (int i = 0; i < fileNames.length; i++) {
+        for (Map.Entry<String, String> entry : fileNames.entrySet()) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -148,19 +157,21 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
 
             params.setMargins(0, 30, 0, 0);
             Button button = new Button(view.getContext());
-            button.setId(i);
+            button.setId(id);
             button.setMaxHeight(50);
             button.setLayoutParams(params);
 
-            button.setText(fileNames[i]);
+            button.setText(entry.getKey());
             button.setBackgroundColor(Color.LTGRAY);
-            if(fileNames[i].equals(buttonData.getMidiPath())){
+            if(entry.getKey().equals(buttonData.getMidiPath())){
                 button.setBackgroundColor(getResources().getColor(R.color.teal_200));
             }
 
-            buttons[i] = button;
+            buttons[id] = button;
             button.setOnClickListener(view -> {
                 buttonData.setMidiPath(button.getText().toString());
+                buttonData.setSoundfontPath(fileNames.get(button.getText().toString()));
+                synthService.register(buttonData);
                 for (Button value : buttons) {
                     value.setBackgroundColor(Color.LTGRAY);
                 }
@@ -168,6 +179,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
             });
 
             linearLayout.addView(button);
+            id++;
         }
 
     }
