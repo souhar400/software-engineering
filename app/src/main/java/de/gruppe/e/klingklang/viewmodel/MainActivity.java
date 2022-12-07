@@ -62,14 +62,13 @@ public class MainActivity extends AppCompatActivity {
     private final List<Geofence> geofenceList = new ArrayList<>();
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
-    public static Recorder recorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
-        MainActivity.recorder = new Recorder(getApplicationContext(), this.SynthService);
+        Recorder.createInstance(getApplicationContext(), this.SynthService);
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         ViewModelFactory viewModelFactory = new ViewModelFactory(this);
         // MainActivity.recorder.deleteAllTracks();

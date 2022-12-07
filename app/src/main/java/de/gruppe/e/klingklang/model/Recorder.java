@@ -17,24 +17,36 @@ import java.util.concurrent.Executors;
 import de.gruppe.e.klingklang.services.SynthService;
 
 public class Recorder {
+    private static Recorder instance;
     Context context;
     private File currentTrackFile;
     private boolean isRecording;
     private long startOfRecording;
-
     List<TrackComponent> trackComponents;
     List<TrackComponent> notUntoggledTrackComponents;
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
     ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public Recorder(Context context, SynthService synthService) {
+    private Recorder(Context context, SynthService synthService) {
         this.context = context;
         this.isRecording = false;
         this.synthService = synthService;
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
+    }
+
+    public static Recorder getInstance() {
+        if (instance == null)
+            System.err.println("Instance is null!!!");
+        return instance;
+    }
+
+    public static Recorder createInstance(Context context, SynthService synthService) {
+        if (instance == null)
+            instance = new Recorder(context, synthService);
+        return instance;
     }
 
     public void startRecording() {

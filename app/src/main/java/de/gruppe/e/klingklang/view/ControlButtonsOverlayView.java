@@ -25,12 +25,12 @@ public class ControlButtonsOverlayView {
         this.recordButton = recordButton;
 
         this.recordButton.setOnClickListener(view -> {
-            if (MainActivity.recorder.isRecording()) {
-                MainActivity.recorder.stopRecording();
+            if (Recorder.getInstance().isRecording()) {
+                Recorder.getInstance().stopRecording();
                 recordButton.setImageResource(R.drawable.start_recording);
             } else {
                 recordButton.setImageResource(R.drawable.stop_recording);
-                MainActivity.recorder.startRecording();
+                Recorder.getInstance().startRecording();
             }
         });
 

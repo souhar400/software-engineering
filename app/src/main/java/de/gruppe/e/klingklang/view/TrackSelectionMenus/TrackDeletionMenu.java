@@ -25,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.io.File;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class TrackDeletionMenu extends BottomSheetDialogFragment {
@@ -119,7 +120,7 @@ public class TrackDeletionMenu extends BottomSheetDialogFragment {
         yes.setBackgroundColor(Color.GRAY);
 
         yes.setOnClickListener(view -> {
-            MainActivity.recorder.deleteTrack(this.track);
+            Recorder.getInstance().deleteTrack(this.track);
             linearLayout.removeView(button);
             this.dismiss();
         });

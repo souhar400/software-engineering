@@ -30,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.io.File;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class TrackSelectionMenu extends BottomSheetDialogFragment {
@@ -122,7 +123,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
     @SuppressLint("RtlHardcoded")
     private void setButtons() {
-        File[] tracks = MainActivity.recorder.getTracks();
+        File[] tracks = Recorder.getInstance().getTracks();
         LinearLayout linearLayout = view.findViewById(R.id.LinearLayout);
 
         if (tracks.length == 0) {
@@ -151,7 +152,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
 
             String trackName = tracks[i].getName().substring(0, tracks[i].getName().indexOf("."));
-            String trackLength = MainActivity.recorder.getTrackLength(tracks[i]);
+            String trackLength = Recorder.getInstance().getTrackLength(tracks[i]);
 
             button.setText(String.format("%s\t\t\t-\t\t%s\t", trackName, trackLength));
             button.setBackgroundColor(Color.LTGRAY);
@@ -160,7 +161,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             int finalI = i;
             button.setOnClickListener(view -> {
                 button.setBackgroundColor(Color.GRAY);
-                MainActivity.recorder.playTrack(tracks[finalI]);
+                Recorder.getInstance().playTrack(tracks[finalI]);
                 button.setBackgroundColor(Color.LTGRAY);
             });
             button.setOnLongClickListener(v -> {

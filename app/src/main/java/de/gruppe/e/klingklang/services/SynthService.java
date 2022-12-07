@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SynthService {
@@ -37,7 +38,7 @@ public class SynthService {
             play(buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset());
         }
 
-        MainActivity.recorder.addTrackComponent(
+        Recorder.getInstance().addTrackComponent(
                 buttonData.getMidiPath(),
                 buttonData.getSoundfontPath(),
                 buttonData.getButtonNumber(),
