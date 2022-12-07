@@ -39,7 +39,6 @@ import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
-import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
     private FacadeViewModel facadeViewModel;
+    private int registerCalls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
         Recorder.createInstance(getApplicationContext(), this.SynthService);
-        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
@@ -89,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         MainMenu mainMenu = new MainMenu();
         setButtonListener();
         setControlButtonListeners(facadeViewModel, mainMenu);
+        registerButtons();
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         editButton.setImageResource( R.drawable.edit_mode );
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
+        ImageButton recordButton = findViewById(R.id.record_button);
 
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
@@ -173,11 +174,21 @@ public class MainActivity extends AppCompatActivity {
             this.setRequestedOrientation(viewModel.getActualFassade().getOrientation());
             this.setContentView(viewModel.getActualFassade().getFacadeId());
             viewModel.getActualFassade().setInEditMode(false);
+            registerButtons();
             setButtonListener();
             setControlButtonListeners(viewModel, mainMenu);
         });
         menuButton.setOnClickListener(view -> {
             mainMenu.show(getSupportFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+        recordButton.setOnClickListener(view -> {
+            if (Recorder.getInstance().isRecording()) {
+                Recorder.getInstance().stopRecording();
+                recordButton.setImageResource(R.drawable.start_recording);
+            } else {
+                recordButton.setImageResource(R.drawable.stop_recording);
+                Recorder.getInstance().startRecording();
+            }
         });
     }
 
@@ -189,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             this.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (facadeViewModel.getInEditMode()) {
-                    SoundMenu smenu = new SoundMenu(entry.getValue(), this.getSupportFragmentManager());
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), this.getSupportFragmentManager(), SynthService);
                     smenu.show(this.getSupportFragmentManager(), FRAGMENT_TAG);
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
@@ -312,4 +323,12 @@ public class MainActivity extends AppCompatActivity {
         geofencingClient.addGeofences(getGeofencingRequest(), geofencePendingIntent).addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!")).addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
     }
 
+
+    private void registerButtons() {
+        if (registerCalls < 3){
+            for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet())
+                SynthService.register(entry.getValue());
+            registerCalls++;
+        }
+    }
 }

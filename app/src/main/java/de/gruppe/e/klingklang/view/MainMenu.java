@@ -24,8 +24,8 @@ import com.google.android.material.slider.Slider;
 import java.util.ArrayList;
 
 import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.view.TrackSelectionMenus.TrackSelectionMenu;
 import de.gruppe.e.klingklang.model.NamedLocation;
+import de.gruppe.e.klingklang.view.TrackSelectionMenus.TrackSelectionMenu;
 import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
 import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
@@ -118,8 +118,8 @@ public class MainMenu extends BottomSheetDialogFragment {
         mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
 
         recordingsButton.setOnClickListener(view -> {
-            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(associatedManager);
-            trackSelectionMenu.show(associatedManager, FRAGMENT_TAG);
+            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(getActivity().getSupportFragmentManager());
+            trackSelectionMenu.show(getActivity().getSupportFragmentManager(), FRAGMENT_TAG);
         });
 
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
