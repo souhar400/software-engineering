@@ -25,6 +25,7 @@ import com.google.android.material.slider.Slider;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SoundMenu extends BottomSheetDialogFragment {
@@ -32,11 +33,13 @@ public class SoundMenu extends BottomSheetDialogFragment {
     private final ButtonData buttonData;
     private FileSelectionMenu fileSelectionMenu;
     private final FragmentManager associatedManager;
+    private SynthService synthService;
 
-    public SoundMenu(ButtonData vd, FragmentManager associatedManager) {
+    public SoundMenu(ButtonData vd, FragmentManager associatedManager, SynthService synthService) {
         super();
         this.buttonData = vd;
         this.associatedManager = associatedManager;
+        this.synthService = synthService;
     }
 
     /**
@@ -140,11 +143,14 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
         SwitchCompat loop = view.findViewById(R.id.playLoopButton);
         loop.setChecked(buttonData.isLoop());
-        loop.setOnClickListener(e -> buttonData.setLoop(!buttonData.isLoop()));
+        loop.setOnClickListener(e -> {
+            buttonData.setLoop(!buttonData.isLoop());
+            synthService.register(buttonData);
+        });
 
         TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
-            fileSelectionMenu = new FileSelectionMenu(buttonData);
+            fileSelectionMenu = new FileSelectionMenu(buttonData, synthService);
             fileSelectionMenu.show(associatedManager, null);
         });
     }

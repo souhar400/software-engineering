@@ -40,7 +40,7 @@ public class FacadeViewModel implements ViewModel{
             synthService.register(entry.getValue());
             entry.getKey().setOnClickListener(view -> {
                 if (model.getInEditMode()) {
-                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager);
+                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager, synthService);
                     smenu.show(associatedManager, FRAGMENT_TAG);
                 } else {
                     synthService.play(entry.getValue());

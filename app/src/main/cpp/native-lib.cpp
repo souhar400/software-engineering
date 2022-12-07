@@ -7,13 +7,13 @@ jstring getJString(JNIEnv *env, char *string);
 
 void cleanup(int button_number);
 
-#define NUMBER_OF_BUTTONS 20
+#define NUMBER_OF_BUTTONS 30
 float gainGlobal = 0.2f;
 
 struct button_data {
     const char *soundfontPath = NULL;
     const char *midiPath = NULL;
-    int volume = 100;
+    int volume = 127;
     fluid_settings_t *fluidSettings = NULL;
     fluid_synth_t *fluidSynth = NULL;
     fluid_player_t *fluidPlayer = NULL;
@@ -109,6 +109,7 @@ Java_de_gruppe_e_klingklang_services_SynthService_register(JNIEnv *env, jobject 
         buttonData[button_number].midiPath = env->GetStringUTFChars(midi_path, nullptr);
     }
     buttonData[button_number].isLoop = is_loop;
+    buttonData[button_number].initialized = false;
 
     initialize(button_number);
 }
@@ -151,19 +152,19 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__IIII(JNIEnv *env, jobjec
                                                              jint button_number, jint key,
                                                              jint velocity, jint preset) {
     if (buttonData[button_number].initialized) {
-        fluid_synth_program_change(buttonData[button_number].fluidSynth, button_number, preset);
+        fluid_synth_program_change(buttonData[button_number].fluidSynth, 0, preset);
 
         // Play the sound
-        fluid_synth_noteoff(buttonData[button_number].fluidSynth, button_number, key);
+        fluid_synth_noteoff(buttonData[button_number].fluidSynth, 0, key);
 
         if (buttonData[button_number].isLoop && buttonData[button_number].isClicked) {
             buttonData[button_number].isClicked = false;
             return;
         }
 
-        fluid_synth_cc(buttonData[button_number].fluidSynth, button_number, 7,
+        fluid_synth_cc(buttonData[button_number].fluidSynth, 0, 7,
                        buttonData[button_number].volume);
-        fluid_synth_noteon(buttonData[button_number].fluidSynth, button_number, key, velocity);
+        fluid_synth_noteon(buttonData[button_number].fluidSynth, 0, key, velocity);
         buttonData[button_number].isClicked = true;
     }
 }
