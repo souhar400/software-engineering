@@ -1,8 +1,12 @@
 package de.gruppe.e.klingklang.viewmodel;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import androidx.annotation.ColorInt;
 import androidx.fragment.app.FragmentManager;
 
 import java.util.Map;
@@ -60,6 +64,7 @@ public class FacadeViewModel implements ViewModel{
                 if (actualFassade.getInEditMode()) {
                     SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager);
                     smenu.show(associatedManager, FRAGMENT_TAG);
+
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
                     synthService.play(entry.getValue());
@@ -74,5 +79,33 @@ public class FacadeViewModel implements ViewModel{
 
     public boolean getInEditMode() {
         return actualFassade.getInEditMode();
+    }
+
+    /**
+     * Buttons, die im ButtonMenu den Haken beim Switch "Hide Button" haben werden unsichtbar gemacht
+     * @param buttons alle Buttons, die musik abspielen können
+     */
+    public void makeButtonsInvisible(Button[] buttons) {
+        for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet()) {
+
+            if (entry.getValue().getVisibility()) {
+                int number = entry.getKey();
+                for (Button button : buttons) {
+                    if (button.getId() == number) {
+                        button.setVisibility(View.GONE);
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+    }
+    public void makeButtonsVisible(Button[] buttons) {
+        actualFassade.getButtons().entrySet();
+        for (int i = 0; i < actualFassade.getButtons().entrySet().size(); i++) {
+            buttons[i].setVisibility(View.VISIBLE);
+        }
     }
 }
