@@ -40,7 +40,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
 
     private View view;
     private final FragmentManager associatedManager;
-    ExecutorService executor = Executors.newFixedThreadPool(1);
+    ExecutorService executor = Executors.newFixedThreadPool(10);
 
     public TrackSelectionMenu(FragmentManager associatedManager) {
         super();
@@ -165,6 +165,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             int finalI = i;
             button.setOnClickListener(view -> {
                 executor.execute(() -> {
+
                     Recorder.getInstance().playTrack(tracks[finalI]);
                     button.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     try {

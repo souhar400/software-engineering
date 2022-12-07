@@ -73,7 +73,6 @@ public class Recorder {
         executor.execute(() -> {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
-
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
                     synthService.play(
@@ -87,6 +86,7 @@ public class Recorder {
                     trackComponents.remove(0);
                 }
             }
+
         });
     }
 
