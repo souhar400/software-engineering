@@ -36,6 +36,7 @@ import java.util.List;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.FassadeModel;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
@@ -69,10 +70,17 @@ public class MainActivity extends AppCompatActivity {
         hideNavigationAndSwipeUpBar();
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
+        Recorder.createInstance(getApplicationContext(), this.SynthService);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(this, mainMenu);
+        ControlButtonsOverlayView controlButtonsOverlayView = new ControlButtonsOverlayView(findViewById(R.id.edit_button),
+                findViewById(R.id.setting_button),
+                findViewById(R.id.record_button),
+                mainMenu,
+                this);
+
         FassadeModel fassadenModel = new FassadeModel(this);
         ViewModel facadeViewModel = new FacadeViewModel(controlButtonsOverlayView, fassadenModel,SynthService,getSupportFragmentManager(), this );
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -80,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+
         Log.d(LOG_TAG, "App successfully created!");
 
     }

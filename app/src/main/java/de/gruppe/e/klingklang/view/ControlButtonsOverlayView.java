@@ -2,7 +2,10 @@ package de.gruppe.e.klingklang.view;
 
 import android.widget.ImageButton;
 
+import java.io.File;
+
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
@@ -11,16 +14,29 @@ public class ControlButtonsOverlayView {
 
     private ImageButton editButton;
     private ImageButton menuButton;
+    private ImageButton recordButton;
     private ImageButton changeFassadeButton;
     private MainActivity activity;
     private MainMenu mainMenu;
     private FacadeViewModel viewModel;
 
-    public ControlButtonsOverlayView(MainActivity activity, MainMenu mainMenu) {
+
+    public ControlButtonsOverlayView(ImageButton editButton,
+                                     ImageButton menuButton,
+                                     ImageButton recordButton,
+                                     MainMenu mainMenu,
+                                     MainActivity activity) {
+        this.editButton = editButton;
+        this.menuButton = menuButton;
+        this.recordButton = recordButton;
         this.activity = activity;
         this.mainMenu = mainMenu;
-    }
 
+        this.menuButton.setOnClickListener(view -> {
+            mainMenu.show(mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+
+    }
     public void setViewModel(FacadeViewModel viewModel) {
         this.viewModel = viewModel;
         setListeners();
@@ -35,6 +51,7 @@ public class ControlButtonsOverlayView {
         this.editButton=  activity.findViewById(R.id.edit_button);
         this.menuButton =activity.findViewById(R.id.setting_button);
         this.changeFassadeButton = activity.findViewById(R.id.change_fassade);
+        this.recordButton = activity.findViewById(R.id.record_button);
 
         this.editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
@@ -45,6 +62,16 @@ public class ControlButtonsOverlayView {
         });
         this.menuButton.setOnClickListener(view -> {
             this.mainMenu.show(this.mainMenu.getAssociatedFragmentManager(), CONTROL_BUTTON_TAG);
+        });
+
+        this.recordButton.setOnClickListener(view -> {
+            if (Recorder.getInstance().isRecording()) {
+                Recorder.getInstance().stopRecording();
+                recordButton.setImageResource(R.drawable.start_recording);
+            } else {
+                recordButton.setImageResource(R.drawable.stop_recording);
+                Recorder.getInstance().startRecording();
+            }
         });
     }
 }

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -26,6 +25,7 @@ import com.google.android.material.slider.Slider;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
+import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SoundMenu extends BottomSheetDialogFragment {
@@ -33,11 +33,13 @@ public class SoundMenu extends BottomSheetDialogFragment {
     private final ButtonData buttonData;
     private FileSelectionMenu fileSelectionMenu;
     private final FragmentManager associatedManager;
+    private SynthService synthService;
 
-    public SoundMenu(ButtonData vd, FragmentManager associatedManager) {
+    public SoundMenu(ButtonData vd, FragmentManager associatedManager, SynthService synthService) {
         super();
         this.buttonData = vd;
         this.associatedManager = associatedManager;
+        this.synthService = synthService;
     }
 
     /**
@@ -136,16 +138,19 @@ public class SoundMenu extends BottomSheetDialogFragment {
         close.setOnClickListener(view -> dismiss());
 
         SwitchCompat hide = view.findViewById(R.id.switchHideButton);
-        hide.setChecked(buttonData.getVisibility());
+        hide.setChecked(buttonData.getVisible());
         hide.setOnClickListener(e -> buttonData.setVisibility());
 
         SwitchCompat loop = view.findViewById(R.id.playLoopButton);
-        loop.setChecked(buttonData.isToggle());
-        loop.setOnClickListener(e -> buttonData.setToggle(!buttonData.isToggle()));
+        loop.setChecked(buttonData.isLoop());
+        loop.setOnClickListener(e -> {
+            buttonData.setLoop(!buttonData.isLoop());
+            synthService.register(buttonData);
+        });
 
         TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
-            fileSelectionMenu = new FileSelectionMenu(buttonData);
+            fileSelectionMenu = new FileSelectionMenu(buttonData, synthService);
             fileSelectionMenu.show(associatedManager, null);
         });
     }

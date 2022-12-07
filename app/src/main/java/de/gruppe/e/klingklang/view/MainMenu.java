@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.view.TrackSelectionMenus.TrackSelectionMenu;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 
@@ -28,6 +29,7 @@ public class MainMenu extends BottomSheetDialogFragment {
     private View view;
     private float gain = 0.2f;
     private final FragmentManager associatedManager;
+    private final String FRAGMENT_TAG = "TRACKSELECTIONMENU_FRAGMENT_TAG";
     public MainMenu(FragmentManager associatedManager) {
         super();
         this.associatedManager = associatedManager;
@@ -111,6 +113,11 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton exitButton = view.findViewById(R.id.exitButton);
 
         exitButton.setOnClickListener(view -> dismiss());
+
+        recordingsButton.setOnClickListener(view -> {
+            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(associatedManager);
+            trackSelectionMenu.show(associatedManager, FRAGMENT_TAG);
+        });
 
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
         volumeSlider.setValue(gain* 100);
