@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         MainMenu mainMenu = new MainMenu(getSupportFragmentManager());
         SynthService = new SynthService(this);
         Recorder.createInstance(getApplicationContext(), this.SynthService);
-        //ViewModelFactory viewModelFactory = new ViewModelFactory(this);
+        ViewModelFactory viewModelFactory = new ViewModelFactory(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);

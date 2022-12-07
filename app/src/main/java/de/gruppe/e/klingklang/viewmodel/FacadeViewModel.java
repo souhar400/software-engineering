@@ -25,6 +25,7 @@ public class FacadeViewModel implements ViewModel{
     private final FragmentManager associatedManager;
     private final ControlButtonsOverlayView overlayView;
     private final Activity activity;
+    private int registerCalls = 0;
     public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
                            FassadeModel model,
                            SynthService synthService,
@@ -36,6 +37,7 @@ public class FacadeViewModel implements ViewModel{
         this.associatedManager = associatedManager;
         this.overlayView = controlButtonsOverlayView;
         this.activity = activity;
+        registerButtons();
         setButtonListener();
         controlButtonsOverlayView.setViewModel(this);
     }
@@ -46,9 +48,18 @@ public class FacadeViewModel implements ViewModel{
         actualFassade.setOrientation();
         actualFassade.setContentView();
         this.overlayView.setListeners();
+        registerButtons();
         setButtonListener();
         actualFassade.setInEditMode(false);
         overlayView.getEditButton().setImageResource( R.drawable.edit_mode );
+    }
+
+    private void registerButtons() {
+        if (registerCalls < 3){
+            for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet())
+                synthService.register(entry.getValue());
+            registerCalls++;
+        }
     }
 
     private void setButtonListener() {
@@ -56,6 +67,7 @@ public class FacadeViewModel implements ViewModel{
         Log.d(LOG_TAG, "Iterating over " + actualFassade.getButtons().size() + " buttons.");
         for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet()) {
             Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
+            // synthService.register(entry.getValue());
             activity.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (actualFassade.getInEditMode()) {
