@@ -7,16 +7,9 @@ import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.model.NamedLocation;
 
 public class FacadeViewModel extends ViewModel {
-    private FassadeModel fassadenModel;
+    private FassadeModel fassadenModel = FassadeModel.getInstance();
     private FacadeData actualFassade;
     private final String LOG_TAG = getClass().getSimpleName();
-
-    public void changeFassade (){
-        actualFassade = fassadenModel.getNextFacade();
-        actualFassade.setOrientation();
-        actualFassade.setContentView();
-        actualFassade.setInEditMode(false);
-    }
 
     public void toggleInEditMode() {
         fassadenModel.getCurrentFacade().toggleInEditMode();
@@ -34,7 +27,7 @@ public class FacadeViewModel extends ViewModel {
         return fassadenModel.getCurrentFacade();
     }
 
-    public void setModel(FassadeModel fassadenModel) {
-        this.fassadenModel = fassadenModel;
+    public FacadeData getNextFacade() {
+        return fassadenModel.getNextFacade();
     }
 }

@@ -39,7 +39,6 @@ import java.util.Map;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
-import de.gruppe.e.klingklang.model.FassadeModel;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
@@ -73,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private SynthService SynthService;
     private FacadeViewModel facadeViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
         SynthService = new SynthService(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
-        FassadeModel fassadenModel = new FassadeModel(this);
         facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
-        facadeViewModel.setModel(fassadenModel);
         MainMenu mainMenu = new MainMenu();
         setButtonListener();
         setControlButtonListeners(facadeViewModel, mainMenu);
@@ -153,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private void setControlButtonListeners(FacadeViewModel viewModel, MainMenu mainMenu){
         ImageButton editButton = findViewById(R.id.edit_button);
         editButton.setImageResource( R.drawable.edit_mode );
@@ -164,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
         });
         changeFassadeButton.setOnClickListener(view -> {
-            viewModel.changeFassade();
+            viewModel.getNextFacade();
+            this.setRequestedOrientation(viewModel.getActualFassade().getOrientation());
+            this.setContentView(viewModel.getActualFassade().getFacadeId());
+            viewModel.getActualFassade().setInEditMode(false);
             setButtonListener();
             setControlButtonListeners(viewModel, mainMenu);
         });
