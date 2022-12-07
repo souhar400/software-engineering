@@ -249,6 +249,32 @@
         app:layout_constraintTop_toTopOf="@id/guideline_Y3_1"
         app:srcCompat="@drawable/volume_up_black_36dp" />
 
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="@color/white"
+        android:elevation="@dimen/button_size"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y1_3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X1_1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_2"
+        app:srcCompat="@drawable/osm_ic_center_map" />
+
+    <TextView
+        android:id="@+id/MapTag"
+        android:layout_width="83dp"
+        android:layout_height="27dp"
+        android:gravity="center"
+        android:text="Standort"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X1_1"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3"
+        app:layout_constraintVertical_bias="0.08" />
+
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"
         android:layout_width="0dp"

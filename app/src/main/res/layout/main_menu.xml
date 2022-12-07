@@ -198,6 +198,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline_X2_2"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_2" />
 
+    <TextView
+        android:id="@+id/MapTag"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Standort"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_X0_3"
+        app:layout_constraintStart_toStartOf="@+id/guideline_X3_2"
+        app:layout_constraintTop_toTopOf="@id/guideline_Y1_2" />
+
     <ImageButton
         android:id="@+id/Takt"
         android:layout_width="0dp"
