@@ -93,14 +93,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.42" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y1_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y2_1"
@@ -135,14 +135,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="270dp" />
+        app:layout_constraintGuide_percent="0.35" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y0_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="132dp" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y0_1"
@@ -175,7 +175,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_X2_2"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <TextView
         android:id="@+id/AufnahmenTag"
@@ -185,8 +185,10 @@
         android:text="Aufnahmen"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y1_2"
         app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_X1_1"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y1_1"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/TaktTag"
@@ -270,10 +272,10 @@
         android:text="Standort"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y2_1"
         app:layout_constraintEnd_toStartOf="@+id/guideline_X2_1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline_X1_1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y1_3"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.131" />
 
     <com.google.android.material.slider.Slider
         android:id="@+id/volumeSlider2"
