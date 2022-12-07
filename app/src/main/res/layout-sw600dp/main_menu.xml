@@ -160,8 +160,10 @@
         android:elevation="@dimen/button_size"
         app:layout_constraintBottom_toBottomOf="@id/guideline_Y1_2"
         app:layout_constraintEnd_toEndOf="@id/guideline_X1_2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/guideline_X1_1"
         app:layout_constraintTop_toTopOf="@id/guideline_Y1_1"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/settings_black_36dp" />
 
     <TextView

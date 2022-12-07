@@ -70,7 +70,6 @@ public class ViewModelFactory {
         map.put((Button) mainActivity.findViewById(R.id.bottom_right2),
                 new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 4 - Dorisch.mid")
                         .withSoundfontPath("Piano.sf2").withToggle(true).create());
-
         return map;
     }
 
