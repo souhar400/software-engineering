@@ -1,91 +1,39 @@
 package de.gruppe.e.klingklang.viewmodel;
 
-import android.app.Activity;
-import android.util.Log;
+import androidx.lifecycle.ViewModel;
 
-import androidx.fragment.app.FragmentManager;
+import java.util.List;
 
-import java.util.Map;
-
-import de.gruppe.e.klingklang.R;
-import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.FacadeData;
 import de.gruppe.e.klingklang.model.FassadeModel;
-import de.gruppe.e.klingklang.model.Recorder;
-import de.gruppe.e.klingklang.services.SynthService;
-import de.gruppe.e.klingklang.view.ControlButtonsOverlayView;
-import de.gruppe.e.klingklang.view.SoundMenu;
+import de.gruppe.e.klingklang.model.NamedLocation;
 
-public class FacadeViewModel implements ViewModel{
-    private FassadeModel fassadenModel;
-    private FacadeData actualFassade ;
-    private final SynthService synthService;
+public class FacadeViewModel extends ViewModel {
+    private FassadeModel fassadenModel = FassadeModel.getInstance();
+    private FacadeData actualFassade;
     private final String LOG_TAG = getClass().getSimpleName();
-    private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
-    private final FragmentManager associatedManager;
-    private final ControlButtonsOverlayView overlayView;
-    private final Activity activity;
-    private int registerCalls = 0;
-    public FacadeViewModel(ControlButtonsOverlayView controlButtonsOverlayView,
-                           FassadeModel model,
-                           SynthService synthService,
-                           FragmentManager associatedManager,
-                           Activity activity){
-        fassadenModel = model;
-        actualFassade = model.getInitialFassade();
-        this.synthService = synthService;
-        this.associatedManager = associatedManager;
-        this.overlayView = controlButtonsOverlayView;
-        this.activity = activity;
-        registerButtons();
-        setButtonListener();
-        controlButtonsOverlayView.setViewModel(this);
-    }
-
-
-    public void changeFassade() {
-        actualFassade = fassadenModel.getNextFacade();
-        actualFassade.setOrientation();
-        actualFassade.setContentView();
-        this.overlayView.setListeners();
-        registerButtons();
-        setButtonListener();
-        actualFassade.setInEditMode(false);
-        overlayView.getEditButton().setImageResource( R.drawable.edit_mode );
-    }
-
-    private void registerButtons() {
-        if (registerCalls < 3){
-            for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet())
-                synthService.register(entry.getValue());
-            registerCalls++;
-        }
-    }
-
-    private void setButtonListener() {
-        Log.d(LOG_TAG, "Adding buttonlisteners to facade-buttons for facade: " + actualFassade);
-        Log.d(LOG_TAG, "Iterating over " + actualFassade.getButtons().size() + " buttons.");
-        for (Map.Entry<Integer, ButtonData> entry : actualFassade.getButtons().entrySet()) {
-            Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
-            // synthService.register(entry.getValue());
-            activity.findViewById(entry.getKey()).setOnClickListener(view -> {
-                Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
-                if (actualFassade.getInEditMode()) {
-                    SoundMenu smenu = new SoundMenu(entry.getValue(), associatedManager, synthService);
-                    smenu.show(associatedManager, FRAGMENT_TAG);
-                } else {
-                    Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
-                    synthService.play(entry.getValue());
-                }
-            });
-        }
-    }
 
     public void toggleInEditMode() {
-        actualFassade.toggleInEditMode();
+        fassadenModel.getCurrentFacade().toggleInEditMode();
     }
 
     public boolean getInEditMode() {
-        return actualFassade.getInEditMode();
+        return fassadenModel.getCurrentFacade().getInEditMode();
+    }
+
+    public NamedLocation getNamedLocation() {
+        return fassadenModel.getCurrentFacade().getNamedLocation();
+    }
+
+    public FacadeData getActualFassade() {
+        return fassadenModel.getCurrentFacade();
+    }
+
+    public FacadeData getNextFacade() {
+        return fassadenModel.getNextFacade();
+    }
+
+    public List<NamedLocation> getAllLocations() {
+        return fassadenModel.getAllLocations();
     }
 }
