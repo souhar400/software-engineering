@@ -8,6 +8,7 @@ jstring getJString(JNIEnv *env, char *string);
 void cleanup(int button_number);
 
 #define NUMBER_OF_BUTTONS 20
+float gainGlobal = 0.2f;
 
 struct button_data {
     const char *soundfontPath = NULL;
@@ -94,6 +95,7 @@ void initialize(int button_number) {
 
     buttonData[button_number].isClicked = false;
     buttonData[button_number].initialized = true;
+    fluid_synth_set_gain(buttonData[button_number].fluidSynth, gainGlobal);
 }
 
 extern "C"
@@ -176,6 +178,7 @@ Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobje
 extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_view_MainMenu_adjustGain(JNIEnv *env, jobject thiz, jfloat gain) {
+    gainGlobal = gain;
     for (int i = 0; i < NUMBER_OF_BUTTONS; ++i) {
         if (buttonData[i].fluidSynth != NULL) {
             fluid_synth_set_gain(buttonData[i].fluidSynth, gain);
