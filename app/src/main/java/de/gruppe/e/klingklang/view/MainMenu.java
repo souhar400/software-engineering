@@ -3,6 +3,7 @@ package de.gruppe.e.klingklang.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -13,25 +14,28 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.slider.Slider;
 
+import java.util.ArrayList;
+
 import de.gruppe.e.klingklang.R;
+import de.gruppe.e.klingklang.model.NamedLocation;
+import de.gruppe.e.klingklang.view.TrackSelectionMenus.TrackSelectionMenu;
+import de.gruppe.e.klingklang.viewmodel.FacadeMapView;
+import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 
 public class MainMenu extends BottomSheetDialogFragment {
+    private FacadeViewModel viewModel;
     private View view;
     private float gain = 0.2f;
-    private final FragmentManager associatedManager;
-    public MainMenu(FragmentManager associatedManager) {
-        super();
-        this.associatedManager = associatedManager;
-    }
+    private final String FRAGMENT_TAG = "TRACKSELECTIONMENU_FRAGMENT_TAG";
 
     /**
      * Creates the dialog and calls methods to display it in fullscreen
@@ -99,7 +103,7 @@ public class MainMenu extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.main_menu, container, false);
-
+        this.viewModel = new ViewModelProvider(getActivity()).get(FacadeViewModel.class);
         createMainMenu();
         return view;
     }
@@ -109,8 +113,14 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton recordingsButton = view.findViewById(R.id.Aufnahmen);
         ImageButton taktButton = view.findViewById(R.id.Takt);
         ImageButton exitButton = view.findViewById(R.id.exitButton);
-
+        ImageButton mapButton = view.findViewById(R.id.mapButton);
         exitButton.setOnClickListener(view -> dismiss());
+        mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
+
+        recordingsButton.setOnClickListener(view -> {
+            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(getActivity().getSupportFragmentManager());
+            trackSelectionMenu.show(getActivity().getSupportFragmentManager(), FRAGMENT_TAG);
+        });
 
         Slider volumeSlider = view.findViewById(R.id.volumeSlider2);
         volumeSlider.setValue(gain* 100);
@@ -120,8 +130,14 @@ public class MainMenu extends BottomSheetDialogFragment {
         });
     }
 
-    public FragmentManager getAssociatedFragmentManager() {
-        return associatedManager;
+    private Intent createMapViewIntent() {
+        Intent intent = new Intent(getContext(), FacadeMapView.class);
+        NamedLocation facadeLocation = viewModel.getNamedLocation();
+        ArrayList<NamedLocation> locationList = new ArrayList<>(viewModel.getAllLocations());
+        intent.putParcelableArrayListExtra(getString(R.string.location_arraylist_parcelid), locationList);
+        intent.putExtra(getString(R.string.location_latitude), facadeLocation.getLatitude());
+        intent.putExtra(getString(R.string.location_longitude), facadeLocation.getLongitude());
+        return intent;
     }
 
     private native void adjustGain(float gain);

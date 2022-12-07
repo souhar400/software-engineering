@@ -9,8 +9,8 @@ public class ButtonData {
     private int key;
     private int velocity;
     private int preset;
-    private boolean toggle;
-    private boolean visibility;
+    private boolean isLoop;
+    private boolean isVisible;
 
     private ButtonData(ButtonDataBuilder buttonDataBuilder) {
         this.buttonNumber = buttonDataBuilder.buttonNumber;
@@ -19,7 +19,7 @@ public class ButtonData {
         this.key = buttonDataBuilder.key;
         this.velocity = buttonDataBuilder.velocity;
         this.preset = buttonDataBuilder.preset;
-        this.toggle = buttonDataBuilder.toggle;
+        this.isLoop = buttonDataBuilder.isLoop;
     }
 
     private native void setChannelVolume(int buttonNumber, int volume);
@@ -80,20 +80,20 @@ public class ButtonData {
         this.preset = preset;
     }
 
-    public boolean isToggle() {
-        return toggle;
+    public boolean isLoop() {
+        return isLoop;
     }
 
-    public void setToggle(boolean toggle) {
-        this.toggle = toggle;
+    public void setLoop(boolean isLoop) {
+        this.isLoop = isLoop;
     }
 
     public void setVisibility() {
-        visibility = !visibility;
+        isVisible = !isVisible;
     }
 
-    public boolean getVisibility() {
-        return visibility;
+    public boolean getVisible() {
+        return isVisible;
     }
 
 
@@ -106,7 +106,7 @@ public class ButtonData {
         private int key;
         private int velocity;
         private int preset;
-        private boolean toggle;
+        private boolean isLoop;
 
         public ButtonDataBuilder() {
             this.buttonNumber = BUTTONS;
@@ -138,8 +138,8 @@ public class ButtonData {
             return this;
         }
 
-        public ButtonDataBuilder withToggle(boolean toggle) {
-            this.toggle = toggle;
+        public ButtonDataBuilder withLoop(boolean isLoop) {
+            this.isLoop = isLoop;
             return this;
         }
 
