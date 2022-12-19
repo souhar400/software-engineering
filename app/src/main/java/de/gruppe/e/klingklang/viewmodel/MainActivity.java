@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -32,6 +33,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
+import com.hbisoft.hbrecorder.HBRecorder;
+import com.hbisoft.hbrecorder.HBRecorderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,12 +49,13 @@ import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
 import de.gruppe.e.klingklang.view.SoundMenu;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HBRecorderListener {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String OPEN_COUNT_KEY = "openedCount";
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
+    private static final int SCREEN_RECORD_REQUEST_CODE = 1;
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
 
 
@@ -81,13 +85,14 @@ public class MainActivity extends AppCompatActivity {
     private SynthService SynthService;
     private FacadeViewModel facadeViewModel;
     private int registerCalls;
+    public HBRecorder hbRecorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
-        Recorder.createInstance(getApplicationContext(), this.SynthService);
+        Recorder.createInstance(getApplicationContext(), this.SynthService, this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
@@ -101,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+        hbRecorder = new HBRecorder(this, this);
 
         Log.d(LOG_TAG, "App successfully created!");
 
@@ -354,5 +360,41 @@ public class MainActivity extends AppCompatActivity {
                 SynthService.register(entry.getValue());
             registerCalls++;
         }
+    }
+
+    public void stopRecordingScreen() {
+        hbRecorder.stopScreenRecording();
+    }
+    public void startRecordingScreen() {
+        MediaProjectionManager mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        Intent permissionIntent = mediaProjectionManager != null ? mediaProjectionManager.createScreenCaptureIntent() : null;
+        startActivityForResult(permissionIntent, SCREEN_RECORD_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                //Start screen recording
+                hbRecorder.startScreenRecording(data, resultCode);
+
+            }
+        }
+    }
+
+    @Override
+    public void HBRecorderOnStart() {
+
+    }
+
+    @Override
+    public void HBRecorderOnComplete() {
+
+    }
+
+    @Override
+    public void HBRecorderOnError(int errorCode, String reason) {
+
     }
 }

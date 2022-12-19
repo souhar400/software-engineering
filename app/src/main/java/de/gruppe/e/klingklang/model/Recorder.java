@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.arthenica.ffmpegkit.FFmpegKit.*;
+import com.arthenica.ffmpegkit.*;
 
 import de.gruppe.e.klingklang.services.SynthService;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class Recorder {
     private static Recorder instance;
@@ -27,14 +30,21 @@ public class Recorder {
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
     ExecutorService executor = Executors.newFixedThreadPool(1);
+    MainActivity mainActivity;
 
-    private Recorder(Context context, SynthService synthService) {
+    private Recorder(Context context, SynthService synthService, MainActivity mainActivity) {
         this.context = context;
         this.isRecording = false;
         this.synthService = synthService;
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
+        this.mainActivity = mainActivity;
+    }
+
+    private void renderTrack() {
+
+        FFmpegSession session = FFmpegKit.execute("-i file1.mp4 -c:v mpeg4 file2.mp4");
     }
 
     public static Recorder getInstance() {
@@ -43,9 +53,9 @@ public class Recorder {
         return instance;
     }
 
-    public static Recorder createInstance(Context context, SynthService synthService) {
+    public static Recorder createInstance(Context context, SynthService synthService, MainActivity mainActivity) {
         if (instance == null)
-            instance = new Recorder(context, synthService);
+            instance = new Recorder(context, synthService, mainActivity);
         return instance;
     }
 
@@ -55,6 +65,8 @@ public class Recorder {
         untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
+        mainActivity.startRecordingScreen();
+        //printPath();
     }
 
     public void stopRecording() {
@@ -64,6 +76,16 @@ public class Recorder {
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         isRecording = false;
+        mainActivity.stopRecordingScreen();
+    }
+
+    public void printPath() {
+        System.out.println(mainActivity.hbRecorder.getFilePath());
+        System.out.println(context.getFilesDir());
+        File[] files = new File(mainActivity.hbRecorder.getFilePath()).listFiles();
+
+        for (File f : files)
+            System.out.println(f.getName());
     }
 
     public void playTrack(File track) {
