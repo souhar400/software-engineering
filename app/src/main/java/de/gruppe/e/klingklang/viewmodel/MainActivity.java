@@ -2,12 +2,22 @@ package de.gruppe.e.klingklang.viewmodel;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ServiceInfo;
+import android.graphics.BitmapFactory;
+import android.media.AudioAttributes;
+import android.media.AudioPlaybackCaptureConfiguration;
+import android.media.AudioRecord;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -19,6 +29,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,6 +49,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import de.gruppe.e.klingklang.MyForegroundService;
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.Recorder;
@@ -53,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 1;
+    private static final int REQUEST_CODE_SCREEN_CAPTURE = 1;
+
 
 
 
@@ -81,13 +96,17 @@ public class MainActivity extends AppCompatActivity {
     private SynthService SynthService;
     private FacadeViewModel facadeViewModel;
     private int registerCalls;
+    private MediaProjectionManager mMediaProjectionManager;
+    private MediaProjection mMediaProjection;
+    public AudioRecord audioRecorder;
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
-        Recorder.createInstance(getApplicationContext(), this.SynthService);
+        Recorder.createInstance(getApplicationContext(), this.SynthService, audioRecorder);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
@@ -102,8 +121,52 @@ public class MainActivity extends AppCompatActivity {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
 
+        Intent serviceIntent = new Intent(this, MyForegroundService.class);
+        serviceIntent.putExtra(String.valueOf(ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION), true);
+        startForegroundService(serviceIntent);
+
+        // Get an instance of the MediaProjectionManager
+        mMediaProjectionManager = (MediaProjectionManager) getSystemService(MediaProjectionManager.class);
+
+        // Create an intent to start the screen capture process
+        Intent intent = mMediaProjectionManager.createScreenCaptureIntent();
+
+
+
+        // Start the screen capture process
+        startActivityForResult(intent, REQUEST_CODE_SCREEN_CAPTURE);
+
+
         Log.d(LOG_TAG, "App successfully created!");
 
+    }
+
+    private void createNotificationChannel() {
+        Notification.Builder builder = new Notification.Builder(this.getApplicationContext()); //获取一个Notification构造器
+        Intent nfIntent = new Intent(this, MainActivity.class); //点击后跳转的界面，可以设置跳转数据
+
+        builder.setContentIntent(PendingIntent.getActivity(this, 0, nfIntent, 0)) // 设置PendingIntent
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(), R.mipmap.ic_launcher)) // 设置下拉列表中的图标(大图标)
+                //.setContentTitle("SMI InstantView") // 设置下拉列表里的标题
+                .setSmallIcon(R.mipmap.ic_launcher) // 设置状态栏内的小图标
+                .setContentText("is running......") // 设置上下文内容
+                .setWhen(System.currentTimeMillis()); // 设置该通知发生的时间
+
+        /*以下是对Android 8.0的适配*/
+        //普通notification适配
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId("notification_id");
+        }
+        //前台服务notification适配
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        Notification notification = builder.build(); // 获取构建好的Notification
+        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+        startForegroundService(notification);
     }
 
     @Override
@@ -136,6 +199,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideNavigationAndSwipeUpBar();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SCREEN_CAPTURE && resultCode == RESULT_OK) {
+            // Get the result of the screen capture process
+            mMediaProjection = mMediaProjectionManager.getMediaProjection(resultCode, data);
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                AudioPlaybackCaptureConfiguration config = new AudioPlaybackCaptureConfiguration.Builder(mMediaProjection)
+                        .addMatchingUsage(AudioAttributes.USAGE_MEDIA)
+                        .build();
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                audioRecorder = new AudioRecord.Builder()
+                        .setAudioPlaybackCaptureConfig(config)
+                        .build();
+            }
+        }
     }
 
     @Override
@@ -278,6 +362,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this, permissions, LOCATION_REQUEST);
+        // Check if the app has the necessary permissions
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request the permissions if they are not granted
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_RECORD_AUDIO_PERMISSION);
+        } else {
+            // The app has the necessary permissions, so you can start recording audio here
+        }
+
     }
 
 

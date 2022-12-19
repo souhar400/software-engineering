@@ -1,6 +1,7 @@
 package de.gruppe.e.klingklang.model;
 
 import android.content.Context;
+import android.media.AudioRecord;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,14 +28,20 @@ public class Recorder {
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
     ExecutorService executor = Executors.newFixedThreadPool(1);
+    AudioRecord audioRecorder;
 
-    private Recorder(Context context, SynthService synthService) {
+    private Recorder(Context context, SynthService synthService, AudioRecord audioRecord) {
         this.context = context;
         this.isRecording = false;
         this.synthService = synthService;
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
+        this.audioRecorder  =audioRecord;
+    }
+
+    private void prepareMediaRecorder() {
+
     }
 
     public static Recorder getInstance() {
@@ -43,9 +50,9 @@ public class Recorder {
         return instance;
     }
 
-    public static Recorder createInstance(Context context, SynthService synthService) {
+    public static Recorder createInstance(Context context, SynthService synthService, AudioRecord audioRecord) {
         if (instance == null)
-            instance = new Recorder(context, synthService);
+            instance = new Recorder(context, synthService, audioRecord);
         return instance;
     }
 
@@ -55,6 +62,10 @@ public class Recorder {
         untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
+
+        prepareMediaRecorder();
+        audioRecorder.startRecording();
+
     }
 
     public void stopRecording() {
@@ -63,6 +74,8 @@ public class Recorder {
         exportTrackComponents(this.currentTrackFile);
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
+
+        audioRecorder.stop();
         isRecording = false;
     }
 
@@ -195,6 +208,16 @@ public class Recorder {
                     trackComponent.isLoop
             ));
         }
+    }
+
+    public File createMP3TrackFile() {
+        File file = new File(context.getFilesDir(), "Recording_" + getDate() + ".mp3");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     public File createTrackFile() {
