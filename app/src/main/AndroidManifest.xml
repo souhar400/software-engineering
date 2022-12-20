@@ -22,16 +22,6 @@
         android:theme="@style/Theme.KlingKlang"
         tools:targetApi="31">
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider"
-            android:exported="true"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
-        </provider>
-
         <activity
             android:name=".SplashScreen"
             android:exported="true"
@@ -67,5 +57,16 @@
         <receiver android:name=".services.FacadeProximityBroadcastReceiver"
             android:enabled="true"
             android:exported="true" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider"
+            android:exported="true"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
     </application>
 </manifest>
