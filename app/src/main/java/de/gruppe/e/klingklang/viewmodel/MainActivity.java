@@ -35,8 +35,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
-import com.hbisoft.hbrecorder.HBRecorder;
-import com.hbisoft.hbrecorder.HBRecorderListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
 
-        //startRecordingScreen();
+        System.out.println(Recorder.getInstance().getTracks()[0].getAbsolutePath());
         Log.d(LOG_TAG, "App successfully created!");
 
     }

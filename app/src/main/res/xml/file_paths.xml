@@ -1,3 +1,4 @@
 <paths>
-    <files-path name="my_files" path="files"/>
+    <!-- The name "files" is used to allow access to the app's internal storage -->
+    <files-path path="/" name="files" />
 </paths>
