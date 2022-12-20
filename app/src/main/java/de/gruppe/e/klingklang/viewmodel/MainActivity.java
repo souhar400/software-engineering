@@ -41,6 +41,7 @@ import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
+import de.gruppe.e.klingklang.services.NamedLocationNotificationService;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
 import de.gruppe.e.klingklang.view.SoundMenu;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
+        NamedLocationNotificationService.getInstance(this);
         MainMenu mainMenu = new MainMenu();
         setButtonListener();
         setControlButtonListeners(facadeViewModel, mainMenu);
@@ -151,6 +153,12 @@ public class MainActivity extends AppCompatActivity {
                         facadeViewModel.getNamedLocation().getLatitude(),
                         facadeViewModel.getNamedLocation().getLongitude(),
                         facadeViewModel.getNamedLocation().getRadius());
+                facadeViewModel.getAllLocations().forEach( l -> {
+                    buildGeofenceList(l.getAddress(),
+                            l.getLatitude(),
+                            l.getLongitude(),
+                            l.getRadius());
+                });
                 startLocationUpdates();
                 addGeofences();
             }
