@@ -217,6 +217,7 @@ public class Recorder {
 
     public File createTrackFile() {
         File file = new File(context.getFilesDir(), "Recording_" + getDate() + ".kk");
+
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -229,7 +230,13 @@ public class Recorder {
      * @return A File Array with all .kk files
      */
     public File[] getTracks() {
+        File fi = new File(context.getFilesDir() + "/tracks");
+
+        if (!fi.exists())
+            fi.mkdirs();
+
         File[] files = context.getFilesDir().listFiles();
+        // files = fi.listFiles();
         List<File> tracks = new ArrayList<>();
 
         assert files != null;

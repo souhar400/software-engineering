@@ -101,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
-
-        System.out.println(Recorder.getInstance().getTracks()[0].getAbsolutePath());
         Log.d(LOG_TAG, "App successfully created!");
 
     }

@@ -133,20 +133,15 @@ public class TrackOptionMenu extends BottomSheetDialogFragment {
         });
 
         share_track.setOnClickListener(view -> {
+            File toShare = Recorder.getInstance().renderTrack(track);
 
-            // File toShare = Recorder.getInstance().renderTrack(track);
-            File file = track;
-
-            Uri fileUri = FileProvider.getUriForFile(requireContext(), "de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider", file);
+            Uri fileUri = FileProvider.getUriForFile(requireContext(), "de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider", toShare);
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            // intent.setType("audio/wav");
+            shareIntent.setType("audio/wav");
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(shareIntent, "Share file using"));
-
-
         });
 
         ImageButton close = view.findViewById(R.id.returnButton);

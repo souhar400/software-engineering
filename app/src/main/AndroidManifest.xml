@@ -61,7 +61,7 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider"
-            android:exported="true"
+            android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
