@@ -3,8 +3,6 @@ package de.gruppe.e.klingklang.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.function.Function;
-
 public class NamedLocation implements Parcelable {
     private final double longitude;
     private final double latitude;
@@ -78,11 +76,4 @@ public class NamedLocation implements Parcelable {
         return shortName;
     }
 
-    public boolean isCloseTo(double latitude, double longitude) {
-        double latDistance = Math.abs(this.latitude - latitude);
-        double lonDistance = Math.abs(this.longitude - longitude);
-        double distanceBetweenLocations
-                = Math.sqrt(Math.pow(latDistance, 2) + Math.pow(lonDistance, 2));
-        return distanceBetweenLocations <= this.radius;
-    }
 }
