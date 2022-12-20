@@ -52,11 +52,9 @@ public class Recorder {
 
         return new File("");
     }
-
     private File getWavFile(String midiPath) {
         return null;
     }
-
     public static Recorder getInstance() {
         if (instance == null)
             System.err.println("Instance is null!!!");
@@ -75,9 +73,6 @@ public class Recorder {
         untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
-        printPath();
-        //mainActivity.startRecordingScreen();
-        //printPath();
     }
 
     public void stopRecording() {
@@ -87,13 +82,6 @@ public class Recorder {
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         isRecording = false;
-        //mainActivity.stopRecordingScreen();
-    }
-
-    public void printPath() {
-        System.out.println(mainActivity.hbRecorder.getFilePath());
-        System.out.println(context.getFilesDir());
-
     }
 
     public void playTrack(File track) {
