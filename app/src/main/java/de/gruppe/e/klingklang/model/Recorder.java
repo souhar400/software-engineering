@@ -42,7 +42,8 @@ public class Recorder {
         this.mainActivity = mainActivity;
     }
 
-    private void renderTrack() {
+    private void renderTrack(File track) {
+
 
         FFmpegSession session = FFmpegKit.execute("-i file1.mp4 -c:v mpeg4 file2.mp4");
     }
@@ -65,8 +66,6 @@ public class Recorder {
         untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
-        mainActivity.startRecordingScreen();
-        //printPath();
     }
 
     public void stopRecording() {
@@ -76,16 +75,6 @@ public class Recorder {
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         isRecording = false;
-        mainActivity.stopRecordingScreen();
-    }
-
-    public void printPath() {
-        System.out.println(mainActivity.hbRecorder.getFilePath());
-        System.out.println(context.getFilesDir());
-        File[] files = new File(mainActivity.hbRecorder.getFilePath()).listFiles();
-
-        for (File f : files)
-            System.out.println(f.getName());
     }
 
     public void playTrack(File track) {
