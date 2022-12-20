@@ -40,11 +40,21 @@ public class Recorder {
         notUntoggledTrackComponents = new ArrayList<>();
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
         this.mainActivity = mainActivity;
+
     }
 
-    private void renderTrack() {
+    public File renderTrack(File track) {
+        if(track.length() == 0)
+            return null;
+        List<TrackComponent> trackComponents = importTrackComponents(track);
 
-        FFmpegSession session = FFmpegKit.execute("-i file1.mp4 -c:v mpeg4 file2.mp4");
+        FFmpegSession session = FFmpegKit.execute("");
+
+        return new File("");
+    }
+
+    private File getWavFile(String midiPath) {
+        return null;
     }
 
     public static Recorder getInstance() {
@@ -65,7 +75,8 @@ public class Recorder {
         untoggleToggledTrackComponentsPreRecording();
         currentTrackFile = createTrackFile();
         startOfRecording = System.currentTimeMillis();
-        mainActivity.startRecordingScreen();
+        printPath();
+        //mainActivity.startRecordingScreen();
         //printPath();
     }
 
@@ -76,16 +87,13 @@ public class Recorder {
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         isRecording = false;
-        mainActivity.stopRecordingScreen();
+        //mainActivity.stopRecordingScreen();
     }
 
     public void printPath() {
         System.out.println(mainActivity.hbRecorder.getFilePath());
         System.out.println(context.getFilesDir());
-        File[] files = new File(mainActivity.hbRecorder.getFilePath()).listFiles();
 
-        for (File f : files)
-            System.out.println(f.getName());
     }
 
     public void playTrack(File track) {

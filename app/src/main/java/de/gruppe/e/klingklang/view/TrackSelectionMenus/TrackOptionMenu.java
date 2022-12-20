@@ -1,9 +1,12 @@
 package de.gruppe.e.klingklang.view.TrackSelectionMenus;
 
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -17,29 +20,34 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
+import java.util.Objects;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
-public class TrackDeletionMenu extends BottomSheetDialogFragment {
+public class TrackOptionMenu extends BottomSheetDialogFragment {
 
     private View view;
     private File track;
     private LinearLayout linearLayout;
     private Button button;
+    private FragmentManager associatedManager;
 
-    public TrackDeletionMenu(File track, LinearLayout linearLayout, Button button) {
+    public TrackOptionMenu(File track, LinearLayout linearLayout, Button button, FragmentManager associatedManager) {
         super();
         this.track = track;
         this.linearLayout = linearLayout;
         this.button = button;
+        this.associatedManager = associatedManager;
     }
 
     /**
@@ -105,29 +113,57 @@ public class TrackDeletionMenu extends BottomSheetDialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.deletion_menu, container, false);
+        view = inflater.inflate(R.layout.option_menu, container, false);
         createDeletionMenu();
         return view;
     }
 
     private void createDeletionMenu() {
         EditText title = view.findViewById(R.id.title);
-        title.setText("Bist du dir sicher, dass du diesen Track löschen möchtest?");
+        title.setText("Optionen");
 
-        Button yes = view.findViewById(R.id.delete_track);
-        Button no = view.findViewById(R.id.share_track);
-        no.setBackgroundColor(Color.GRAY);
-        yes.setBackgroundColor(Color.GRAY);
+        Button delete_track = view.findViewById(R.id.delete_track);
+        Button share_track = view.findViewById(R.id.share_track);
+        share_track.setBackgroundColor(Color.GRAY);
+        delete_track.setBackgroundColor(Color.GRAY);
 
-        yes.setOnClickListener(view -> {
-            Recorder.getInstance().deleteTrack(this.track);
-            linearLayout.removeView(button);
-            this.dismiss();
+        delete_track.setOnClickListener(view -> {
+            TrackDeletionMenu trackDeletionMenu = new TrackDeletionMenu(track, linearLayout, button);
+            trackDeletionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
+        });
+
+        share_track.setOnClickListener(view -> {
+
+            File file = track;
+
+            Uri fileUri = FileProvider.getUriForFile(requireContext(), "com.example.myapp.fileprovider", file);
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            startActivity(Intent.createChooser(shareIntent, "Share file using"));
+
+            /*
+
+            //File toShare = Recorder.getInstance().renderTrack(track);
+
+
+            Uri fileUri = FileProvider.getUriForFile(requireContext(), "com.example.myapp.fileprovider", track);
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("");
+            // intent.setType("audio/wav");
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(track));
+            startActivity(Intent.createChooser(intent, "Share file using"));
+            */
         });
 
         ImageButton close = view.findViewById(R.id.returnButton);
         close.setOnClickListener(view -> dismiss());
-        no.setOnClickListener(view -> dismiss());
+
     }
 }
+
 

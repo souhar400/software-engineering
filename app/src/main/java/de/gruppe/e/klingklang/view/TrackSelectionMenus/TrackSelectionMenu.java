@@ -166,18 +166,12 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             button.setOnClickListener(view -> {
                 executor.execute(() -> {
                     Recorder.getInstance().playTrack(tracks[finalI]);
-                    button.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    try {
-                        TimeUnit.SECONDS.sleep(Recorder.getInstance().getTrackLengthLong(tracks[finalI]) + 1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    button.setBackgroundColor(Color.LTGRAY);
                 });
+                this.dismiss();
             });
             button.setOnLongClickListener(v -> {
-                TrackDeletionMenu trackDeletionMenu = new TrackDeletionMenu(tracks[finalI], linearLayout, button);
-                trackDeletionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
+                TrackOptionMenu trackOptionMenu = new TrackOptionMenu(tracks[finalI], linearLayout, button, associatedManager);
+                trackOptionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
                 return true;
             });
 

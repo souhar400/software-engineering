@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements HBRecorderListene
         }
         hbRecorder = new HBRecorder(this, this);
 
+        //startRecordingScreen();
         Log.d(LOG_TAG, "App successfully created!");
 
     }
