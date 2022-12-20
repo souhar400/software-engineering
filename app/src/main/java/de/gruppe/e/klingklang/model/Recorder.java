@@ -1,5 +1,6 @@
 package de.gruppe.e.klingklang.model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import java.io.File;
@@ -10,7 +11,9 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.arthenica.ffmpegkit.FFmpegKit.*;
@@ -32,6 +35,7 @@ public class Recorder {
     ExecutorService executor = Executors.newFixedThreadPool(1);
     MainActivity mainActivity;
 
+
     private Recorder(Context context, SynthService synthService, MainActivity mainActivity) {
         this.context = context;
         this.isRecording = false;
@@ -41,7 +45,12 @@ public class Recorder {
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
         this.mainActivity = mainActivity;
 
+
+
     }
+
+
+
 
     public File renderTrack(File track) {
         if(track.length() == 0)
@@ -52,6 +61,13 @@ public class Recorder {
 
         return new File("");
     }
+
+
+
+
+
+
+
     private File getWavFile(String midiPath) {
         return null;
     }
