@@ -115,7 +115,7 @@ public class MainMenu extends BottomSheetDialogFragment {
         ImageButton exitButton = view.findViewById(R.id.exitButton);
         ImageButton mapButton = view.findViewById(R.id.mapButton);
         exitButton.setOnClickListener(view -> dismiss());
-        mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
+        mapButton.setOnClickListener(view -> startActivity(createMapViewIntent()));
 
         recordingsButton.setOnClickListener(view -> {
             TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(getActivity().getSupportFragmentManager(), this);
