@@ -11,6 +11,9 @@ public class ButtonData {
     private int preset;
     private boolean isLoop;
     private boolean isVisible;
+    private boolean linearCrossfade = false;
+    private boolean nonLinearCrossfade = false;
+    private boolean showFadeOptions = false;
 
     private ButtonData(ButtonDataBuilder buttonDataBuilder) {
         this.buttonNumber = buttonDataBuilder.buttonNumber;
@@ -24,10 +27,16 @@ public class ButtonData {
 
     private native void setChannelVolume(int buttonNumber, int volume);
 
+    private native void setChannelVolumeDirect(int buttonNumber, int volume);
+
     /* Getter and Setter */
 
     public int getVolume() {
         return displayedVolume;
+    }
+
+    public void setDirectVolume(int volume) {
+        setChannelVolumeDirect(buttonNumber, volume);
     }
 
     public void setVolume(int volume) {
@@ -96,6 +105,28 @@ public class ButtonData {
         return isVisible;
     }
 
+    public void setLinearCrossfade(boolean linearCrossfade){
+        this.linearCrossfade = linearCrossfade;
+    }
+    public boolean getLinearCrossfade() {
+        return linearCrossfade;
+    }
+
+    public void setNonLinearCrossfade(boolean nonLinearCrossfade){
+        this.nonLinearCrossfade = nonLinearCrossfade;
+    }
+    public boolean getNonLinearCrossfade() {
+        return nonLinearCrossfade;
+    }
+
+    public boolean getShowFadeOptions() {
+        return showFadeOptions;
+    }
+
+    public void setShowFadeOptions(boolean fadeOptions) {
+        this.showFadeOptions = fadeOptions;
+    }
+
 
     public static class ButtonDataBuilder {
         private static int BUTTONS = 0;
@@ -107,6 +138,7 @@ public class ButtonData {
         private int velocity;
         private int preset;
         private boolean isLoop;
+        private int tracklength;
 
         public ButtonDataBuilder() {
             this.buttonNumber = BUTTONS;

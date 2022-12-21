@@ -148,6 +148,24 @@ public class SoundMenu extends BottomSheetDialogFragment {
             synthService.register(buttonData);
         });
 
+        SwitchCompat linearCrossfade = view.findViewById(R.id.linearCrossfadeButton);
+        linearCrossfade.setChecked(buttonData.getLinearCrossfade());
+        linearCrossfade.setOnClickListener(e -> {
+            buttonData.setLinearCrossfade(!buttonData.getLinearCrossfade());
+        });
+        if(!buttonData.getShowFadeOptions()) {
+            linearCrossfade.setVisibility(View.GONE);
+        }
+
+        SwitchCompat nonLinearCrossfade = view.findViewById(R.id.nonLinearCrossfadeButton);
+        nonLinearCrossfade.setChecked(buttonData.getNonLinearCrossfade());
+        nonLinearCrossfade.setOnClickListener(e -> {
+            buttonData.setNonLinearCrossfade(!buttonData.getNonLinearCrossfade());
+        });
+        if(!buttonData.getShowFadeOptions()) {
+            nonLinearCrossfade.setVisibility(View.GONE);
+        }
+
         TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
             fileSelectionMenu = new FileSelectionMenu(buttonData, synthService);

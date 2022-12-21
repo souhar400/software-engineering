@@ -146,6 +146,38 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__I(JNIEnv *env, jobject t
         }
     }
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_services_SynthService_FadeIn(JNIEnv *env, jobject thiz, jint button_number) {
+    if (buttonData[button_number].initialized) {
+        // Create the audio driver to play the synthesizer (audio unfortunately instantly start playing)
+        buttonData[button_number].fluidAudioDriver = new_fluid_audio_driver(
+                buttonData[button_number].fluidSettings, buttonData[button_number].fluidSynth);
+        if (buttonData[button_number].fluidAudioDriver == NULL) {
+            fprintf(stderr, "Failed to create the audio driver\n");
+            cleanup(button_number);
+            return;
+        }
+        fluid_synth_cc(buttonData[button_number].fluidSynth, 0, 7,0);
+        buttonData[button_number].isClicked = true;
+
+    }
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_services_SynthService_FadeOut(JNIEnv *env, jobject thiz,
+                                                          jint button_number) {
+    if (buttonData[button_number].initialized) {
+        if (buttonData[button_number].isClicked) {
+            cleanup(button_number);
+            // The midi button has to be re-registered because of a bug in fluidsynth
+            initialize(button_number);
+        }
+    }
+}
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_services_SynthService_play__IIII(JNIEnv *env, jobject thiz,
@@ -171,8 +203,13 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__IIII(JNIEnv *env, jobjec
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz,
-                                                              jint button_number, jint volume) {
+Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolumeDirect(JNIEnv *env, jobject thiz, jint button_number, jint volume) {
+    fluid_synth_cc(buttonData[button_number].fluidSynth, 0, 7,volume);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz, jint button_number, jint volume) {
     buttonData[button_number].volume = volume;
 }
 
