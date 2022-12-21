@@ -30,6 +30,7 @@ public class SynthService {
 
 
     public void play(ButtonData buttonData) {
+        System.out.println("Number: " + buttonData.getButtonNumber());
         if (buttonData.getMidiPath() != null) {
             // Play midi
             play(buttonData.getButtonNumber());

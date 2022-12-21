@@ -36,6 +36,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,6 +102,13 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
         }
+
+        System.out.println("fullPath:" + getApplicationContext().getFilesDir().getAbsolutePath());
+
+        for (File f : getApplicationContext().getFilesDir().listFiles()) {
+            System.out.println(f.getName());
+        }
+
         Log.d(LOG_TAG, "App successfully created!");
 
     }

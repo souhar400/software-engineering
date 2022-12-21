@@ -134,6 +134,7 @@ public class TrackOptionMenu extends BottomSheetDialogFragment {
 
         share_track.setOnClickListener(view -> {
             File toShare = Recorder.getInstance().renderTrack(track);
+            // toShare = track;
 
             Uri fileUri = FileProvider.getUriForFile(requireContext(), "de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider", toShare);
 

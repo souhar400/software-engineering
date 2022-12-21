@@ -49,28 +49,20 @@ public class Recorder {
 
     }
 
-
-
-
     public File renderTrack(File track) {
-        if(track.length() == 0)
-            return null;
         List<TrackComponent> trackComponents = importTrackComponents(track);
+        TrackRenderer trackRenderer = new TrackRenderer(context, trackComponents);
 
-        FFmpegSession session = FFmpegKit.execute("");
-
-        return new File("");
+        return trackRenderer.renderTrack();
     }
-
-
-
-
 
 
 
     private File getWavFile(String midiPath) {
         return null;
     }
+
+
     public static Recorder getInstance() {
         if (instance == null)
             System.err.println("Instance is null!!!");
@@ -195,6 +187,9 @@ public class Recorder {
     }
 
     private List<TrackComponent> importTrackComponents(File file) {
+        if (file.length() == 0)
+            return new ArrayList<>();
+
         List<TrackComponent> trackComponents = new ArrayList<>();
         String track = readFromFile(file);
         String[] trackComponentStrings = track.split("\n");
