@@ -68,12 +68,12 @@ public class SynthService {
                                 e.printStackTrace();
                             }
                         }
-                        FadeOut(b.getButtonNumber());
+                        play(b.getButtonNumber());
                     });
                     b.setLinearCrossfade(!b.getLinearCrossfade());
                     buttonData.setShowFadeOptions(false);
                     executor.execute(() -> {
-                        FadeIn(buttonData.getButtonNumber());
+                        play(buttonData.getButtonNumber());
                         for(int j = 0; j < 127; j++) {
                             buttonData.setDirectVolume(j);
                             try {
@@ -101,12 +101,12 @@ public class SynthService {
                                 e.printStackTrace();
                             }
                         }
-                        FadeOut(b.getButtonNumber());
+                        play(b.getButtonNumber());
                     });
                     b.setNonLinearCrossfade(!b.getNonLinearCrossfade());
                     buttonData.setShowFadeOptions(false);
                     executor.execute(() -> {
-                        FadeIn(buttonData.getButtonNumber());
+                        play(buttonData.getButtonNumber());
                         for(double j = 0; j < 1; j += 0.05) {
                             buttonData.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * 127)));
                             try {
@@ -149,11 +149,6 @@ public class SynthService {
     private native void register(int buttonNumber, String soundfontPath, String midiPath, boolean isLoop);
 
     private native void play(int buttonNumber);
-
-    private native void FadeIn(int buttonNumber);
-
-    private native void FadeOut(int buttonNumber);
-
 
     private native void play(int buttonNumber, int key, int velocity, int preset);
 
