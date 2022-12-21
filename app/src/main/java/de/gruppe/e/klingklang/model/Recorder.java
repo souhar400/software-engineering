@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.arthenica.ffmpegkit.FFmpegKit.*;
@@ -21,6 +22,7 @@ import com.arthenica.ffmpegkit.*;
 
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
+import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
 
 public class Recorder {
     private static Recorder instance;
@@ -47,6 +49,16 @@ public class Recorder {
 
 
 
+    }
+
+    private Map<Integer, Integer> mapButtonNumberToR_ID() {
+        ViewModelFactory viewModelFactory = new ViewModelFactory();
+        Map<Integer, ButtonData> map = viewModelFactory.initialiseFacadeTwoButtons();
+        Map<Integer, Integer> desiredMap = new HashMap<>();
+
+        map.forEach((key, value) -> desiredMap.put(value.getButtonNumber(), key));
+
+        return desiredMap;
     }
 
     public File renderTrack(File track) {
@@ -92,6 +104,10 @@ public class Recorder {
         isRecording = false;
     }
 
+    private void doEffect(int R_ID) {
+
+    }
+
     public void playTrack(File track) {
         if(track.length() == 0)
             return;
@@ -99,9 +115,12 @@ public class Recorder {
         executor.execute(() -> {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
-
+            Map<Integer, Integer> buttonNumberToR_ID = mapButtonNumberToR_ID();
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
+
+                    doEffect(Objects.requireNonNull(buttonNumberToR_ID.get(trackComponents.get(0).buttonNumber)));
+
                     synthService.play(
                             trackComponents.get(0).midiPath,
                             trackComponents.get(0).soundfontPath,

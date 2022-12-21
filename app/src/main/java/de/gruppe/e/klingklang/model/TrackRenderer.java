@@ -38,7 +38,7 @@ public class TrackRenderer {
 
     public File renderTrack() {
         if(trackComponents.size() == 0)
-            return generateSilence(1);
+            return generateSilence(100);
 
         List<File> trackComponentFiles = new ArrayList<>();
 
