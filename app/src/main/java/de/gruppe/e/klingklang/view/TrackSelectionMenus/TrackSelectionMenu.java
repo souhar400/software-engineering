@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.Recorder;
+import de.gruppe.e.klingklang.view.MainMenu;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class TrackSelectionMenu extends BottomSheetDialogFragment {
@@ -41,10 +42,12 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
     private View view;
     private final FragmentManager associatedManager;
     ExecutorService executor = Executors.newFixedThreadPool(1);
+    MainMenu mainMenu;
 
-    public TrackSelectionMenu(FragmentManager associatedManager) {
+    public TrackSelectionMenu(FragmentManager associatedManager, MainMenu mainMenu) {
         super();
         this.associatedManager = associatedManager;
+        this.mainMenu = mainMenu;
     }
 
     /**
@@ -168,6 +171,7 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
                     Recorder.getInstance().playTrack(tracks[finalI]);
                 });
                 this.dismiss();
+                mainMenu.dismiss();
             });
             button.setOnLongClickListener(v -> {
                 TrackOptionMenu trackOptionMenu = new TrackOptionMenu(tracks[finalI], linearLayout, button, associatedManager);

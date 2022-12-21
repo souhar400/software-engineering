@@ -139,8 +139,9 @@ public class TrackOptionMenu extends BottomSheetDialogFragment {
             Uri fileUri = FileProvider.getUriForFile(requireContext(), "de.gruppe.e.klingklang.view.TrackSelectionMenus.fileprovider", toShare);
 
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("audio/wav");
+            shareIntent.setType("audio/mpeg");
             shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "This audio was shared with Kling-Klang");
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(shareIntent, "Share file using"));
         });

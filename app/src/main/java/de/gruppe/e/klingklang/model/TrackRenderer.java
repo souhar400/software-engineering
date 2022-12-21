@@ -24,38 +24,61 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import android.media.MediaMetadataRetriever;
 
 
 public class TrackRenderer {
 
     Context context;
     List<TrackComponent> trackComponents;
+    List<File> toDelte;
 
     public TrackRenderer(Context context, List<TrackComponent> trackComponents) {
         this.trackComponents = trackComponents;
         this.context = context;
+        this.toDelte = new ArrayList<>();
     }
 
     public File renderTrack() {
+
         if(trackComponents.size() == 0)
             return generateSilence(100);
 
+
         List<File> trackComponentFiles = new ArrayList<>();
 
-        // add silence at the beginning
         trackComponentFiles.add(generateSilence(trackComponents.get(0).momentPlayed));
         trackComponentFiles.add(getFileFromTrackComponent(trackComponents.get(0)));
 
         for (int i = 1; i < trackComponents.size(); i++) {
-            trackComponentFiles.add(generateSilence(getTimeDiff(trackComponents.get(i - 1), trackComponents.get(i))));
+            if (getTimeDiff(trackComponents.get(i - 1), trackComponents.get(i)) > 0)
+                trackComponentFiles.add(generateSilence(getTimeDiff(trackComponents.get(i - 1), trackComponents.get(i))));
             trackComponentFiles.add(getFileFromTrackComponent(trackComponents.get(i)));
         }
 
-        return joinTrackComponentFiles(trackComponentFiles);
+        File finalFile = joinTrackComponentFiles(trackComponentFiles);
+
+        trackComponentFiles.forEach(File::delete);
+
+        return finalFile;
     }
 
     private double getTimeDiff(TrackComponent t1, TrackComponent t2) {
-        return t2.momentPlayed - t1.momentPlayed;
+        File f1 = getFileFromTrackComponent(t1);
+
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+
+        // Set the data source to the MP3 file
+        mmr.setDataSource(f1.getPath());
+
+        int duration = Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+
+        long diff = t2.momentPlayed + duration - t1.momentPlayed;
+
+        if (diff <= 0)
+            return 0;
+
+        return diff;
     }
 
     private File getFileFromTrackComponent(TrackComponent trackComponent) {
@@ -96,16 +119,17 @@ public class TrackRenderer {
     }
 
     private File joinTrackComponentFiles(List<File> trackComponentFiles) {
-        String fileNames = getFileName("_components.txt");
-        String finalName = getFileName("_final.mp3");
+        String finalName = getFileName("final.mp3");
+        StringBuilder toConcat = new StringBuilder("concat:" + trackComponentFiles.get(0).getPath());
 
-        File components = createFile(fileNames);
-
-        for (File trackComponent : trackComponentFiles) {
-            writeToFile(components, trackComponent.getPath() + "\n");
+        for (int i = 1; i < trackComponentFiles.size(); i++) {
+            toConcat.append("|").append(trackComponentFiles.get(i).getPath());
         }
 
-        ffmpegExecute("ffmpeg -f concat -safe 0 -i " + fileNames + " -c copy " + finalName);
+        String exec = "-i \"" + toConcat + "\" -c copy " + finalName;
+
+        System.out.println("Exec: " + exec);
+        ffmpegExecute(exec);
 
         return new File(finalName);
     }
@@ -114,32 +138,27 @@ public class TrackRenderer {
         double seconds = milliseconds / 1000.0;
         String fileName = getFileName("silence_" + seconds + ".mp3");
 
-        ffmpegExecute("-f lavfi -i anullsrc=r=44100:cl=mono -t " + seconds + " -q:a 9 -acodec libmp3lame " + fileName);
+        boolean success = ffmpegExecute("-f lavfi -i anullsrc=r=44100:cl=stereo -t " + seconds + " -q:a 9 -acodec libmp3lame " + fileName);
+
+        if (!success)
+            return generateSilence(10);
 
         return new File(fileName);
     }
 
-    public File createFile(String name) {
-        File file = new File(context.getFilesDir(), name);
-
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
 
     private String getFileName(String name) {
         return String.format("%s/%s_%s", context.getFilesDir().getPath(), getDate(), name);
     }
 
-    private void ffmpegExecute(String command) {
+    private boolean ffmpegExecute(String command) {
         FFmpegSession session = FFmpegKit.execute(command);
 
         if (ReturnCode.isSuccess(session.getReturnCode())) {
 
             System.out.println("FFMPEG: SUCCESS");
+
+            return true;
 
         } else if (ReturnCode.isCancel(session.getReturnCode())) {
 
@@ -150,7 +169,7 @@ public class TrackRenderer {
             Log.d(TAG, String.format("Command failed with state %s and rc %s.%s", session.getState(), session.getReturnCode(), session.getFailStackTrace()));
 
         }
-
+        return false;
     }
 
     private void writeToFile(File file, String data) {

@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import com.arthenica.ffmpegkit.FFmpegKit.*;
 import com.arthenica.ffmpegkit.*;
 
+import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
@@ -52,11 +53,18 @@ public class Recorder {
     }
 
     private Map<Integer, Integer> mapButtonNumberToR_ID() {
-        ViewModelFactory viewModelFactory = new ViewModelFactory();
-        Map<Integer, ButtonData> map = viewModelFactory.initialiseFacadeTwoButtons();
         Map<Integer, Integer> desiredMap = new HashMap<>();
 
-        map.forEach((key, value) -> desiredMap.put(value.getButtonNumber(), key));
+        desiredMap.put(0, R.id.button1);
+        desiredMap.put(1, R.id.button2);
+        desiredMap.put(2, R.id.button3);
+        desiredMap.put(3, R.id.button4);
+        desiredMap.put(4, R.id.button5);
+        desiredMap.put(5, R.id.button6);
+        desiredMap.put(6, R.id.button7);
+        desiredMap.put(7, R.id.button8);
+        desiredMap.put(8, R.id.button9);
+        desiredMap.put(9, R.id.button10);
 
         return desiredMap;
     }
@@ -66,12 +74,6 @@ public class Recorder {
         TrackRenderer trackRenderer = new TrackRenderer(context, trackComponents);
 
         return trackRenderer.renderTrack();
-    }
-
-
-
-    private File getWavFile(String midiPath) {
-        return null;
     }
 
 
@@ -104,8 +106,7 @@ public class Recorder {
         isRecording = false;
     }
 
-    private void doEffect(int R_ID) {
-
+    private void doEffect(Integer R_ID) {
     }
 
     public void playTrack(File track) {
@@ -115,11 +116,15 @@ public class Recorder {
         executor.execute(() -> {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
+
             Map<Integer, Integer> buttonNumberToR_ID = mapButtonNumberToR_ID();
+
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
 
-                    doEffect(Objects.requireNonNull(buttonNumberToR_ID.get(trackComponents.get(0).buttonNumber)));
+                    Integer R_ID = buttonNumberToR_ID.get(trackComponents.get(0).buttonNumber);
+
+                    doEffect(R_ID);
 
                     synthService.play(
                             trackComponents.get(0).midiPath,

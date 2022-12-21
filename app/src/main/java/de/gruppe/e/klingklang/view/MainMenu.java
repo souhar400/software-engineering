@@ -118,7 +118,7 @@ public class MainMenu extends BottomSheetDialogFragment {
         mapButton.setOnClickListener( view -> startActivity(createMapViewIntent()));
 
         recordingsButton.setOnClickListener(view -> {
-            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(getActivity().getSupportFragmentManager());
+            TrackSelectionMenu trackSelectionMenu = new TrackSelectionMenu(getActivity().getSupportFragmentManager(), this);
             trackSelectionMenu.show(getActivity().getSupportFragmentManager(), FRAGMENT_TAG);
         });
 
