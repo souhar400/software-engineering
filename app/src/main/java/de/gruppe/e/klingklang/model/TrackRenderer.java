@@ -187,7 +187,7 @@ public class TrackRenderer {
     private String getDate() {
         String date = ZonedDateTime.now(ZoneId.of("Europe/Paris")).toString();
         date = date.replace("T", "_");
-        date = date.substring(0, date.indexOf("."));
+        date = date.substring(0, date.indexOf("+"));
         date = date.replaceAll(":", "-");
         return date;
     }
