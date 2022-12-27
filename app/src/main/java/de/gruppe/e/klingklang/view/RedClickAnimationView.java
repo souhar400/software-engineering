@@ -12,8 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-
-public class GreenClickAnimationView  extends View{
+public class RedClickAnimationView extends View {
     private static final int ANIMATION_DURATION = 100;
 
     private float mX;
@@ -22,14 +21,13 @@ public class GreenClickAnimationView  extends View{
     private float mRadius;
     private final Paint mPaint = new Paint();
     private final Paint cPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
     private AnimatorSet mPulseAnimatorSet = new AnimatorSet();
 
-    public GreenClickAnimationView(Context context) {
+    public RedClickAnimationView(Context context) {
         this(context, null);
     }
 
-    public GreenClickAnimationView(Context context, AttributeSet attrs) {
+    public RedClickAnimationView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint.setShadowLayer(10.0f, 0.0f, 2.0f, 0xFF000000);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -72,7 +70,7 @@ public class GreenClickAnimationView  extends View{
     public void setRadius(float radius) {
         mRadius = radius;
         float percent = (radius -40)/ 40;
-        mPaint.setColor((int) new ArgbEvaluator().evaluate(percent, Color.WHITE, Color.GREEN));
+        mPaint.setColor((int) new ArgbEvaluator().evaluate(percent, Color.WHITE, Color.RED));
         invalidate();
 
     }
