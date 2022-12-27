@@ -1,0 +1,55 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This is the line -->
+    <item
+        android:bottom="@dimen/clicked_padding"
+        android:left="@dimen/clicked_padding"
+        android:right="@dimen/clicked_padding"
+        android:top="@dimen/clicked_padding">
+        <shape>
+            <solid android:color="@color/fenster_color_green"></solid>
+            <corners android:radius="6dip" />
+
+        </shape>
+    </item>
+
+
+
+
+    <!-- This is the main color -->
+    <item
+        android:top="0dp" android:right="0dp" android:left="-5dp" android:bottom="0dp">
+        <shape
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <stroke
+                android:width="3dp"
+                android:color="@color/white"></stroke>
+            >
+            <corners android:radius="4dip" />
+
+        </shape>
+    </item>
+
+    <item
+        android:left="3dp"
+        android:top="5dp"
+        android:width="40dp"
+        android:height="40dp"
+        android:drawable="@drawable/hall2"
+        android:gravity="center" />
+
+    <item android:left="1dp">
+        <shape
+            android:dither="true"
+            android:shape="rectangle" >
+            <gradient
+                android:angle="270"
+                android:endColor="#00000000"
+                android:startColor="#10000000" />
+
+            <size android:height="8dp" />
+        </shape>
+    </item>
+
+
+</layer-list>

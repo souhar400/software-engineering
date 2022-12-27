@@ -204,7 +204,7 @@
         <View
             android:id="@+id/button1_top"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -216,7 +216,7 @@
         <View
             android:id="@+id/button1_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -237,7 +237,7 @@
         <View
             android:id="@+id/button2_top"
             android:tag="jazz_riff.sf2,2"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
@@ -249,7 +249,7 @@
         <View
             android:id="@+id/button2_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -269,7 +269,7 @@
         <View
             android:id="@+id/button3_top"
             android:tag="jazz_riff.sf2,4"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -279,7 +279,7 @@
         <View
             android:id="@+id/button3_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -298,7 +298,7 @@
         <!-- Button4 -->
         <View
             android:id="@+id/button4_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,6"
             app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
@@ -309,7 +309,7 @@
         <View
             android:id="@+id/button4_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
@@ -327,7 +327,7 @@
         <!-- Button 5 -->
         <View
             android:id="@+id/button5_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,5"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -338,7 +338,7 @@
         <View
             android:id="@+id/button5_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -357,7 +357,7 @@
         <View
             android:id="@+id/button6_top"
             android:tag="jazz_riff.sf2,7"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -367,7 +367,7 @@
         <View
             android:id="@+id/button6_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
@@ -385,7 +385,7 @@
         <!-- Button 7 -->
         <View
             android:id="@+id/button7_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,8"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -396,7 +396,7 @@
         <View
             android:id="@+id/button7_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -414,7 +414,7 @@
         <!-- Button 8  -->
         <View
             android:id="@+id/button8_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,10"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -425,7 +425,7 @@
         <View
             android:id="@+id/button8_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
@@ -444,7 +444,7 @@
         <!-- Button 9 -->
         <View
             android:id="@+id/button9_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,9"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -455,7 +455,7 @@
         <View
             android:id="@+id/button9_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -473,7 +473,7 @@
         <!-- Button 10 -->
         <View
             android:id="@+id/button10_top"
-            android:background="@drawable/transition_top"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,11"
             android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
@@ -484,7 +484,7 @@
         <View
             android:id="@+id/button10_hall"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/transition_bottom"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
             app:layout_constraintTop_toTopOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
