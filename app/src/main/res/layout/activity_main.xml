@@ -200,7 +200,7 @@
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
         <View
-            android:id="@+id/button1_btm"
+            android:id="@+id/button1_hall"
             android:tag="jazz_riff.sf2,0"
             android:background="@drawable/transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"

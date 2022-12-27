@@ -12,6 +12,14 @@ public class ButtonData {
     private boolean isLoop;
     private boolean isVisible;
 
+    //Platzhalter um zu unterscheiden zwsichen Sound-Button and Hall-Button: muss ausgelagert werden in geeigneter Struktur
+    private boolean isHallButton;
+
+    //boolean Platzhalter für den Hall Effekt, muss geeignet implementiert werden
+    private boolean isHallActivated = false;
+
+
+
     private ButtonData(ButtonDataBuilder buttonDataBuilder) {
         this.buttonNumber = buttonDataBuilder.buttonNumber;
         this.soundfontPath = buttonDataBuilder.soundfontPath;
@@ -96,6 +104,23 @@ public class ButtonData {
         return isVisible;
     }
 
+    public boolean isHallButton() {
+        return isHallButton;
+    }
+
+    public void setHallButton(boolean hallButton) {
+        isHallButton = hallButton;
+    }
+
+    public boolean isHallActivated() {
+        return isHallActivated;
+    }
+
+    public void setHallActivated(boolean hallActivated) {
+        isHallActivated = hallActivated;
+    }
+
+
 
     public static class ButtonDataBuilder {
         private static int BUTTONS = 0;
@@ -107,6 +132,15 @@ public class ButtonData {
         private int velocity;
         private int preset;
         private boolean isLoop;
+
+        private boolean isHallButton;
+        private boolean isHallActivated;
+
+        public ButtonDataBuilder withHall(boolean isHallButton) {
+            this.isHallButton= isHallButton;
+            return this;
+        }
+
 
         public ButtonDataBuilder() {
             this.buttonNumber = BUTTONS;

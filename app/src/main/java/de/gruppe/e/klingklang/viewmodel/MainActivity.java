@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.TransitionDrawable;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -228,6 +229,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Iterating over " + facadeViewModel.getActualFassade().getButtons().size() + " buttons.");
         for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet()) {
             Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
+
+            View myButton = this.findViewById(entry.getKey());
+            TransitionDrawable transition = (TransitionDrawable) myButton.getBackground();
+            transition.setCrossFadeEnabled(true);
+
             this.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (facadeViewModel.getInEditMode()) {
@@ -236,6 +242,27 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
                     SynthService.play(entry.getValue());
+                    // wenn Normaler Sound-Button
+                    if(!entry.getValue().isHallButton())
+                    {
+                        transition.startTransition(200);
+                        transition.reverseTransition(200);
+                    }
+                    //transition to be played when it is a hall-button
+                    else {
+                        //if hall is clicked
+                        if(!entry.getValue().isHallActivated()){
+                            entry.getValue().setHallActivated(true);
+                            transition.startTransition(200);
+                        }
+                        else {
+                            entry.getValue().setHallActivated(false);
+                            transition.reverseTransition(100);
+                        }
+
+                    }
+
+
                 }
             });
         }
