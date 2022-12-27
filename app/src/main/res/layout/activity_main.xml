@@ -190,7 +190,7 @@
         <View
             android:id="@+id/button1_top"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/fensterbutton_background_top"
+            android:background="@drawable/fensterbutton_background_top_2"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -202,7 +202,7 @@
         <View
             android:id="@+id/button1_btm"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/fensterbutton_background_bttm"
+            android:background="@drawable/fensterbutton_background_bottom_unclicked"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -211,20 +211,6 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
-
-
-
-        <Button
-            android:id="@+id/button1"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,0"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
-            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/guideline_X1"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
 
         <Button

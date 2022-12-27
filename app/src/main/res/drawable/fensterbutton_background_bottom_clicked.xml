@@ -18,10 +18,13 @@
         <shape>
             <stroke
                 android:width="3dp"
-                android:color="@color/white"></stroke>>
+                android:color="@color/white"></stroke>
+            >
             <corners android:radius="4dip"
                 android:topLeftRadius="0dp"
                 android:topRightRadius="0dp" />
+
+
         </shape>
     </item>
 
@@ -29,5 +32,8 @@
         android:top="3dp"
         android:width="40dp"
         android:height="40dp"
+        android:drawable="@drawable/hall3"
         android:gravity="center" />
+
+
 </layer-list>
