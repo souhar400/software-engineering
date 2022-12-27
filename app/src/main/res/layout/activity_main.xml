@@ -190,7 +190,7 @@
         <View
             android:id="@+id/button1_top"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/fensterbutton_background"
+            android:background="@drawable/fensterbutton_background_top"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -202,7 +202,7 @@
         <View
             android:id="@+id/button1_btm"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/fensterbutton_background"
+            android:background="@drawable/fensterbutton_background_bttm"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_YB35"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
