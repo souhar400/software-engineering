@@ -40,10 +40,10 @@ public class ViewModelFactory {
 
     private Map<Integer, ButtonData> initialiseFacadeOneButtons() {
         HashMap<Integer, ButtonData> map = new HashMap<>();
-        map.put(R.id.button1,
+        map.put(R.id.button1_top,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
                         .withVelocity(127).withPreset(0).withLoop(false).create());
-        map.put(R.id.button2,
+        map.put(R.id.button1_btm,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(1).withLoop(false).create());
         map.put(R.id.button3,
