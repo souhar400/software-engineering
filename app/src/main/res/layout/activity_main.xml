@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.135" />
+            app:layout_constraintGuide_percent="0.19" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X3"
@@ -176,7 +176,30 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.47" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_YB35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.22" />
+
+
+
         <!-- Buttons-->
+
+        <View
+            android:id="@+id/button1_top"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/fensterbutton_background"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+
 
         <Button
             android:id="@+id/button1"
