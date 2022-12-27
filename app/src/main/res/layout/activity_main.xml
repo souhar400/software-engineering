@@ -190,7 +190,7 @@
         <View
             android:id="@+id/button1_top"
             android:tag="jazz_riff.sf2,0"
-            android:background="@drawable/fensterbutton_background_top_2"
+            android:background="@drawable/fensterbutton_background_top_unclicked"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"

@@ -6,7 +6,7 @@
         android:right="0dp"
         android:top="0dp">
         <shape>
-            <solid android:color="#988BC34A"></solid>
+            <solid android:color="@color/fenster_color_green"></solid>
             <corners android:radius="4dip" />
 
         </shape>
