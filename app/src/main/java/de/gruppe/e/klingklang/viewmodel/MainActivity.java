@@ -179,16 +179,16 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-        Button[] buttons = new Button[] {findViewById(R.id.button1_top),
-                findViewById(R.id.button2),
-                findViewById(R.id.button3),
-                findViewById(R.id.button4),
-                findViewById(R.id.button5),
-                findViewById(R.id.button6),
-                findViewById(R.id.button7),
-                findViewById(R.id.button8),
-                findViewById(R.id.button9),
-                findViewById(R.id.button10)};
+        View[] buttons = new View[] {findViewById(R.id.button1_top),
+                findViewById(R.id.button2_top),
+                findViewById(R.id.button3_top),
+                findViewById(R.id.button4_top),
+                findViewById(R.id.button5_top),
+                findViewById(R.id.button6_top),
+                findViewById(R.id.button7_top),
+                findViewById(R.id.button8_top),
+                findViewById(R.id.button9_top),
+                findViewById(R.id.button10_top)};
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
