@@ -13,14 +13,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import androidx.core.content.ContextCompat;
-
-import de.gruppe.e.klingklang.R;
 
 public class GreenClickAnimationView  extends View{
-    private static final int ANIMATION_DURATION = 100;
-    private static final long ANIMATION_DELAY = 500;
-    private static final int COLOR_ADJUSTER = 5;
+    private static final int ANIMATION_DURATION = 70;
 
     private float mX;
     private float mY;
@@ -51,12 +46,13 @@ public class GreenClickAnimationView  extends View{
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         ObjectAnimator growAnimator = ObjectAnimator.ofFloat(this,
-                "radius", 80, 40);
+                "radius", 60, 40);
         growAnimator.setDuration(ANIMATION_DURATION);
         growAnimator.setInterpolator(new LinearInterpolator());
 
         ObjectAnimator shrinkAnimator = ObjectAnimator.ofFloat(this,
                 "radius", 40, 0);
+//        mPulseAnimatorSet.play(shrinkAnimator);
         mPulseAnimatorSet.play(growAnimator).before(shrinkAnimator);
 //        mPulseAnimatorSet.play(repeatAnimator).after(shrinkAnimator);
     }
@@ -90,8 +86,8 @@ public class GreenClickAnimationView  extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(mPaint.getColor()== Color.RED){
-            canvas.drawCircle(mX,mY, (4/5)* mRadius, cPaint);
+        if(mPaint.getColor()== Color.WHITE){
+            canvas.drawCircle(mX,mY, (2/3)* mRadius, cPaint);
         }
         canvas.drawCircle(mX, mY, mRadius, mPaint);
     }
