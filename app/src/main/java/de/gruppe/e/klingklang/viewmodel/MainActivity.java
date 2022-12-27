@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-        Button[] buttons = new Button[] {findViewById(R.id.button1),
+        Button[] buttons = new Button[] {findViewById(R.id.button1_top),
                 findViewById(R.id.button2),
                 findViewById(R.id.button3),
                 findViewById(R.id.button4),

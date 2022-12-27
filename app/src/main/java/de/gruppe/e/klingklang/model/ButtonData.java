@@ -28,6 +28,7 @@ public class ButtonData {
         this.velocity = buttonDataBuilder.velocity;
         this.preset = buttonDataBuilder.preset;
         this.isLoop = buttonDataBuilder.isLoop;
+        this.isHallButton = buttonDataBuilder.isHallButton;
     }
 
     private native void setChannelVolume(int buttonNumber, int volume);
@@ -136,10 +137,7 @@ public class ButtonData {
         private boolean isHallButton;
         private boolean isHallActivated;
 
-        public ButtonDataBuilder withHall(boolean isHallButton) {
-            this.isHallButton= isHallButton;
-            return this;
-        }
+
 
 
         public ButtonDataBuilder() {
@@ -174,6 +172,11 @@ public class ButtonData {
 
         public ButtonDataBuilder withLoop(boolean isLoop) {
             this.isLoop = isLoop;
+            return this;
+        }
+
+        public ButtonDataBuilder withHall(boolean isHallButton) {
+            this.isHallButton= isHallButton;
             return this;
         }
 
