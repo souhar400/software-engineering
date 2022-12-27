@@ -171,7 +171,7 @@
 
         <!-- Button1 -->
         <View
-            android:id="@+id/button1"
+            android:id="@+id/button1_sound"
             android:tag="jazz_riff.sf2,0"
             android:background="@drawable/f2_sound_transition"
             app:layout_constraintBottom_toBottomOf="@id/guideline_Y11"

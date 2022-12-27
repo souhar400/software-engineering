@@ -55,16 +55,16 @@ public class Recorder {
     private Map<Integer, Integer> mapButtonNumberToR_ID() {
         Map<Integer, Integer> desiredMap = new HashMap<>();
 
-        desiredMap.put(0, R.id.button1);
-        desiredMap.put(1, R.id.button2);
-        desiredMap.put(2, R.id.button3);
-        desiredMap.put(3, R.id.button4);
-        desiredMap.put(4, R.id.button5);
-        desiredMap.put(5, R.id.button6);
-        desiredMap.put(6, R.id.button7);
-        desiredMap.put(7, R.id.button8);
-        desiredMap.put(8, R.id.button9);
-        desiredMap.put(9, R.id.button10);
+        desiredMap.put(0, R.id.button1_sound);
+        desiredMap.put(1, R.id.button2_sound);
+        desiredMap.put(2, R.id.button3_sound);
+        desiredMap.put(3, R.id.button4_sound);
+        desiredMap.put(4, R.id.button5_sound);
+        desiredMap.put(5, R.id.button6_sound);
+        desiredMap.put(6, R.id.button7_sound);
+        desiredMap.put(7, R.id.button8_sound);
+        desiredMap.put(8, R.id.button9_sound);
+        desiredMap.put(9, R.id.button10_sound);
 
         return desiredMap;
     }

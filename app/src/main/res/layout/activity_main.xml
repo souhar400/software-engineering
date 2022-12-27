@@ -202,7 +202,7 @@
 
         <!-- Button1-->
         <View
-            android:id="@+id/button1_top"
+            android:id="@+id/button1_sound"
             android:tag="jazz_riff.sf2,0"
             android:background="@drawable/f1_transition_top"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
@@ -235,7 +235,7 @@
 
         <!-- Button2-->
         <View
-            android:id="@+id/button2_top"
+            android:id="@+id/button2_sound"
             android:tag="jazz_riff.sf2,2"
             android:background="@drawable/f1_transition_top"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
@@ -267,7 +267,7 @@
 
         <!-- Button3 -->
         <View
-            android:id="@+id/button3_top"
+            android:id="@+id/button3_sound"
             android:tag="jazz_riff.sf2,4"
             android:background="@drawable/f1_transition_top"
             app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
@@ -297,7 +297,7 @@
 
         <!-- Button4 -->
         <View
-            android:id="@+id/button4_top"
+            android:id="@+id/button4_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,6"
             app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
@@ -326,7 +326,7 @@
 
         <!-- Button 5 -->
         <View
-            android:id="@+id/button5_top"
+            android:id="@+id/button5_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,5"
             android:layout_height="0dp" android:layout_width="0dp"
@@ -355,7 +355,7 @@
 
         <!-- Button 6-->
         <View
-            android:id="@+id/button6_top"
+            android:id="@+id/button6_sound"
             android:tag="jazz_riff.sf2,7"
             android:background="@drawable/f1_transition_top"
             android:layout_height="0dp" android:layout_width="0dp"
@@ -384,7 +384,7 @@
 
         <!-- Button 7 -->
         <View
-            android:id="@+id/button7_top"
+            android:id="@+id/button7_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,8"
             android:layout_height="0dp" android:layout_width="0dp"
@@ -413,7 +413,7 @@
 
         <!-- Button 8  -->
         <View
-            android:id="@+id/button8_top"
+            android:id="@+id/button8_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,10"
             android:layout_height="0dp" android:layout_width="0dp"
@@ -443,7 +443,7 @@
 
         <!-- Button 9 -->
         <View
-            android:id="@+id/button9_top"
+            android:id="@+id/button9_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,9"
             android:layout_height="0dp" android:layout_width="0dp"
@@ -472,7 +472,7 @@
 
         <!-- Button 10 -->
         <View
-            android:id="@+id/button10_top"
+            android:id="@+id/button10_sound"
             android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,11"
             android:layout_height="0dp" android:layout_width="0dp"

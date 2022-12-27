@@ -9,22 +9,18 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.TransitionDrawable;
-import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -179,16 +175,16 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-        View[] buttons = new View[] {findViewById(R.id.button1_top),
-                findViewById(R.id.button2_top),
-                findViewById(R.id.button3_top),
-                findViewById(R.id.button4_top),
-                findViewById(R.id.button5_top),
-                findViewById(R.id.button6_top),
-                findViewById(R.id.button7_top),
-                findViewById(R.id.button8_top),
-                findViewById(R.id.button9_top),
-                findViewById(R.id.button10_top)};
+        View[] buttons = new View[] {findViewById(R.id.button1_sound),
+                findViewById(R.id.button2_sound),
+                findViewById(R.id.button3_sound),
+                findViewById(R.id.button4_sound),
+                findViewById(R.id.button5_sound),
+                findViewById(R.id.button6_sound),
+                findViewById(R.id.button7_sound),
+                findViewById(R.id.button8_sound),
+                findViewById(R.id.button9_sound),
+                findViewById(R.id.button10_sound)};
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
