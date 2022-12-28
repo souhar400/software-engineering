@@ -60,16 +60,30 @@ public class Recorder {
     private Map<Integer, Integer> mapButtonNumberToR_ID() {
         Map<Integer, Integer> desiredMap = new HashMap<>();
 
-        desiredMap.put(0, R.id.button1_sound);
-        desiredMap.put(1, R.id.button2_sound);
-        desiredMap.put(2, R.id.button3_sound);
-        desiredMap.put(3, R.id.button4_sound);
-        desiredMap.put(4, R.id.button5_sound);
-        desiredMap.put(5, R.id.button6_sound);
-        desiredMap.put(6, R.id.button7_sound);
-        desiredMap.put(7, R.id.button8_sound);
-        desiredMap.put(8, R.id.button9_sound);
-        desiredMap.put(9, R.id.button10_sound);
+        List<Integer> R_IDs = new ArrayList<>();
+        R_IDs.add(R.id.button1_sound);
+        R_IDs.add(R.id.button1_hall);
+        R_IDs.add(R.id.button2_sound);
+        R_IDs.add(R.id.button2_hall);
+        R_IDs.add(R.id.button3_sound);
+        R_IDs.add(R.id.button3_hall);
+        R_IDs.add(R.id.button4_sound);
+        R_IDs.add(R.id.button4_hall);
+        R_IDs.add(R.id.button5_sound);
+        R_IDs.add(R.id.button5_hall);
+        R_IDs.add(R.id.button6_sound);
+        R_IDs.add(R.id.button6_hall);
+        R_IDs.add(R.id.button7_sound);
+        R_IDs.add(R.id.button7_hall);
+        R_IDs.add(R.id.button8_sound);
+        R_IDs.add(R.id.button8_hall);
+        R_IDs.add(R.id.button9_sound);
+        R_IDs.add(R.id.button9_hall);
+        R_IDs.add(R.id.button10_sound);
+        R_IDs.add(R.id.button10_hall);
+
+        for (int i = 0; i < R_IDs.size(); i++)
+            desiredMap.put(i, R_IDs.get(i));
 
         return desiredMap;
     }
