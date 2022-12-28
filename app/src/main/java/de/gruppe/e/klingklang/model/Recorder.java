@@ -3,6 +3,8 @@ package de.gruppe.e.klingklang.model;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,7 +41,6 @@ public class Recorder {
     List<TrackComponent> notUntoggledTrackComponents;
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
-    ExecutorService executor = Executors.newFixedThreadPool(1);
     MainActivity mainActivity;
 
 
@@ -135,7 +136,11 @@ public class Recorder {
         if(track.length() == 0)
             return;
 
-        executor.execute(() -> {
+        HandlerThread handlerThread = new HandlerThread("animation_thread");
+        handlerThread.start();
+
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.post(() -> {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
 
