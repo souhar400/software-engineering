@@ -169,7 +169,18 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
 
+
         <!-- Button1 -->
+        <de.gruppe.e.klingklang.view.RedClickAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <View
             android:id="@+id/button1_sound"
             android:tag="jazz_riff.sf2,0"
@@ -194,6 +205,12 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y11"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y12"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
+
 
         <!-- Button2 -->
         <View
@@ -220,6 +237,12 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y11"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y12"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
+
 
         <!-- Button 3 -->
         <View
@@ -246,6 +269,12 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y9"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y10"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X2_1"  android:layout_height="0dp" android:layout_width="0dp"/>
+
 
         <!-- Button4 -->
         <View
@@ -272,6 +301,11 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y7"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y8"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
         <!-- Button5 -->
         <View
@@ -298,6 +332,11 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y7"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y8"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
 
         <!-- Button 6 -->
         <View
@@ -324,6 +363,11 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y6"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X2_1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
 
         <!-- button7 -->
@@ -351,7 +395,11 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
-
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
         <!-- button 8 -->
         <View
@@ -378,6 +426,12 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
+
 
         <!-- button 9 -->
         <View
@@ -404,6 +458,11 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
 
         <!-- button 10 -->
@@ -431,6 +490,12 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
             android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
+
 
 
         <ImageButton

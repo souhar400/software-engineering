@@ -2,6 +2,10 @@ package de.gruppe.e.klingklang.model;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.SystemClock;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -107,6 +111,24 @@ public class Recorder {
     }
 
     private void doEffect(Integer R_ID) {
+        View button = mainActivity.findViewById(R_ID);
+        View myView = mainActivity.findViewById(R.id.green_animation);
+
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis()+100;
+        int action = MotionEvent.ACTION_DOWN;
+        int x = (int)  button.getX()+button.getWidth()/2;
+        int y = (int) button.getY()+button.getHeight()/2;
+        int metaState = 0;
+
+        // dispatch the event
+        MotionEvent event = MotionEvent.obtain(downTime, eventTime, action, x, y, metaState);
+        boolean retVal = myView.dispatchTouchEvent(event);
+
+
+        TransitionDrawable transition = (TransitionDrawable) button.getBackground();
+        transition.startTransition(200);
+        transition.reverseTransition(100);
     }
 
     public void playTrack(File track) {

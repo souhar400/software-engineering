@@ -66,7 +66,7 @@ public class FacadeViewModel extends ViewModel {
     public void makeButtonsVisible(View[] buttons) {
         //actualFassade.getButtons().entrySet();
         for (int i = 0; i < getActualFassade().getButtons().entrySet().size(); i++) {
-            buttons[i].setVisibility(View.VISIBLE);
+            //buttons[i].setVisibility(View.VISIBLE);
         }
     }
     public void resetAllButtonVisibilities() {
