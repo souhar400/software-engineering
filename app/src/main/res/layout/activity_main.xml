@@ -559,17 +559,7 @@
             app:srcCompat="@drawable/ic_baseline_change_circle_24"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="21dp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="40dp"
-            android:text="Button"
-            android:onClick="doIt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline_LC_Y3" />
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
