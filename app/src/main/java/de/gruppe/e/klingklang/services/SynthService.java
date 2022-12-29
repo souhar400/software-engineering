@@ -15,12 +15,11 @@ import java.util.concurrent.Executors;
 
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.Recorder;
-import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SynthService {
     private final Activity activity;
 
-    private List<ButtonData> buttons = new ArrayList<>();
+    private final List<ButtonData> buttons = new ArrayList<>();
     ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public SynthService(Activity activity) {
@@ -60,7 +59,7 @@ public class SynthService {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        for(int j = 127; j > 0; j--) {
+                        for(int j = b.getVolume(); j > 0; j--) {
                             b.setDirectVolume(j);
                             try {
                                 sleep(40);
@@ -71,10 +70,11 @@ public class SynthService {
                         play(b.getButtonNumber());
                     });
                     b.setLinearCrossfade(!b.getLinearCrossfade());
+                    b.setShowFadeOptions(true);
                     buttonData.setShowFadeOptions(false);
                     executor.execute(() -> {
                         play(buttonData.getButtonNumber());
-                        for(int j = 0; j < 127; j++) {
+                        for(int j = 0; j < buttonData.getVolume(); j++) {
                             buttonData.setDirectVolume(j);
                             try {
                                 sleep(40);
@@ -94,7 +94,7 @@ public class SynthService {
                             e.printStackTrace();
                         }
                         for(double j = 1; j > 0; j -= 0.05) {
-                            b.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * 127)));
+                            b.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * b.getVolume())));
                             try {
                                 sleep(100);
                             } catch (InterruptedException e) {
@@ -104,11 +104,12 @@ public class SynthService {
                         play(b.getButtonNumber());
                     });
                     b.setNonLinearCrossfade(!b.getNonLinearCrossfade());
+                    b.setShowFadeOptions(true);
                     buttonData.setShowFadeOptions(false);
                     executor.execute(() -> {
                         play(buttonData.getButtonNumber());
                         for(double j = 0; j < 1; j += 0.05) {
-                            buttonData.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * 127)));
+                            buttonData.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * buttonData.getVolume())));
                             try {
                                 sleep(100);
                             } catch (InterruptedException e) {
@@ -121,7 +122,7 @@ public class SynthService {
 
             if(!faded) {
                 play(buttonData.getButtonNumber());
-                buttonData.setShowFadeOptions(true);
+                buttonData.setShowFadeOptions(!buttonData.getShowFadeOptions());
             }
         } else {
             // Play soundfont
