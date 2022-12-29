@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import com.arthenica.ffmpegkit.*;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.services.SynthService;
+import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
 
@@ -57,34 +59,9 @@ public class Recorder {
 
     }
 
-    private Map<Integer, Integer> mapButtonNumberToR_ID() {
+    private Map<Integer, Integer> mapButtonNumberToR_ID(FacadeData facadeData) {
         Map<Integer, Integer> desiredMap = new HashMap<>();
-
-        List<Integer> R_IDs = new ArrayList<>();
-        R_IDs.add(R.id.button1_sound);
-        R_IDs.add(R.id.button1_hall);
-        R_IDs.add(R.id.button2_sound);
-        R_IDs.add(R.id.button2_hall);
-        R_IDs.add(R.id.button3_sound);
-        R_IDs.add(R.id.button3_hall);
-        R_IDs.add(R.id.button4_sound);
-        R_IDs.add(R.id.button4_hall);
-        R_IDs.add(R.id.button5_sound);
-        R_IDs.add(R.id.button5_hall);
-        R_IDs.add(R.id.button6_sound);
-        R_IDs.add(R.id.button6_hall);
-        R_IDs.add(R.id.button7_sound);
-        R_IDs.add(R.id.button7_hall);
-        R_IDs.add(R.id.button8_sound);
-        R_IDs.add(R.id.button8_hall);
-        R_IDs.add(R.id.button9_sound);
-        R_IDs.add(R.id.button9_hall);
-        R_IDs.add(R.id.button10_sound);
-        R_IDs.add(R.id.button10_hall);
-
-        for (int i = 0; i < R_IDs.size(); i++)
-            desiredMap.put(i, R_IDs.get(i));
-
+        facadeData.getButtons().forEach((key, value) -> desiredMap.put(value.getButtonNumber(), key));
         return desiredMap;
     }
 
@@ -150,6 +127,9 @@ public class Recorder {
         if(track.length() == 0)
             return;
 
+        FacadeData currentFacade = FassadeModel.getInstance().getCurrentFacade();
+        Map<Integer, Integer> buttonNumberToR_ID = mapButtonNumberToR_ID(currentFacade);
+
         HandlerThread handlerThread = new HandlerThread("animation_thread");
         handlerThread.start();
 
@@ -158,12 +138,15 @@ public class Recorder {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
 
-            Map<Integer, Integer> buttonNumberToR_ID = mapButtonNumberToR_ID();
+
 
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
 
                     Integer R_ID = buttonNumberToR_ID.get(trackComponents.get(0).buttonNumber);
+
+                    if (R_ID == null)
+                        return;
 
                     doEffect(R_ID);
 

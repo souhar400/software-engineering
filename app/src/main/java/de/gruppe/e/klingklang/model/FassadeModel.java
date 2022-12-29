@@ -34,6 +34,10 @@ public class FassadeModel {
         return INSTANCE;
     }
 
+    public ArrayList<FacadeData> getFassaden() {
+        return this.fassaden;
+    }
+
     public List<NamedLocation> getAllLocations() {
         return fassaden.stream().map(FacadeData::getNamedLocation).collect(Collectors.toList());
     }
