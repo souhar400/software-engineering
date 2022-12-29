@@ -148,7 +148,6 @@ public class Recorder {
                     if (R_ID == null)
                         return;
 
-                    doEffect(R_ID);
 
                     synthService.play(
                             trackComponents.get(0).midiPath,
@@ -159,6 +158,15 @@ public class Recorder {
                             trackComponents.get(0).preset,
                             trackComponents.get(0).isLoop);
                     trackComponents.remove(0);
+
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            doEffect(R_ID);
+                        }
+                    });
+
+
                 }
             }
         });

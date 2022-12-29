@@ -408,4 +408,25 @@ public class MainActivity extends AppCompatActivity {
         transition.reverseTransition(100);
         boolean retVal = myView.dispatchTouchEvent(event);
     }
+
+    public void doIt2(Integer R_ID) {
+        View button = this.findViewById(R_ID);
+        View myView = this.findViewById(R.id.green_animation);
+        // MotionEvent parameters
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis()+100;
+        int action = MotionEvent.ACTION_DOWN;
+        int x = (int)  button.getX()+button.getWidth()/2;
+        int y = (int) button.getY()+button.getHeight()/2;
+        int metaState = 0;
+
+        // dispatch the event
+        MotionEvent event = MotionEvent.obtain(downTime, eventTime, action, x, y, metaState);
+
+
+        TransitionDrawable transition = (TransitionDrawable) button.getBackground();
+        transition.startTransition(200);  //hier_ist_der_visuelle_effekt
+        transition.reverseTransition(100);
+        boolean retVal = myView.dispatchTouchEvent(event);
+    }
 }
