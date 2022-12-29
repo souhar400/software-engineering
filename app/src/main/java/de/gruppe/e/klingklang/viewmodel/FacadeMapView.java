@@ -24,6 +24,7 @@ public class FacadeMapView extends AppCompatActivity {
     private static final String MAP_FRAGMENT_TAG = "org.osmdroid.MAP_FRAGMENT_TAG";
     private FacadeMapFragment facadeMapFragment;
     private MyLocationNewOverlay locationOverlay;
+
     /**
      * Called when the activity is first created.
      */
@@ -34,21 +35,18 @@ public class FacadeMapView extends AppCompatActivity {
         locations = getIntent().getParcelableArrayListExtra(getString(R.string.location_arraylist_parcelid));
         this.setContentView(R.layout.activity_mapview);
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         MapView view = findViewById(R.id.mapview);
         view.setTilesScaledToDpi(true);
         view.setMultiTouchControls(true);
         locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(this), view);
         locationOverlay.enableMyLocation();
         locationOverlay.enableFollowLocation();
-        locationOverlay.getMyLocation();
         IMapController mapController = view.getController();
+        view.setMinZoomLevel(10.0);
         mapController.setZoom(18.0);
         runOnUiThread(() -> mapController.animateTo(locationOverlay.getMyLocation()));
-        locations.stream().map( l -> new GeoPoint(l.getLatitude(), l.getLongitude()))
-                .forEach( g -> {
+        locations.stream().map(l -> new GeoPoint(l.getLatitude(), l.getLongitude()))
+                .forEach(g -> {
                     Marker mark = new Marker(view);
                     mark.setPosition(g);
                     view.getOverlays().add(mark);
@@ -66,15 +64,18 @@ public class FacadeMapView extends AppCompatActivity {
 //            fm.beginTransaction().add(R.id.mapview, facadeMapFragment, MAP_FRAGMENT_TAG).commit();
 //        }
     }
+
     @Override
     public void onPause() {
         super.onPause();
         locationOverlay.disableMyLocation();
+        locationOverlay.disableFollowLocation();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         locationOverlay.enableMyLocation();
+        locationOverlay.enableFollowLocation();
     }
 }
