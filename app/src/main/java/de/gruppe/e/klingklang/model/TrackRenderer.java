@@ -73,7 +73,7 @@ public class TrackRenderer {
 
         int duration = Integer.parseInt(mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
 
-        long diff = t2.momentPlayed + duration - t1.momentPlayed;
+        long diff = t2.momentPlayed - t1.momentPlayed;
 
         if (diff <= 0)
             return 0;
