@@ -11,14 +11,8 @@ public class ButtonData {
     private int preset;
     private boolean isLoop;
     private boolean isVisible;
-
-    //Platzhalter um zu unterscheiden zwsichen Sound-Button and Hall-Button: muss ausgelagert werden in geeigneter Struktur
-    private boolean isHallButton;
-
-    //boolean Platzhalter für den Hall Effekt, muss geeignet implementiert werden
-    private boolean isHallActivated = false;
-
-
+    private int reverbButtonId;
+    private boolean isReverbActivated = false;
 
     private ButtonData(ButtonDataBuilder buttonDataBuilder) {
         this.buttonNumber = buttonDataBuilder.buttonNumber;
@@ -28,7 +22,7 @@ public class ButtonData {
         this.velocity = buttonDataBuilder.velocity;
         this.preset = buttonDataBuilder.preset;
         this.isLoop = buttonDataBuilder.isLoop;
-        this.isHallButton = buttonDataBuilder.isHallButton;
+        this.reverbButtonId = buttonDataBuilder.reverbButtonId;
     }
 
     private native void setChannelVolume(int buttonNumber, int volume);
@@ -105,23 +99,21 @@ public class ButtonData {
         return isVisible;
     }
 
-    public boolean isHallButton() {
-        return isHallButton;
+    public int getReverbButtonId() {
+        return reverbButtonId;
     }
 
-    public void setHallButton(boolean hallButton) {
-        isHallButton = hallButton;
+    public void setReverbButtonId(int reverbButtonId) {
+        this.reverbButtonId = reverbButtonId;
     }
 
-    public boolean isHallActivated() {
-        return isHallActivated;
+    public boolean isReverbActivated() {
+        return isReverbActivated;
     }
 
-    public void setHallActivated(boolean hallActivated) {
-        isHallActivated = hallActivated;
+    public void setReverbActivated(boolean reverbActivated) {
+        isReverbActivated = reverbActivated;
     }
-
-
 
     public static class ButtonDataBuilder {
         private static int BUTTONS = 0;
@@ -133,12 +125,7 @@ public class ButtonData {
         private int velocity;
         private int preset;
         private boolean isLoop;
-
-        private boolean isHallButton;
-        private boolean isHallActivated;
-
-
-
+        private int reverbButtonId;
 
         public ButtonDataBuilder() {
             this.buttonNumber = BUTTONS;
@@ -175,8 +162,8 @@ public class ButtonData {
             return this;
         }
 
-        public ButtonDataBuilder withHall(boolean isHallButton) {
-            this.isHallButton= isHallButton;
+        public ButtonDataBuilder withReverbButton(int reverbButtonId) {
+            this.reverbButtonId = reverbButtonId;
             return this;
         }
 

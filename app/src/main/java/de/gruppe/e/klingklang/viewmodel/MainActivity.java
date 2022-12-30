@@ -240,27 +240,23 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
                     SynthService.play(entry.getValue());
-                    // wenn Normaler Sound-Button
-                    if(!entry.getValue().isHallButton())
-                    {
-                        transition.startTransition(200);
-                        transition.reverseTransition(200);
-                    }
-                    //transition to be played when it is a hall-button
-                    else {
-                        //if hall is clicked
-                        if(!entry.getValue().isHallActivated()){
-                            entry.getValue().setHallActivated(true);
-                            transition.startTransition(200);
-                        }
-                        else {
-                            entry.getValue().setHallActivated(false);
-                            transition.reverseTransition(100);
-                        }
+                    transition.startTransition(200);
+                    transition.reverseTransition(200);
+                }
+            });
 
-                    }
+            TransitionDrawable reverbTransition = (TransitionDrawable) findViewById(entry.getValue().getReverbButtonId()).getBackground();
+            reverbTransition.setCrossFadeEnabled(true);
 
-
+            findViewById(entry.getValue().getReverbButtonId()).setOnClickListener(view -> {
+                if (!entry.getValue().isReverbActivated()) {
+                    SynthService.setReverbLevel(entry.getValue(), 100);
+                    entry.getValue().setReverbActivated(true);
+                    reverbTransition.startTransition(200);
+                } else {
+                    SynthService.setReverbLevel(entry.getValue(), 0);
+                    entry.getValue().setReverbActivated(false);
+                    reverbTransition.reverseTransition(100);
                 }
             });
         }
