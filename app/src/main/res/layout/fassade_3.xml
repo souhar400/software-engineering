@@ -33,14 +33,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.47" />
+            app:layout_constraintGuide_percent="0.41" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.74" />
+            app:layout_constraintGuide_percent="0.63" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_X7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_X8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_X9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_X10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.88" />
+
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_Y"
@@ -63,26 +94,99 @@
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_Y9"
+            android:id="@+id/f3_guideline_Y1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.21" />
+            app:layout_constraintGuide_percent="0.33" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/f3_guideline_Y2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.66" />
 
 
         <!-- Buttons-->
+        <!-- Button 1 -->
         <View
-            android:id="@+id/f3_button9"
+            android:id="@+id/f3_button1_sound"
             android:tag="jazz_riff.sf2,0"
             android:background="@drawable/f3_sound_transition"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:0.5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X6"
             app:layout_constraintStart_toStartOf="@id/guideline_X5"
-            app:layout_constraintTop_toTopOf="@id/guideline_Y9"
+            app:layout_constraintTop_toTopOf="@id/f3_guideline_Y1"
             android:layout_width="0dp"  android:layout_height="0dp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/f3_button1_hall"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/f3_hall_transition"
+            android:scaleType="centerCrop"
+            android:tag="jazz_riff.sf2,0"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+            app:layout_constraintStart_toStartOf="@id/guideline_X5"
+            app:layout_constraintTop_toBottomOf="@+id/f3_button1_sound"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        <!-- Button 2 -->
+        <View
+            android:id="@+id/f3_button2_sound"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f3_sound_transition"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+            app:layout_constraintTop_toTopOf="@id/f3_guideline_Y2"
+            android:layout_width="0dp"  android:layout_height="0dp"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/f3_button2_hall"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/f3_hall_transition"
+            android:scaleType="centerCrop"
+            android:tag="jazz_riff.sf2,0"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+            app:layout_constraintTop_toBottomOf="@+id/f3_button2_sound"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+        <!-- Button 3 -->
+        <View
+            android:id="@+id/f3_button3_sound"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f3_sound_transition"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"
+            app:layout_constraintTop_toTopOf="@id/f3_guideline_Y2"
+            android:layout_width="0dp"  android:layout_height="0dp"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/f3_button3_hall"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/f3_hall_transition"
+            android:scaleType="centerCrop"
+            android:tag="jazz_riff.sf2,0"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"
+            app:layout_constraintTop_toBottomOf="@+id/f3_button3_sound"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
 
 
         <ImageButton
