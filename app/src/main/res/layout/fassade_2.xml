@@ -14,18 +14,20 @@
         android:background="@drawable/iduna_hochhaus"
         tools:context=".MainActivity">
 
-        <!--Vertical  guidelines  -->
-        <ImageButton
-            android:id="@+id/record_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="@string/toggle_between_play_and_edit_mode"
+        <!-- Green Click Aninmation for the reproduction of the clicks from the recorder -->
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            android:id="@+id/green_animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_X"
-            app:layout_constraintTop_toTopOf="@id/guideline_Y"
-            app:srcCompat="@drawable/start_recording" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!--Vertical  guidelines  -->
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_Y"
@@ -169,8 +171,7 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.25" />
 
-
-        <!-- Button1 -->
+        <!-- Red Click Animation when no button is hit -->
         <de.gruppe.e.klingklang.view.RedClickAnimationView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -181,6 +182,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <!-- Button1 -->
         <View
             android:id="@+id/button1_sound"
             android:tag="jazz_riff.sf2,0"
@@ -210,7 +212,6 @@
             app:layout_constraintTop_toTopOf="@id/guideline_Y12"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
-
 
         <!-- Button2 -->
         <View
@@ -243,7 +244,6 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-
         <!-- Button 3 -->
         <View
             android:id="@+id/button3_sound"
@@ -274,7 +274,6 @@
             app:layout_constraintTop_toTopOf="@id/guideline_Y10"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
             app:layout_constraintStart_toStartOf="@id/guideline_X2_1"  android:layout_height="0dp" android:layout_width="0dp"/>
-
 
         <!-- Button4 -->
         <View
@@ -368,7 +367,6 @@
             app:layout_constraintTop_toTopOf="@id/guideline_Y6"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2_2"
             app:layout_constraintStart_toStartOf="@id/guideline_X2_1"  android:layout_height="0dp" android:layout_width="0dp"/>
-
 
         <!-- button7 -->
         <View
@@ -464,7 +462,6 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-
         <!-- button 10 -->
         <View
             android:id="@+id/button10_sound"
@@ -496,8 +493,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-
-
+        <!-- Other  buttons-->
         <ImageButton
             android:id="@+id/setting_button"
             android:layout_width="wrap_content"
@@ -508,7 +504,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/einstellungen" />
-
         <ImageButton
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
@@ -519,7 +514,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/edit_mode" />
-
         <ImageButton
             android:id="@+id/change_fassade"
             android:layout_width="wrap_content"
@@ -529,6 +523,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_change_circle_24" />
+        <ImageButton
+            android:id="@+id/record_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:contentDescription="@string/toggle_between_play_and_edit_mode"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_X"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y"
+            app:srcCompat="@drawable/start_recording" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
