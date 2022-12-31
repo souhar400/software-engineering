@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.view.animation.LinearInterpolator;
 
 
@@ -82,6 +83,9 @@ public class GreenClickAnimationView  extends View{
         super.onDraw(canvas);
         if(mPaint.getColor()== Color.RED){
             canvas.drawCircle(mX,mY, (4/5)* mRadius, cPaint);
+
+            this.setClipToOutline(true);
+            this.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
         }
         canvas.drawCircle(mX, mY, mRadius, mPaint);
     }
