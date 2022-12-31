@@ -81,12 +81,10 @@ public class GreenClickAnimationView  extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(mPaint.getColor()== Color.RED){
-            canvas.drawCircle(mX,mY, (4/5)* mRadius, cPaint);
 
-            this.setClipToOutline(true);
-            this.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
-        }
+        this.setClipToOutline(true);
+        this.setOutlineProvider(ViewOutlineProvider.BACKGROUND);
+
         canvas.drawCircle(mX, mY, mRadius, mPaint);
     }
 }
