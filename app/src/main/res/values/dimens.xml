@@ -2,4 +2,7 @@
 <resources>
     <dimen name="button_size">45dp</dimen>
     <dimen name="clicked_padding">0dp</dimen>
+    <dimen name="rectangle_solid_corners">6dip</dimen>
+    <dimen name="rectangle_clipping">-5dip</dimen>
+
 </resources>
