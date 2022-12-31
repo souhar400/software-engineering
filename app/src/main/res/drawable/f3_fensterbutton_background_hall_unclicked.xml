@@ -33,7 +33,7 @@
         android:top="3dp"
         android:width="30dp"
         android:height="30dp"
-        android:drawable="@drawable/hall3"
+        android:drawable="@drawable/hall2"
         android:gravity="center" />
     <!-- This is the main color -->
 

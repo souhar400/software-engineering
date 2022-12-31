@@ -4,7 +4,7 @@
         android:bottom="6dp"
         android:left="6dp"
         android:right="6dp"
-        android:top="-60dp">
+        android:top="-40dp">
         <shape
             android:shape="oval">
             <solid android:color="#958BC34A"/>
@@ -16,7 +16,7 @@
         android:bottom="0dp"
         android:left="0dp"
         android:right="0dp"
-        android:top="-60dp">
+        android:top="-40dp">
         <shape
             android:shape="oval"
             >
@@ -28,6 +28,13 @@
 
         </shape>
     </item>
+
+    <item
+        android:left="3dp"
+        android:width="30dp"
+        android:height="30dp"
+        android:drawable="@drawable/hall3"
+        android:gravity="center" />
     <!-- This is the main color -->
 
 </layer-list>

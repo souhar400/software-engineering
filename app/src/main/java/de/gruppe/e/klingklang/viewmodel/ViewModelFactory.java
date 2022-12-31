@@ -110,33 +110,15 @@ public class ViewModelFactory {
 
     public Map<Integer, ButtonData> initialiseFacadeThreeButtons() {
         HashMap<Integer, ButtonData> map = new HashMap<>();
-//        map.put(R.id.button1,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-//                        .withVelocity(127).withPreset(0).withLoop(false).create());
-//        map.put(R.id.button2,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(1).withLoop(false).create());
-//        map.put(R.id.button3,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-//                        .withVelocity(127).withPreset(2).withLoop(true).create());
-//        map.put(R.id.button4,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(3).withLoop(true).create());
-//        map.put(R.id.button5,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(5).withLoop(true).create());
-//        map.put(R.id.button6,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(5).withLoop(true).create());
-//        map.put(R.id.button7,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(6).withLoop(true).create());
-//        map.put(R.id.button8,
-//                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-//                        .withVelocity(127).withPreset(7).withLoop(true).create());
-//        map.put(R.id.button9,
-//                new ButtonData.ButtonDataBuilder().withMidiPath("Piano - 1 - Lydisch.mid")
-//                        .withSoundfontPath("Piano.sf2").withLoop(true).create());
+        map.put(R.id.f3_button1_sound,
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
+                        .withVelocity(127).withPreset(0).withLoop(false).withReverbButton(R.id.f3_button1_hall).create());
+        map.put(R.id.f3_button2_sound,
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
+                        .withVelocity(127).withPreset(1).withLoop(false).withReverbButton(R.id.f3_button2_hall).create());
+        map.put(R.id.f3_button3_sound,
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
+                        .withVelocity(127).withPreset(2).withLoop(true).withReverbButton(R.id.f3_button3_hall).create());
         return map;
     }
 }
