@@ -146,6 +146,7 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__I(JNIEnv *env, jobject t
         }
     }
 }
+
 extern "C"
 JNIEXPORT void JNICALL
 Java_de_gruppe_e_klingklang_services_SynthService_play__IIII(JNIEnv *env, jobject thiz,
@@ -171,8 +172,13 @@ Java_de_gruppe_e_klingklang_services_SynthService_play__IIII(JNIEnv *env, jobjec
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz,
-                                                              jint button_number, jint volume) {
+Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolumeDirect(JNIEnv *env, jobject thiz, jint button_number, jint volume) {
+    fluid_synth_cc(buttonData[button_number].fluidSynth, 0, 7,volume);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_model_ButtonData_setChannelVolume(JNIEnv *env, jobject thiz, jint button_number, jint volume) {
     buttonData[button_number].volume = volume;
 }
 
