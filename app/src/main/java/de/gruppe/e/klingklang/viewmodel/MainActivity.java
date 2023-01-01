@@ -45,6 +45,7 @@ import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.Recorder;
 import de.gruppe.e.klingklang.services.FacadeProximityBroadcastReceiver;
+import de.gruppe.e.klingklang.services.NamedLocationNotificationService;
 import de.gruppe.e.klingklang.services.SynthService;
 import de.gruppe.e.klingklang.view.MainMenu;
 import de.gruppe.e.klingklang.view.SoundMenu;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
         facadeViewModel = new ViewModelProvider(this).get(FacadeViewModel.class);
+        NamedLocationNotificationService.getInstance(this);
         MainMenu mainMenu = new MainMenu();
         setButtonListener();
         setControlButtonListeners(facadeViewModel, mainMenu);
@@ -124,13 +126,9 @@ public class MainActivity extends AppCompatActivity {
         if(openedAmount >= OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST) {
             if(lacksPermissions()) {
                 requestPermissions();
+            } else {
+                startLocationUpdates();
             }
-            buildGeofenceList(facadeViewModel.getNamedLocation().getAddress(),
-                    facadeViewModel.getNamedLocation().getLatitude(),
-                    facadeViewModel.getNamedLocation().getLongitude(),
-                    facadeViewModel.getNamedLocation().getRadius());
-            startLocationUpdates();
-            addGeofences();
         }
         Log.d(LOG_TAG, String.format(
                 "Opened this activity %d times now. %d needed for permission request!",
@@ -164,6 +162,16 @@ public class MainActivity extends AppCompatActivity {
         }
         if (requestCode == LOCATION_REQUEST + 1) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                buildGeofenceList(facadeViewModel.getNamedLocation().getAddress(),
+                        facadeViewModel.getNamedLocation().getLatitude(),
+                        facadeViewModel.getNamedLocation().getLongitude(),
+                        facadeViewModel.getNamedLocation().getRadius());
+                facadeViewModel.getAllLocations().forEach( l -> {
+                    buildGeofenceList(l.getAddress(),
+                            l.getLatitude(),
+                            l.getLongitude(),
+                            l.getRadius());
+                });
                 startLocationUpdates();
                 addGeofences();
             }
@@ -209,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
             viewModel.resetAllButtonVisibilities();
         });
         menuButton.setOnClickListener(view -> {
+            if(lacksPermissions()) {
+                requestPermissions();
+            }
+            startLocationUpdates();
             mainMenu.show(getSupportFragmentManager(), CONTROL_BUTTON_TAG);
         });
         recordButton.setOnClickListener(view -> {
@@ -274,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient.requestLocationUpdates(createLocationRequest(), new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
-                Log.d(LOG_TAG, "Updated location!");
+                Log.d(LOG_TAG, "Updated location! We are at: " + locationResult.getLastLocation());
             }
         }, Looper.getMainLooper());
     }
@@ -298,7 +310,12 @@ public class MainActivity extends AppCompatActivity {
      * @return <b>true</b> when all permissions are granted,<b>false</b> otherwise.
      */
     private boolean lacksPermissions() {
-        return !Arrays.stream(permissions).allMatch(p -> ActivityCompat.checkSelfPermission(this, p) == PackageManager.PERMISSION_GRANTED);
+        return !Arrays.stream(permissions)
+                .allMatch(p -> ActivityCompat.checkSelfPermission(this, p)
+                                == PackageManager.PERMISSION_GRANTED)
+                || !Arrays.stream(backgroundPermissions)
+                .allMatch(p -> ActivityCompat.checkSelfPermission(this, p)
+                        == PackageManager.PERMISSION_GRANTED);
     }
 
     /**
@@ -368,9 +385,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void addGeofences() {
-        if (lacksPermissions()) {
-            requestPermissions();
-        }
         setGeofencePendingIntent();
         geofencingClient.addGeofences(getGeofencingRequest(), geofencePendingIntent).addOnSuccessListener(this, e -> Log.d(LOG_TAG, "Successfully added geofences!")).addOnFailureListener(this, e -> Log.e(LOG_TAG, "Could not add geofences!", e));
     }

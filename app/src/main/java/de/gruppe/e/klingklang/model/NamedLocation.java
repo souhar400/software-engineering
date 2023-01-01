@@ -75,4 +75,5 @@ public class NamedLocation implements Parcelable {
     public String getShortName() {
         return shortName;
     }
+
 }

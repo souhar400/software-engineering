@@ -123,35 +123,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.66" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71" />
+        app:layout_constraintGuide_percent="0.73" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.80" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.79" />
+        app:layout_constraintGuide_percent="0.87" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.94" />
+
 
 
     <EditText
@@ -284,10 +285,10 @@
         android:text="Files"
         android:backgroundTint="@color/white"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y10"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y9"
         app:layout_constraintEnd_toEndOf="@id/guideline_X2"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y8" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchHideButton"
@@ -295,10 +296,10 @@
         android:layout_height="0dp"
         android:checked="true"
         android:text="Hide Button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline_Y12"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
         app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y11" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/playLoopButton"
@@ -306,6 +307,28 @@
         android:layout_height="0dp"
         android:checked="true"
         android:text="Loop Switch"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y11"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y10" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/linearCrossfadeButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:checked="true"
+        android:text="Linear Crossfade"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_Y12"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X6"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y11" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/nonLinearCrossfadeButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:checked="true"
+        android:text="Non-Linear Crossfade"
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y13"
         app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"

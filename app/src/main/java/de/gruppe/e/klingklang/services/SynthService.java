@@ -1,18 +1,26 @@
 package de.gruppe.e.klingklang.services;
 
+import static java.lang.Thread.sleep;
+
 import android.app.Activity;
 import android.content.Context;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.gruppe.e.klingklang.model.ButtonData;
 import de.gruppe.e.klingklang.model.Recorder;
-import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class SynthService {
     private final Activity activity;
+
+    private final List<ButtonData> buttons = new ArrayList<>();
+    ExecutorService executor = Executors.newFixedThreadPool(2);
 
     public SynthService(Activity activity) {
         this.activity = activity;
@@ -25,13 +33,98 @@ public class SynthService {
             tempMidiPath = copyAssetToTmpFile(buttonData.getMidiPath());
         }
         register(buttonData.getButtonNumber(), tempSoundfontPath, tempMidiPath, buttonData.isLoop());
+        boolean add = true;
+        for(int i = 0; i < buttons.size(); i++) {
+            if(buttons.get(i).getButtonNumber() == buttonData.getButtonNumber()) {
+                add = false;
+            }
+        }
+        if(add) {
+            buttons.add(buttonData);
+        }
     }
 
     public void play(ButtonData buttonData) {
         System.out.println("BNUMBER: " + buttonData.getButtonNumber());
         if (buttonData.getMidiPath() != null) {
             // Play midi
-            play(buttonData.getButtonNumber());
+            boolean faded = false;
+            for(int i = 0; i < buttons.size(); i++) {
+
+                if (buttons.get(i).getLinearCrossfade()) {
+                    faded = true;
+                    ButtonData b = buttons.get(i);
+                    executor.execute(() -> {
+                        try {
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        for(int j = b.getVolume(); j > 0; j--) {
+                            b.setDirectVolume(j);
+                            try {
+                                sleep(40);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        play(b.getButtonNumber());
+                    });
+                    b.setLinearCrossfade(!b.getLinearCrossfade());
+                    b.setShowFadeOptions(true);
+                    buttonData.setShowFadeOptions(false);
+                    executor.execute(() -> {
+                        play(buttonData.getButtonNumber());
+                        for(int j = 0; j < buttonData.getVolume(); j++) {
+                            buttonData.setDirectVolume(j);
+                            try {
+                                sleep(40);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+                } else if (buttons.get(i).getNonLinearCrossfade()) {
+                    faded = true;
+                    ButtonData b = buttons.get(i);
+                    executor.execute(() -> {
+                        try {
+                            sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        for(double j = 1; j > 0; j -= 0.05) {
+                            b.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * b.getVolume())));
+                            try {
+                                sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        play(b.getButtonNumber());
+                    });
+                    b.setNonLinearCrossfade(!b.getNonLinearCrossfade());
+                    b.setShowFadeOptions(true);
+                    buttonData.setShowFadeOptions(false);
+                    executor.execute(() -> {
+                        play(buttonData.getButtonNumber());
+                        for(double j = 0; j < 1; j += 0.05) {
+                            buttonData.setDirectVolume(Math.toIntExact(Math.round(Math.sqrt(j) * buttonData.getVolume())));
+                            try {
+                                sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+
+            if(!faded) {
+                play(buttonData.getButtonNumber());
+                buttonData.setShowFadeOptions(!buttonData.getShowFadeOptions());
+            }
         } else {
             // Play soundfont
             play(buttonData.getButtonNumber(), buttonData.getKey(), buttonData.getVelocity(), buttonData.getPreset());

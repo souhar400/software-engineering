@@ -36,7 +36,6 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
     private static final String NOTIFICATION_LONG_MESSAGE = "You are nearby %s. Take a look around!";
     private static final String NOTIFICATION_SHORT_MESSAGE = "Now nearby: %s";
 
-
     public FacadeProximityBroadcastReceiver() {
         Log.d(TAG, "Instantiated " + TAG);
     }
@@ -61,48 +60,8 @@ public class FacadeProximityBroadcastReceiver extends BroadcastReceiver {
         Optional<Location> location = Optional.ofNullable(geofencingEvent.getTriggeringLocation());
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Log.d(TAG, String.format(LOGMESSAGE_ENTERED_GEOFENCE, geofencingEvent.getTriggeringLocation().toString()));
-            location.ifPresent( l -> sendNotification(context
-                    , intent.getStringExtra(context.getString(R.string.location_region_name))
-                    , intent.getStringExtra(context.getString(R.string.location_region_address))) );
+            NamedLocationNotificationService notificationService = NamedLocationNotificationService.getInstance();
+            location.ifPresent(l -> notificationService.sendNotification(context, l.getLatitude(), l.getLongitude()));
         }
     }
-
-    private void sendNotification(Context context, String title, String msg) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFY_CHANNEL)
-                .setSmallIcon(R.drawable.ic_product_foreground)
-                .setContentTitle(title)
-                .setContentText(String.format(NOTIFICATION_SHORT_MESSAGE, msg))
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(String.format(NOTIFICATION_LONG_MESSAGE, msg)));
-        createNotificationChannel(context);
-
-        Intent notifyIntent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            notifyIntent = new Intent(context, MainActivity.class);
-            // Set the Activity to start in a new, empty task
-            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            // Create the PendingIntent
-            PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                    context, 0, notifyIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-            );
-            builder.setContentIntent(notifyPendingIntent);
-        }
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        assert notificationManager != null;
-        notificationManager.notify(0, builder.build());
-    }
-
-    private void createNotificationChannel(Context context) {
-        CharSequence name = context.getString(R.string.channel_name);
-        String description = context.getString(R.string.channel_description);
-        int importance = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel channel = new NotificationChannel(NOTIFY_CHANNEL, name, importance);
-        channel.setDescription(description);
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        assert notificationManager != null;
-        notificationManager.createNotificationChannel(channel);
-    }
-
 }
