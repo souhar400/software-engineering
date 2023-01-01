@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.model.Recorder;
+import de.gruppe.e.klingklang.view.MainMenu;
 import de.gruppe.e.klingklang.viewmodel.MainActivity;
 
 public class TrackSelectionMenu extends BottomSheetDialogFragment {
@@ -41,10 +42,12 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
     private View view;
     private final FragmentManager associatedManager;
     ExecutorService executor = Executors.newFixedThreadPool(1);
+    MainMenu mainMenu;
 
-    public TrackSelectionMenu(FragmentManager associatedManager) {
+    public TrackSelectionMenu(FragmentManager associatedManager, MainMenu mainMenu) {
         super();
         this.associatedManager = associatedManager;
+        this.mainMenu = mainMenu;
     }
 
     /**
@@ -166,18 +169,13 @@ public class TrackSelectionMenu extends BottomSheetDialogFragment {
             button.setOnClickListener(view -> {
                 executor.execute(() -> {
                     Recorder.getInstance().playTrack(tracks[finalI]);
-                    button.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    try {
-                        TimeUnit.SECONDS.sleep(Recorder.getInstance().getTrackLengthLong(tracks[finalI]) + 1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    button.setBackgroundColor(Color.LTGRAY);
                 });
+                this.dismiss();
+                mainMenu.dismiss();
             });
             button.setOnLongClickListener(v -> {
-                TrackDeletionMenu trackDeletionMenu = new TrackDeletionMenu(tracks[finalI], linearLayout, button);
-                trackDeletionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
+                TrackOptionMenu trackOptionMenu = new TrackOptionMenu(tracks[finalI], linearLayout, button, associatedManager);
+                trackOptionMenu.show(associatedManager, "TRACKDELETIONMENU_FRAGMENT_TAG");
                 return true;
             });
 

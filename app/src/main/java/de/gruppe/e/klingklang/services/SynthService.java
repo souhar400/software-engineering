@@ -45,6 +45,7 @@ public class SynthService {
     }
 
     public void play(ButtonData buttonData) {
+        System.out.println("BNUMBER: " + buttonData.getButtonNumber());
         if (buttonData.getMidiPath() != null) {
             // Play midi
             boolean faded = false;
@@ -147,11 +148,24 @@ public class SynthService {
         }
     }
 
+    /**
+     * Set the level of reverb.
+     * @param level 0 = off, 100 = max
+     */
+    public void setReverbLevel(ButtonData buttonData, int level) {
+        if (level < 0 || level > 100) {
+            return;
+        }
+        this.setReverbLevel(buttonData.getButtonNumber(), level / 100.0);
+    }
+
     private native void register(int buttonNumber, String soundfontPath, String midiPath, boolean isLoop);
 
     private native void play(int buttonNumber);
 
     private native void play(int buttonNumber, int key, int velocity, int preset);
+
+    private native void setReverbLevel(int buttonNumber, double level);
 
     /**
      * Turns a assets file that is a series of bytes in the compressed APK into a playable temporary

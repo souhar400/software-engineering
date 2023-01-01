@@ -211,6 +211,14 @@ void cleanup(int button_number) {
     buttonData[button_number].initialized = false;
 }
 
+extern "C"
+JNIEXPORT void JNICALL
+Java_de_gruppe_e_klingklang_services_SynthService_setReverbLevel(JNIEnv *env, jobject thiz,
+                                                                 jint button_number,
+                                                                 jdouble level) {
+    fluid_synth_set_reverb(buttonData[button_number].fluidSynth, 1, 0.4, 100, level);
+}
+
 /*
  * Use for debug purposes. Returns jstring that can be handed over to Java method to print it out
  * because console output is not possible here.

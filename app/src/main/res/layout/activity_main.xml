@@ -14,6 +14,18 @@
         android:background="@drawable/gebaeudee"
         tools:context=".viewmodel.MainActivity">
 
+        <!-- Green Click Aninmation for the reproduction of the clicks from the recorder -->
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            android:id="@+id/green_animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
         <!--Vertical  guidelines  -->
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_XB_1"
@@ -54,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.135" />
+            app:layout_constraintGuide_percent="0.19" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X3"
@@ -68,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.332" />
+            app:layout_constraintGuide_percent="0.38" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X7"
@@ -82,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.53" />
+            app:layout_constraintGuide_percent="0.58" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X9"
@@ -96,14 +108,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.73" />
+            app:layout_constraintGuide_percent="0.78" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.85" />
+            app:layout_constraintGuide_percent="0.805" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_X12"
@@ -176,114 +188,332 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.47" />
 
-        <!-- Buttons-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_YB35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.22" />
 
-        <Button
-            android:id="@+id/button1"
-            style="@style/windowbutton_style"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_Y5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.71" />
+
+
+        <!-- Red Click Animation when no button is hit -->
+        <de.gruppe.e.klingklang.view.RedClickAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!-- Button1-->
+        <View
+            android:id="@+id/button1_sound"
             android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_top"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <View
+            android:id="@+id/button1_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB35"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            android:id="@+id/my_green_animation_1"
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/guideline_X1"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
 
-        <Button
-            android:id="@+id/button2"
-            style="@style/windowbutton_style"
+        <!-- Button2-->
+        <View
+            android:id="@+id/button2_sound"
             android:tag="jazz_riff.sf2,2"
+            android:background="@drawable/f1_transition_top"
             app:layout_constraintEnd_toEndOf="@id/guideline_X2"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@id/guideline_X1"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintVertical_bias="0.0"
+            android:layout_height="0dp" android:layout_width="0dp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button2_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+            app:layout_constraintStart_toStartOf="@id/guideline_X1"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-        <Button
-            android:id="@+id/button3"
-            style="@style/windowbutton_style"
+
+        <!-- Button3 -->
+        <View
+            android:id="@+id/button3_sound"
             android:tag="jazz_riff.sf2,4"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            android:background="@drawable/f1_transition_top"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"
+            android:layout_height="0dp" android:layout_width="0dp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/button4"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,5"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
-            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        <View
+            android:id="@+id/button3_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB35"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3" android:layout_height="0dp" android:layout_width="0dp"/>
 
-        <Button
-            android:id="@+id/button5"
-            style="@style/windowbutton_style"
+
+        <!-- Button4 -->
+        <View
+            android:id="@+id/button4_sound"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,6"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
-
             app:layout_constraintEnd_toEndOf="@id/guideline_X4"
             app:layout_constraintStart_toStartOf="@id/guideline_X3"
+            android:layout_height="0dp" android:layout_width="0dp"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/button6"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,7"
+        <View
+            android:id="@+id/button4_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
             app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X4"
+            app:layout_constraintStart_toStartOf="@id/guideline_X3"  android:layout_height="0dp" android:layout_width="0dp"/>
+
+        <!-- Button 5 -->
+        <View
+            android:id="@+id/button5_sound"
+            android:background="@drawable/f1_transition_top"
+            android:tag="jazz_riff.sf2,5"
+            android:layout_height="0dp" android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button5_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB35"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7" android:layout_height="0dp" android:layout_width="0dp"/>
+
+        <!-- Button 6-->
+        <View
+            android:id="@+id/button6_sound"
+            android:tag="jazz_riff.sf2,7"
+            android:background="@drawable/f1_transition_top"
+            android:layout_height="0dp" android:layout_width="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintEnd_toEndOf="@id/guideline_X8"
             app:layout_constraintStart_toStartOf="@id/guideline_X7"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button6_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X8"
+            app:layout_constraintStart_toStartOf="@id/guideline_X7"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-        <Button
-            android:id="@+id/button7"
-            style="@style/windowbutton_style"
+        <!-- Button 7 -->
+        <View
+            android:id="@+id/button7_sound"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,8"
+            android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-
-        <Button
-            android:id="@+id/button8"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,9"
-            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
-            app:layout_constraintStart_toStartOf="@id/guideline_X11"
+        <View
+            android:id="@+id/button7_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB35"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
             app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
             app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-        <Button
-            android:id="@+id/button9"
-            style="@style/windowbutton_style"
+        <!-- Button 8  -->
+        <View
+            android:id="@+id/button8_sound"
+            android:background="@drawable/f1_transition_top"
             android:tag="jazz_riff.sf2,10"
+            android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X10"
             app:layout_constraintStart_toStartOf="@id/guideline_X9"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button8_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X10"
+            app:layout_constraintStart_toStartOf="@id/guideline_X9"  android:layout_height="0dp" android:layout_width="0dp"/>
 
-        <Button
-            android:id="@+id/button10"
-            style="@style/windowbutton_style"
-            android:tag="jazz_riff.sf2,11"
+
+        <!-- Button 9 -->
+        <View
+            android:id="@+id/button9_sound"
+            android:background="@drawable/f1_transition_top"
+            android:tag="jazz_riff.sf2,9"
+            android:layout_height="0dp" android:layout_width="0dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_X12"
             app:layout_constraintStart_toStartOf="@id/guideline_X11"
-            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_YB35"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button9_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_YB35"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
+            app:layout_constraintStart_toStartOf="@id/guideline_X11"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_LC_Y3"
+            app:layout_constraintTop_toTopOf="@id/guideline_L_Y4"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
+            app:layout_constraintStart_toStartOf="@id/guideline_X11"  android:layout_height="0dp" android:layout_width="0dp"/>
+
+        <!-- Button 10 -->
+        <View
+            android:id="@+id/button10_sound"
+            android:background="@drawable/f1_transition_top"
+            android:tag="jazz_riff.sf2,11"
+            android:layout_height="0dp" android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
+            app:layout_constraintStart_toStartOf="@id/guideline_X11"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_Y5"
             app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
             tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        <View
+            android:id="@+id/button10_hall"
+            android:tag="jazz_riff.sf2,0"
+            android:background="@drawable/f1_transition_bottom"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_Y5"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
+            app:layout_constraintStart_toStartOf="@id/guideline_X11"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck"
+            android:layout_height="0dp" android:layout_width="0dp"/>
+        <de.gruppe.e.klingklang.view.GreenClickAnimationView
+            app:layout_constraintBottom_toBottomOf="@id/guideline_C_Y1"
+            app:layout_constraintTop_toTopOf="@id/guideline_CR_Y2"
+            app:layout_constraintEnd_toEndOf="@id/guideline_X12"
+            app:layout_constraintStart_toStartOf="@id/guideline_X11"  android:layout_height="0dp" android:layout_width="0dp"/>
 
+        <!-- other Buttons -->
         <ImageButton
             android:id="@+id/setting_button"
             android:layout_width="0dp"
@@ -295,7 +525,6 @@
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
             app:srcCompat="@drawable/einstellungen"
             android:contentDescription="@string/pull_up_settings_drawer" />
-
         <ImageButton
             android:id="@+id/edit_button"
             android:layout_width="wrap_content"
@@ -307,7 +536,6 @@
             app:layout_constraintTop_toTopOf="@id/guideline_YB2"
             app:srcCompat="@drawable/edit_mode"
             android:contentDescription="@string/toggle_between_play_and_edit_mode" />
-
         <ImageButton
             android:id="@+id/record_button"
             android:layout_width="wrap_content"
@@ -319,7 +547,6 @@
             app:layout_constraintStart_toStartOf="@id/guideline_XB_1"
             app:layout_constraintTop_toTopOf="@id/guideline_YB4"
             app:srcCompat="@drawable/start_recording" />
-
         <ImageButton
             android:id="@+id/change_fassade"
             android:layout_width="wrap_content"
@@ -331,6 +558,7 @@
             app:srcCompat="@drawable/ic_baseline_change_circle_24"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="21dp" />
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

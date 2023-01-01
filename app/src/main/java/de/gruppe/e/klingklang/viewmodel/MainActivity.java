@@ -8,13 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.FloatRange;
@@ -33,6 +35,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,12 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int OPENED_AMOUNT_UNTIL_PERMISSION_REQUEST = 5;
     private static final String CONTROL_BUTTON_TAG = "control_button_overlay";
     private final String FRAGMENT_TAG = "SOUNDMENU_FRAGMENT_TAG";
-
-
-
-
-
-
+    private static final int SCREEN_RECORD_REQUEST_CODE = 777;
+    private static final int PERMISSION_REQ_ID_RECORD_AUDIO = 22;
+    private static final int PERMISSION_REQ_ID_WRITE_EXTERNAL_STORAGE = PERMISSION_REQ_ID_RECORD_AUDIO + 1;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hideNavigationAndSwipeUpBar();
         SynthService = new SynthService(this);
-        Recorder.createInstance(getApplicationContext(), this.SynthService);
+        Recorder.createInstance(getApplicationContext(), this.SynthService, this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
@@ -102,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         geofencingClient = LocationServices.getGeofencingClient(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             backgroundPermissions = new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+        }
+
+        System.out.println("fullPath:" + getApplicationContext().getFilesDir().getAbsolutePath());
+
+        for (File f : getApplicationContext().getFilesDir().listFiles()) {
+            System.out.println(f.getName());
         }
 
         Log.d(LOG_TAG, "App successfully created!");
@@ -179,16 +185,16 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-        Button[] buttons = new Button[] {findViewById(R.id.button1),
-                findViewById(R.id.button2),
-                findViewById(R.id.button3),
-                findViewById(R.id.button4),
-                findViewById(R.id.button5),
-                findViewById(R.id.button6),
-                findViewById(R.id.button7),
-                findViewById(R.id.button8),
-                findViewById(R.id.button9),
-                findViewById(R.id.button10)};
+        View[] buttons = new View[] {findViewById(R.id.button1_sound),
+                findViewById(R.id.button2_sound),
+                findViewById(R.id.button3_sound),
+                findViewById(R.id.button4_sound),
+                findViewById(R.id.button5_sound),
+                findViewById(R.id.button6_sound),
+                findViewById(R.id.button7_sound),
+                findViewById(R.id.button8_sound),
+                findViewById(R.id.button9_sound),
+                findViewById(R.id.button10_sound)};
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
@@ -233,6 +239,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Iterating over " + facadeViewModel.getActualFassade().getButtons().size() + " buttons.");
         for (Map.Entry<Integer, ButtonData> entry : facadeViewModel.getActualFassade().getButtons().entrySet()) {
             Log.d(LOG_TAG, "Adding listener to button " + entry.getKey());
+
+            View myButton = this.findViewById(entry.getKey());
+            TransitionDrawable transition = (TransitionDrawable) myButton.getBackground();
+            transition.setCrossFadeEnabled(true);
+
             this.findViewById(entry.getKey()).setOnClickListener(view -> {
                 Log.d(LOG_TAG, "Touchevent fired for: " + entry.getValue());
                 if (facadeViewModel.getInEditMode()) {
@@ -241,6 +252,23 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(LOG_TAG, "Playing sound: " + entry.getValue().getSoundfontPath());
                     SynthService.play(entry.getValue());
+                    transition.startTransition(200);
+                    transition.reverseTransition(200);
+                }
+            });
+
+            TransitionDrawable reverbTransition = (TransitionDrawable) findViewById(entry.getValue().getReverbButtonId()).getBackground();
+            reverbTransition.setCrossFadeEnabled(true);
+
+            findViewById(entry.getValue().getReverbButtonId()).setOnClickListener(view -> {
+                if (!entry.getValue().isReverbActivated()) {
+                    SynthService.setReverbLevel(entry.getValue(), 100);
+                    entry.getValue().setReverbActivated(true);
+                    reverbTransition.startTransition(200);
+                } else {
+                    SynthService.setReverbLevel(entry.getValue(), 0);
+                    entry.getValue().setReverbActivated(false);
+                    reverbTransition.reverseTransition(100);
                 }
             });
         }
@@ -369,4 +397,5 @@ public class MainActivity extends AppCompatActivity {
             registerCalls++;
         }
     }
+
 }

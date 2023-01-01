@@ -1,20 +1,37 @@
 package de.gruppe.e.klingklang.model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.SystemClock;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.arthenica.ffmpegkit.FFmpegKit.*;
+import com.arthenica.ffmpegkit.*;
 
+import de.gruppe.e.klingklang.R;
 import de.gruppe.e.klingklang.services.SynthService;
+import de.gruppe.e.klingklang.viewmodel.FacadeViewModel;
+import de.gruppe.e.klingklang.viewmodel.MainActivity;
+import de.gruppe.e.klingklang.viewmodel.ViewModelFactory;
 
 public class Recorder {
     private static Recorder instance;
@@ -26,16 +43,35 @@ public class Recorder {
     List<TrackComponent> notUntoggledTrackComponents;
     List<TrackComponent> notUntoggledTrackComponentsPreRecording;
     SynthService synthService;
-    ExecutorService executor = Executors.newFixedThreadPool(1);
+    MainActivity mainActivity;
 
-    private Recorder(Context context, SynthService synthService) {
+
+    private Recorder(Context context, SynthService synthService, MainActivity mainActivity) {
         this.context = context;
         this.isRecording = false;
         this.synthService = synthService;
         trackComponents = new ArrayList<>();
         notUntoggledTrackComponents = new ArrayList<>();
         notUntoggledTrackComponentsPreRecording = new ArrayList<>();
+        this.mainActivity = mainActivity;
+
+
+
     }
+
+    private Map<Integer, Integer> mapButtonNumberToR_ID(FacadeData facadeData) {
+        Map<Integer, Integer> desiredMap = new HashMap<>();
+        facadeData.getButtons().forEach((key, value) -> desiredMap.put(value.getButtonNumber(), key));
+        return desiredMap;
+    }
+
+    public File renderTrack(File track) {
+        List<TrackComponent> trackComponents = importTrackComponents(track);
+        TrackRenderer trackRenderer = new TrackRenderer(context, trackComponents);
+
+        return trackRenderer.renderTrack();
+    }
+
 
     public static Recorder getInstance() {
         if (instance == null)
@@ -43,9 +79,9 @@ public class Recorder {
         return instance;
     }
 
-    public static Recorder createInstance(Context context, SynthService synthService) {
+    public static Recorder createInstance(Context context, SynthService synthService, MainActivity mainActivity) {
         if (instance == null)
-            instance = new Recorder(context, synthService);
+            instance = new Recorder(context, synthService, mainActivity);
         return instance;
     }
 
@@ -66,16 +102,53 @@ public class Recorder {
         isRecording = false;
     }
 
+    private void doEffect(Integer R_ID) {
+        View button = mainActivity.findViewById(R_ID);
+        View myView = mainActivity.findViewById(R.id.green_animation);
+
+        long downTime = SystemClock.uptimeMillis();
+        long eventTime = SystemClock.uptimeMillis()+100;
+        int action = MotionEvent.ACTION_DOWN;
+        int x = (int)  button.getX()+button.getWidth()/2;
+        int y = (int) button.getY()+button.getHeight()/2;
+        int metaState = 0;
+
+        // dispatch the event
+        MotionEvent event = MotionEvent.obtain(downTime, eventTime, action, x, y, metaState);
+        boolean retVal = myView.dispatchTouchEvent(event);
+
+
+        TransitionDrawable transition = (TransitionDrawable) button.getBackground();
+        transition.startTransition(200);
+        transition.reverseTransition(100);
+    }
+
     public void playTrack(File track) {
         if(track.length() == 0)
             return;
 
-        executor.execute(() -> {
+        FacadeData currentFacade = FassadeModel.getInstance().getCurrentFacade();
+        Map<Integer, Integer> buttonNumberToR_ID = mapButtonNumberToR_ID(currentFacade);
+
+        HandlerThread handlerThread = new HandlerThread("animation_thread");
+        handlerThread.start();
+
+        Handler handler = new Handler(handlerThread.getLooper());
+        handler.post(() -> {
             List<TrackComponent> trackComponents = importTrackComponents(track);
             long startTime = System.currentTimeMillis();
 
+
+
             while (!trackComponents.isEmpty()) {
                 if (System.currentTimeMillis() - startTime >= trackComponents.get(0).momentPlayed) {
+
+                    Integer R_ID = buttonNumberToR_ID.get(trackComponents.get(0).buttonNumber);
+
+                    if (R_ID == null)
+                        return;
+
+
                     synthService.play(
                             trackComponents.get(0).midiPath,
                             trackComponents.get(0).soundfontPath,
@@ -85,6 +158,15 @@ public class Recorder {
                             trackComponents.get(0).preset,
                             trackComponents.get(0).isLoop);
                     trackComponents.remove(0);
+
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            doEffect(R_ID);
+                        }
+                    });
+
+
                 }
             }
         });
@@ -161,6 +243,9 @@ public class Recorder {
     }
 
     private List<TrackComponent> importTrackComponents(File file) {
+        if (file.length() == 0)
+            return new ArrayList<>();
+
         List<TrackComponent> trackComponents = new ArrayList<>();
         String track = readFromFile(file);
         String[] trackComponentStrings = track.split("\n");
@@ -199,6 +284,7 @@ public class Recorder {
 
     public File createTrackFile() {
         File file = new File(context.getFilesDir(), "Recording_" + getDate() + ".kk");
+
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -211,7 +297,13 @@ public class Recorder {
      * @return A File Array with all .kk files
      */
     public File[] getTracks() {
+        File fi = new File(context.getFilesDir() + "/tracks");
+
+        if (!fi.exists())
+            fi.mkdirs();
+
         File[] files = context.getFilesDir().listFiles();
+        // files = fi.listFiles();
         List<File> tracks = new ArrayList<>();
 
         assert files != null;

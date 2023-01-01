@@ -1,0 +1,52 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background solid color: main color -->
+    <item
+        android:bottom="@dimen/clicked_padding"
+        android:left="0dp"
+        android:right="@dimen/clicked_padding"
+        android:top="@dimen/clicked_padding">
+        <shape>
+            <solid android:color="@color/fenster_color_green"></solid>
+            <corners android:radius="@dimen/rectangle_solid_corners" />
+
+        </shape>
+    </item>
+
+    <!-- White Stroke -->
+    <item
+        android:top="-5dp" android:right="0dp" android:left="0dp" android:bottom="0dp">
+        <shape
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <stroke
+                android:width="3dp"
+                android:color="@color/white"></stroke>
+            >
+            <corners android:radius="4dip" />
+
+        </shape>
+    </item>
+
+    <item
+        android:top="5dp"
+        android:width="40dp"
+        android:height="40dp"
+        android:drawable="@drawable/hall2"
+        android:gravity="center" />
+
+    <item android:top="1dp">
+        <shape
+            android:dither="true"
+            android:shape="rectangle" >
+            <gradient
+                android:angle="270"
+                android:endColor="#00000000"
+                android:startColor="#10000000" />
+
+            <size android:height="8dp" />
+        </shape>
+    </item>
+
+
+</layer-list>

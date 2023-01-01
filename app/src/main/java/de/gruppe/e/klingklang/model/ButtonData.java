@@ -11,6 +11,8 @@ public class ButtonData {
     private int preset;
     private boolean isLoop;
     private boolean isVisible;
+    private int reverbButtonId;
+    private boolean isReverbActivated = false;
     private boolean linearCrossfade = false;
     private boolean nonLinearCrossfade = false;
     private boolean showFadeOptions = false;
@@ -23,6 +25,7 @@ public class ButtonData {
         this.velocity = buttonDataBuilder.velocity;
         this.preset = buttonDataBuilder.preset;
         this.isLoop = buttonDataBuilder.isLoop;
+        this.reverbButtonId = buttonDataBuilder.reverbButtonId;
     }
 
     private native void setChannelVolume(int buttonNumber, int volume);
@@ -105,6 +108,22 @@ public class ButtonData {
         return isVisible;
     }
 
+    public int getReverbButtonId() {
+        return reverbButtonId;
+    }
+
+    public void setReverbButtonId(int reverbButtonId) {
+        this.reverbButtonId = reverbButtonId;
+    }
+
+    public boolean isReverbActivated() {
+        return isReverbActivated;
+    }
+
+    public void setReverbActivated(boolean reverbActivated) {
+        isReverbActivated = reverbActivated;
+    }
+
     public void setLinearCrossfade(boolean linearCrossfade){
         this.linearCrossfade = linearCrossfade;
     }
@@ -127,7 +146,6 @@ public class ButtonData {
         this.showFadeOptions = fadeOptions;
     }
 
-
     public static class ButtonDataBuilder {
         private static int BUTTONS = 0;
 
@@ -138,6 +156,7 @@ public class ButtonData {
         private int velocity;
         private int preset;
         private boolean isLoop;
+        private int reverbButtonId;
         private int tracklength;
 
         public ButtonDataBuilder() {
@@ -172,6 +191,11 @@ public class ButtonData {
 
         public ButtonDataBuilder withLoop(boolean isLoop) {
             this.isLoop = isLoop;
+            return this;
+        }
+
+        public ButtonDataBuilder withReverbButton(int reverbButtonId) {
+            this.reverbButtonId = reverbButtonId;
             return this;
         }
 

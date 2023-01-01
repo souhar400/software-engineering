@@ -114,8 +114,8 @@ public class TrackDeletionMenu extends BottomSheetDialogFragment {
         EditText title = view.findViewById(R.id.title);
         title.setText("Bist du dir sicher, dass du diesen Track löschen möchtest?");
 
-        Button yes = view.findViewById(R.id.ja);
-        Button no = view.findViewById(R.id.abbrechen);
+        Button yes = view.findViewById(R.id.delete_track);
+        Button no = view.findViewById(R.id.share_track);
         no.setBackgroundColor(Color.GRAY);
         yes.setBackgroundColor(Color.GRAY);
 
