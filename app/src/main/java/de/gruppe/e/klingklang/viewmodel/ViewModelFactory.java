@@ -41,17 +41,17 @@ public class ViewModelFactory {
     private Map<Integer, ButtonData> initialiseFacadeOneButtons() {
         HashMap<Integer, ButtonData> map = new HashMap<>();
         map.put(R.id.button1_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-                        .withVelocity(127).withPreset(0).withLoop(false).withReverbButton(R.id.button1_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Drum.sf2").withMidiPath("Beat.mid")
+                        .withLoop(false).withReverbButton(R.id.button1_hall).create());
         map.put(R.id.button2_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-                        .withVelocity(127).withPreset(1).withLoop(false).withReverbButton(R.id.button2_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Bass.sf2").withMidiPath("Bass.mid")
+                        .withLoop(false).withReverbButton(R.id.button2_hall).create());
         map.put(R.id.button3_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-                        .withVelocity(127).withPreset(2).withLoop(true).withReverbButton(R.id.button3_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Piano.sf2").withMidiPath("Piano - 1 - Lydisch.mid")
+                        .withLoop(true).withReverbButton(R.id.button3_hall).create());
         map.put(R.id.button4_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-                        .withVelocity(127).withPreset(3).withLoop(true).withReverbButton(R.id.button4_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Saxophone.sf2").withMidiPath("Melodie.mid")
+                        .withLoop(true).withReverbButton(R.id.button4_hall).create());
         map.put(R.id.button5_sound,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withLoop(true).withReverbButton(R.id.button5_hall).create());
@@ -76,17 +76,17 @@ public class ViewModelFactory {
     public Map<Integer, ButtonData> initialiseFacadeTwoButtons() {
         HashMap<Integer, ButtonData> map = new HashMap<>();
         map.put(R.id.button1_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-                        .withVelocity(127).withPreset(0).withLoop(false).withReverbButton(R.id.button1_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Drum.sf2").withMidiPath("Beat.mid")
+                        .withLoop(false).withReverbButton(R.id.button1_hall).create());
         map.put(R.id.button2_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-                        .withVelocity(127).withPreset(1).withLoop(false).withReverbButton(R.id.button2_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Bass.sf2").withMidiPath("Bass.mid")
+                        .withLoop(false).withReverbButton(R.id.button2_hall).create());
         map.put(R.id.button3_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(10)
-                        .withVelocity(127).withPreset(2).withLoop(true).withReverbButton(R.id.button3_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Piano.sf2").withMidiPath("Piano - 1 - Lydisch.mid")
+                        .withLoop(true).withReverbButton(R.id.button3_hall).create());
         map.put(R.id.button4_sound,
-                new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
-                        .withVelocity(127).withPreset(3).withLoop(true).withReverbButton(R.id.button4_hall).create());
+                new ButtonData.ButtonDataBuilder().withSoundfontPath("Saxophone.sf2").withMidiPath("Melodie.mid")
+                        .withLoop(true).withReverbButton(R.id.button4_hall).create());
         map.put(R.id.button5_sound,
                 new ButtonData.ButtonDataBuilder().withSoundfontPath("klingklang.sf2").withKey(62)
                         .withVelocity(127).withPreset(5).withLoop(true).withReverbButton(R.id.button5_hall).create());
