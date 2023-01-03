@@ -120,16 +120,6 @@ public class SoundMenu extends BottomSheetDialogFragment {
             title.setText("Soundfont Sample Sound");
         }
 
-        Slider slider2 = view.findViewById(R.id.slider2);
-        slider2.setValue(50);
-        Slider slider3 = view.findViewById(R.id.slider3);
-        slider3.setValue(50);
-
-        TextView slider2Name = view.findViewById(R.id.slider2Name);
-        slider2Name.setText("Pitch-Up");
-        TextView slider3Name = view.findViewById(R.id.slider3Name);
-        slider3Name.setText("Pitch-Down");
-
         Slider volumeSlider = view.findViewById(R.id.volumeSlider);
         volumeSlider.setValue(buttonData.getVolume());
 
