@@ -27,6 +27,10 @@ public class FassadeModel {
         return fassaden.get(currentFacadeIndex);
     }
 
+    public int getCurrentFacadeIndex() {
+        return this.currentFacadeIndex;
+    }
+
     public static FassadeModel getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new FassadeModel();

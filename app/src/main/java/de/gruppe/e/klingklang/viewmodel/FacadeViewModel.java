@@ -46,29 +46,50 @@ public class FacadeViewModel extends ViewModel {
      * Buttons, die im ButtonMenu den Haken beim Switch "Hide Button" haben werden unsichtbar gemacht
      * @param sound_buttons alle Buttons, die musik abspielen können
      */
-    public void makeButtonsInvisible(View[] sound_buttons, View[] hall_buttons) {
-        for (Map.Entry<Integer, ButtonData> entry : getActualFassade().getButtons().entrySet()) {
+    public void makeButtonsInvisible(View[] sound_buttons, View[] hall_buttons, View[] fassade3_sound_buttons, View[] fassade3_hall_buttons) {
+        View[] facade_sound_buttons;
+        View[] facade_hall_buttons;
+        if (fassadenModel.getCurrentFacadeIndex() == 2) {
+            System.out.println(fassadenModel.getCurrentFacadeIndex());
 
+            facade_sound_buttons = fassade3_sound_buttons;
+            facade_hall_buttons = fassade3_hall_buttons;
+        }
+        else {
+            facade_sound_buttons = sound_buttons;
+            facade_hall_buttons = hall_buttons;
+        }
+
+        for (Map.Entry<Integer, ButtonData> entry : getActualFassade().getButtons().entrySet()) {
             if (entry.getValue().getVisible()) {
                 int number = entry.getKey();
-                for (int i = 0; i < sound_buttons.length; i++) {
-                    if (sound_buttons[i].getId() == number) {
-                        sound_buttons[i].setVisibility(View.GONE);
-                        hall_buttons[i].setVisibility(View.GONE);
+                for (int i = 0; i < facade_sound_buttons.length; i++) {
+                    if (facade_sound_buttons[i].getId() == number) {
+                        facade_sound_buttons[i].setVisibility(View.GONE);
+                        facade_hall_buttons[i].setVisibility(View.GONE);
                         break;
                     }
                 }
             }
-
         }
-
-
     }
-    public void makeButtonsVisible(View[] sound_buttons, View[] hall_buttons) {
-        //actualFassade.getButtons().entrySet();
+
+
+    public void makeButtonsVisible(View[] sound_buttons, View[] hall_buttons, View[] fassade3_sound_buttons, View[] fassade3_hall_buttons) {
+        View[] facade_sound_buttons;
+        View[] facade_hall_buttons;
+        if (fassadenModel.getCurrentFacadeIndex() == 2) {
+            System.out.println(fassadenModel.getCurrentFacadeIndex());
+            facade_sound_buttons = fassade3_sound_buttons;
+            facade_hall_buttons = fassade3_hall_buttons;
+        }
+        else {
+            facade_sound_buttons = sound_buttons;
+            facade_hall_buttons = hall_buttons;
+        }
         for (int i = 0; i < getActualFassade().getButtons().entrySet().size(); i++) {
-            sound_buttons[i].setVisibility(View.VISIBLE);
-            hall_buttons[i].setVisibility(View.VISIBLE);
+            facade_sound_buttons[i].setVisibility(View.VISIBLE);
+            facade_hall_buttons[i].setVisibility(View.VISIBLE);
         }
     }
     public void resetAllButtonVisibilities() {
