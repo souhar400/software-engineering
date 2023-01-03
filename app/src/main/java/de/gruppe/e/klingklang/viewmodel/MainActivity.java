@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton menuButton = findViewById(R.id.setting_button);
         ImageButton changeFassadeButton = findViewById(R.id.change_fassade);
         ImageButton recordButton = findViewById(R.id.record_button);
-        View[] buttons = new View[] {findViewById(R.id.button1_sound),
+        View[] sound_buttons = new View[]{findViewById(R.id.button1_sound),
                 findViewById(R.id.button2_sound),
                 findViewById(R.id.button3_sound),
                 findViewById(R.id.button4_sound),
@@ -194,16 +194,31 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.button7_sound),
                 findViewById(R.id.button8_sound),
                 findViewById(R.id.button9_sound),
-                findViewById(R.id.button10_sound)};
+                findViewById(R.id.button10_sound),
+        };
+        View[] hall_buttons = new View[] {
+                findViewById(R.id.button1_hall),
+                findViewById(R.id.button2_hall),
+                findViewById(R.id.button3_hall),
+                findViewById(R.id.button4_hall),
+                findViewById(R.id.button5_hall),
+                findViewById(R.id.button6_hall),
+                findViewById(R.id.button7_hall),
+                findViewById(R.id.button8_hall),
+                findViewById(R.id.button9_hall),
+                findViewById(R.id.button10_hall)
+        };
+
+
         editButton.setOnClickListener(view -> {
             viewModel.toggleInEditMode();
             editButton.setImageResource(viewModel.getInEditMode() ? R.drawable.play_mode : R.drawable.edit_mode);
 
             if (viewModel.getInEditMode()) {
-                viewModel.makeButtonsVisible(buttons);
+                viewModel.makeButtonsVisible(sound_buttons, hall_buttons);
             }
             else {
-                viewModel.makeButtonsInvisible(buttons);
+                viewModel.makeButtonsInvisible(sound_buttons, hall_buttons);
             }
         });
         changeFassadeButton.setOnClickListener(view -> {

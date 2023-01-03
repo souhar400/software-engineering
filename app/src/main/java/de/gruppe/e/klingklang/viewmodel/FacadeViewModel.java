@@ -44,16 +44,17 @@ public class FacadeViewModel extends ViewModel {
 
     /**
      * Buttons, die im ButtonMenu den Haken beim Switch "Hide Button" haben werden unsichtbar gemacht
-     * @param buttons alle Buttons, die musik abspielen können
+     * @param sound_buttons alle Buttons, die musik abspielen können
      */
-    public void makeButtonsInvisible(View[] buttons) {
+    public void makeButtonsInvisible(View[] sound_buttons, View[] hall_buttons) {
         for (Map.Entry<Integer, ButtonData> entry : getActualFassade().getButtons().entrySet()) {
 
             if (entry.getValue().getVisible()) {
                 int number = entry.getKey();
-                for (View button : buttons) {
-                    if (button.getId() == number) {
-                        button.setVisibility(View.GONE);
+                for (int i = 0; i < sound_buttons.length; i++) {
+                    if (sound_buttons[i].getId() == number) {
+                        sound_buttons[i].setVisibility(View.GONE);
+                        hall_buttons[i].setVisibility(View.GONE);
                         break;
                     }
                 }
@@ -63,10 +64,11 @@ public class FacadeViewModel extends ViewModel {
 
 
     }
-    public void makeButtonsVisible(View[] buttons) {
+    public void makeButtonsVisible(View[] sound_buttons, View[] hall_buttons) {
         //actualFassade.getButtons().entrySet();
         for (int i = 0; i < getActualFassade().getButtons().entrySet().size(); i++) {
-            //buttons[i].setVisibility(View.VISIBLE);
+            sound_buttons[i].setVisibility(View.VISIBLE);
+            hall_buttons[i].setVisibility(View.VISIBLE);
         }
     }
     public void resetAllButtonVisibilities() {
