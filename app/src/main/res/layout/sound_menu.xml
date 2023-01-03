@@ -77,81 +77,81 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y3"
+        android:id="@+id/guideline_Y4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.14" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y4"
+        android:id="@+id/guideline_Y5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.22" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_Y5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.41" />
+        app:layout_constraintGuide_percent="0.30" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.47" />
+        app:layout_constraintGuide_percent="0.34" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
+        app:layout_constraintGuide_percent="0.48" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.53" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_Y3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.80" />
+        app:layout_constraintGuide_percent="0.71" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.78" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_Y13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.94" />
+        app:layout_constraintGuide_percent="0.85" />
 
 
 
@@ -184,19 +184,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline_Y7" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/slider1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:stepSize="1.0"
-        android:theme="@style/sliderTheme"
-        android:valueFrom="0.0"
-        android:valueTo="100.0"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X5"
-        app:layout_constraintStart_toStartOf="@id/guideline_X1"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
-
-    <com.google.android.material.slider.Slider
         android:id="@+id/slider3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -221,17 +208,6 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_X5"
         app:layout_constraintStart_toStartOf="@id/guideline_X1"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y4" />
-
-    <TextView
-        android:id="@+id/slider1Name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y4"
-        app:layout_constraintEnd_toEndOf="@id/guideline_X1"
-        app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
 
     <TextView
         android:id="@+id/slider3Name"
@@ -290,6 +266,18 @@
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
         app:layout_constraintTop_toTopOf="@+id/guideline_Y8" />
 
+    <TextView
+        android:id="@+id/filebutton"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/grey"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_Y3"
+        app:layout_constraintEnd_toEndOf="@id/guideline_X2"
+        app:layout_constraintStart_toStartOf="@id/guideline_X7"
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
+
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchHideButton"
         android:layout_width="0dp"
@@ -299,7 +287,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline_Y10"
         app:layout_constraintEnd_toEndOf="@id/guideline_X6"
         app:layout_constraintStart_toStartOf="@id/guideline_X7"
-        app:layout_constraintTop_toTopOf="@+id/guideline_Y9" />
+        app:layout_constraintTop_toTopOf="@+id/guideline_Y3" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/playLoopButton"

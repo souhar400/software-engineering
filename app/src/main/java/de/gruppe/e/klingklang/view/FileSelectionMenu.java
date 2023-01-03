@@ -42,14 +42,16 @@ import de.gruppe.e.klingklang.viewmodel.MainActivity;
 public class FileSelectionMenu extends BottomSheetDialogFragment{
 
     private View view;
-    private ButtonData buttonData;
-    private SynthService synthService;
+    private final ButtonData buttonData;
+    private final SynthService synthService;
+    private final SoundMenu soundMenu;
     private final Map<String, String> fileNames = new HashMap<>();
 
     private Button[] buttons;
-    public FileSelectionMenu(ButtonData buttonData, SynthService synthService) {
+    public FileSelectionMenu(ButtonData buttonData, SynthService synthService, SoundMenu soundmenu) {
         this.buttonData = buttonData;
         this.synthService = synthService;
+        this.soundMenu = soundmenu;
 
         fileNames.put("Melodie.mid", "Saxophone.sf2");
         fileNames.put("Bass.mid", "Bass.sf2");
@@ -60,7 +62,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
         fileNames.put("Piano - 4 - Dorisch.mid", "Piano.sf2");
         fileNames.put("Piano - 5 - Äolisch.mid", "Piano.sf2");
         fileNames.put("Piano - 6 - Phrygisch.mid", "Piano.sf2");
-        fileNames.put("Piano - 7 - Lokrisch", "Piano.sf2");
+        fileNames.put("Piano - 7 - Lokrisch.mid", "Piano.sf2");
 
     }
 
@@ -87,6 +89,7 @@ public class FileSelectionMenu extends BottomSheetDialogFragment{
                 getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).hideNavigationAndSwipeUpBar();
         }
+        soundMenu.createSoundMenu();
     }
 
 

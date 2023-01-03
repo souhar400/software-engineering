@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 
@@ -67,7 +68,6 @@ public class SoundMenu extends BottomSheetDialogFragment {
         }
     }
 
-
     /**
      * Sets the Behaviour of the BottomSheetDialog so it expands over the whole screen
      * @param bottomSheetDialog Dialog, which behaviour needs to be set
@@ -111,19 +111,20 @@ public class SoundMenu extends BottomSheetDialogFragment {
         return view;
     }
 
-    private void createSoundMenu() {
+    public void createSoundMenu() {
         EditText title = view.findViewById(R.id.title);
-        title.setText("Instrument A Tonleiter");
+        if(buttonData.getMidiPath()!= null) {
+            title.setText(buttonData.getMidiPath());
+        }
+        else{
+            title.setText("Soundfont Sample Sound");
+        }
 
-        Slider slider1 = view.findViewById(R.id.slider1);
-        slider1.setValue(50);
         Slider slider2 = view.findViewById(R.id.slider2);
         slider2.setValue(50);
         Slider slider3 = view.findViewById(R.id.slider3);
         slider3.setValue(50);
 
-        TextView slider1Name = view.findViewById(R.id.slider1Name);
-        slider1Name.setText("Reverb");
         TextView slider2Name = view.findViewById(R.id.slider2Name);
         slider2Name.setText("Pitch-Up");
         TextView slider3Name = view.findViewById(R.id.slider3Name);
@@ -168,7 +169,14 @@ public class SoundMenu extends BottomSheetDialogFragment {
 
         TextView files = view.findViewById(R.id.files);
         files.setOnClickListener(e -> {
-            fileSelectionMenu = new FileSelectionMenu(buttonData, synthService);
+            fileSelectionMenu = new FileSelectionMenu(buttonData, synthService, this);
+            fileSelectionMenu.show(associatedManager, null);
+        });
+
+        TextView filebutton = view.findViewById(R.id.filebutton);
+        filebutton.setText(buttonData.getMidiPath());
+        filebutton.setOnClickListener(e -> {
+            fileSelectionMenu = new FileSelectionMenu(buttonData, synthService, this);
             fileSelectionMenu.show(associatedManager, null);
         });
     }

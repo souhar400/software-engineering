@@ -71,8 +71,8 @@ public class SynthService {
                         play(b.getButtonNumber());
                     });
                     b.setLinearCrossfade(!b.getLinearCrossfade());
-                    b.setShowFadeOptions(true);
-                    buttonData.setShowFadeOptions(false);
+                    b.setShowFadeOptions(false);
+                    buttonData.setShowFadeOptions(true);
                     executor.execute(() -> {
                         play(buttonData.getButtonNumber());
                         for(int j = 0; j < buttonData.getVolume(); j++) {
@@ -105,8 +105,8 @@ public class SynthService {
                         play(b.getButtonNumber());
                     });
                     b.setNonLinearCrossfade(!b.getNonLinearCrossfade());
-                    b.setShowFadeOptions(true);
-                    buttonData.setShowFadeOptions(false);
+                    b.setShowFadeOptions(false);
+                    buttonData.setShowFadeOptions(true);
                     executor.execute(() -> {
                         play(buttonData.getButtonNumber());
                         for(double j = 0; j < 1; j += 0.05) {
